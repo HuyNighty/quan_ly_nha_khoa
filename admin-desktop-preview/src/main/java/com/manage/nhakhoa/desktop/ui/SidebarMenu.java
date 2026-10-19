@@ -98,7 +98,7 @@ public final class SidebarMenu extends JPanel {
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.getVerticalScrollBar().setUnitIncrement(36); scroll.getViewport().setBackground(Theme.SIDEBAR);
         add(scroll, BorderLayout.CENTER);
-        JLabel footer = label("Bản xem thử giao diện · UI-M1", 11, false, Theme.SIDE_MUTED);
+        JLabel footer = label("Bản xem thử giao diện · UI-DEMO-1", 11, false, Theme.SIDE_MUTED);
         add(footer, BorderLayout.SOUTH); rebuild();
     }
     private static Object value(TreePath path) {
@@ -163,8 +163,8 @@ public final class SidebarMenu extends JPanel {
                 JPanel end = row(5);
                 if (group.demoBadge() > 0) end.add(new StatusBadge("" + group.demoBadge(), Color.WHITE, Theme.RED));
                 end.add(label(open ? "−" : "›", 13, true, Theme.SIDE_MUTED)); add(end, BorderLayout.EAST);
-                setToolTipText(group.label() + " · số cảnh báo riêng của menu mẫu: " + group.demoBadge()
-                        + "; không phải tổng nhóm việc hoặc đối tượng trên Tổng quan");
+                setToolTipText(group.label() + " · " + group.demoBadge()
+                        + " nhóm việc trên Tổng quan cần xử lý ở giai đoạn này (dữ liệu mô phỏng)");
             } else setToolTipText(title);
             setPreferredSize(new Dimension(object instanceof Group ? 247 : 231, 36));
             return this;

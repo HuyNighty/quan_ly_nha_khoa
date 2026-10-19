@@ -66,7 +66,8 @@ public final class UiComponents {
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             boolean link = Boolean.TRUE.equals(getClientProperty("link"));
             if (!link || getModel().isRollover()) {
-                g.setColor(getModel().isRollover() ? (link ? Theme.LIGHT : getBackground().darker()) : getBackground());
+                // Nút bị khóa dùng nền trung tính để không bị nhầm là thao tác khả dụng.
+                g.setColor(!isEnabled() ? Theme.BACKGROUND : getModel().isRollover() ? (link ? Theme.LIGHT : getBackground().darker()) : getBackground());
                 g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 9, 9);
             }
             g.dispose(); super.paintComponent(graphics);

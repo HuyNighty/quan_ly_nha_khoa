@@ -40,6 +40,7 @@ public final class PreviewTests {
     public static void main(String[] args) throws Exception {
         edt(() -> { Theme.install(); return null; });
         modelsAndMenu(); asyncLoading(); shellAndStates(); longLabelsAndLargeCounts();
+        checks += DemoWave1Tests.run(); checks += DemoWave2Tests.run();
         if (List.of(args).contains("--desktop")) desktopLifecycle();
         System.out.println("ĐẠT: " + checks + " kiểm tra; không có lỗi. Ảnh Swing tại build/screenshots.");
     }
@@ -59,8 +60,8 @@ public final class PreviewTests {
         check(data.shifts().stream().filter(s -> s.missingNurses() > 0).count() == 2 && data.stock().belowMinimum() == 2
                 && data.stock().expiringLots() == 2 && data.stock().expiredLots() == 1 && data.stock().emergencyNeedsSupply(), "Ca làm và tồn kho đúng mẫu");
         check(Theme.date(data.stock().emergencyCheckedAt()).equals("05/10/2026 07:45:00"), "Mốc kiểm tra hộp cấp cứu đúng ảnh 01");
-        check(MenuDefinition.entries().size() == 21 && MenuDefinition.GROUPS.size() == 6
-                && MenuDefinition.entries().stream().map(MenuDefinition.Entry::key).distinct().count() == 21, "Menu 21 khóa duy nhất / 6 nhóm");
+        check(MenuDefinition.entries().size() == 21 && MenuDefinition.GROUPS.size() == 8
+                && MenuDefinition.entries().stream().map(MenuDefinition.Entry::key).distinct().count() == 21, "Menu 21 khóa duy nhất / 8 nhóm theo giai đoạn nghiệp vụ");
         check(MenuDefinition.entry("TAI_KHOAN").label().equals("Tài khoản & vai trò"), "Nhãn tài khoản theo role-only");
         for (TaskSummary task : data.tasks()) check(MenuDefinition.entry(task.targetScreenKey()) != null, "Đích điều hướng hợp lệ: " + task.id());
         for (String q : List.of("lich hen", "cong no", "thuoc", "quan ly", "UC14", "đánh giá")) {
