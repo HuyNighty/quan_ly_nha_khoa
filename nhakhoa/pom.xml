@@ -64,6 +64,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- SQL Server dùng một lần cho kiểm thử Dashboard; không thêm dependency production. -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers-mssqlserver</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

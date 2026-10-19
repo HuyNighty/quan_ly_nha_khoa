@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.manage.nhakhoa.DashboardApplicationSqlServerTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 89.60 s -- in com.manage.nhakhoa.DashboardApplicationSqlServerTest

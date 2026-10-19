@@ -1,0 +1,1303 @@
+diff --git a/nhakhoa/pom.xml b/nhakhoa/pom.xml
+index fe596f8..9c49af2 100644
+--- a/nhakhoa/pom.xml
++++ b/nhakhoa/pom.xml
+@@ -64,6 +64,13 @@
+             <scope>test</scope>
+         </dependency>
+ 
++        <!-- SQL Server dùng một lần cho kiểm thử Dashboard; không thêm dependency production. -->
++        <dependency>
++            <groupId>org.testcontainers</groupId>
++            <artifactId>testcontainers-mssqlserver</artifactId>
++            <scope>test</scope>
++        </dependency>
++
+     </dependencies>
+ 
+     <build>
+diff --git a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/EmergencyCheckState.java b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/EmergencyCheckState.java
+index 15269b8..6bd1ab6 100644
+--- a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/EmergencyCheckState.java
++++ b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/EmergencyCheckState.java
+@@ -7,6 +7,8 @@ package com.manage.nhakhoa.features.dashboard.dto.response;
+  */
+ public enum EmergencyCheckState {
+     CHUA_CO_KIEM_TRA,
++    /** Thiếu bao phủ mục chính thức hoặc thiếu thông tin để xác nhận lần kiểm tra. */
++    CHUA_DU_THONG_TIN,
+     QUA_CHU_KY,
+     CAN_XU_LY,
+     TRONG_CHU_KY
+diff --git a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/TreatmentDueSummary.java b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/TreatmentDueSummary.java
+index e9012c9..33de1fc 100644
+--- a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/TreatmentDueSummary.java
++++ b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/TreatmentDueSummary.java
+@@ -1,5 +1,5 @@
+ package com.manage.nhakhoa.features.dashboard.dto.response;
+ 
+-/** "Kế hoạch điều trị đến hạn" (BA V1 Q12): DISTINCT maKeHoach, không phải số dòng/số lịch. */
++/** Đến hạn (bao gồm quá hạn): DISTINCT maKeHoach; duePlanCount bao gồm overduePlanCount, không cộng như hai tập rời. */
+ public record TreatmentDueSummary(SectionStatus status, Long duePlanCount, Long overduePlanCount, Integer horizonDays) {
+ }
+diff --git a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/WorkQueueDto.java b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/WorkQueueDto.java
+index bbf0c86..8be0500 100644
+--- a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/WorkQueueDto.java
++++ b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/WorkQueueDto.java
+@@ -3,7 +3,7 @@ package com.manage.nhakhoa.features.dashboard.dto.response;
+ import java.util.List;
+ 
+ /**
+- * workGroupCount = số nhóm có objectCount > 0; relatedObjectCount = tổng objectCount (có thể trùng giữa nhóm).
++ * workGroupCount = số nhóm có objectCount > 0; relatedObjectCount = tổng LƯỢT liên quan (có thể trùng giữa nhóm), không unique.
+  * Badge sidebar KHÔNG được tính từ hai số này (BA V1 Q03).
+  */
+ public record WorkQueueDto(int workGroupCount, long relatedObjectCount, List<WorkQueueItem> items) {
+diff --git a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/DashboardReadRepository.java b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/DashboardReadRepository.java
+index e5c70e5..9c42719 100644
+--- a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/DashboardReadRepository.java
++++ b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/DashboardReadRepository.java
+@@ -66,9 +66,12 @@ public interface DashboardReadRepository {
+     /** KiemTraCapCuu có thoiGian lớn nhất và <= thời điểm cho trước. */
+     Optional<EmergencyCheckRow> findLatestEmergencyCheckAtOrBefore(LocalDateTime atOrBefore);
+ 
+-    /** Số ChiTietKiemTraCapCuu của lần kiểm tra có dat = false hoặc hanSuDung <= safeUntilInclusive. */
++    /** Số chi tiết của mục chính thức đang áp dụng có dat = false hoặc hanSuDung <= safeUntilInclusive; không chứng minh coverage. */
+     long countFailingEmergencyCheckItems(String checkId, LocalDate safeUntilInclusive);
+ 
++    /** LEFT JOIN từng mục chính thức đang áp dụng với chi tiết của lần kiểm tra; mục thiếu chi tiết vẫn có dòng. */
++    List<EmergencyCheckItemRow> findEmergencyCheckCoverage(String checkId);
++
+     /**
+      * COUNT(DISTINCT maKeHoach) của KeHoachDieuTri DANG_THUC_HIEN có ít nhất một ChiTietDieuTri CHUA_THUC_HIEN
+      * với ngayDuKien <= dueOnOrBefore.
+diff --git a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/EmergencyCheckItemRow.java b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/EmergencyCheckItemRow.java
+new file mode 100644
+index 0000000..9c9676d
+--- /dev/null
++++ b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/EmergencyCheckItemRow.java
+@@ -0,0 +1,8 @@
++package com.manage.nhakhoa.features.dashboard.repository;
++
++import java.time.LocalDate;
++
++/** Một mục chính thức hiện hành và chi tiết tương ứng (có thể thiếu) trong lần kiểm tra đã chọn. */
++public record EmergencyCheckItemRow(String catalogItemId, String checkedItemId, Boolean passed,
++                                    LocalDate expiryDate, Integer actualQuantity, Integer minimumQuantity) {
++}
+diff --git a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/JpaDashboardReadRepository.java b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/JpaDashboardReadRepository.java
+index 5c692da..f7c2d26 100644
+--- a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/JpaDashboardReadRepository.java
++++ b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/JpaDashboardReadRepository.java
+@@ -251,6 +251,7 @@ public class JpaDashboardReadRepository implements DashboardReadRepository {
+         return entityManager.createQuery(
+                         "select count(ct) from ChiTietKiemTraCapCuu ct"
+                                 + " where ct.kiemTra.maKiemTra = :checkId"
++                                + " and ct.danhMucCapCuu.dangApDung = true and ct.danhMucCapCuu.laDuLieuMau = false"
+                                 + " and (ct.dat = false or (ct.hanSuDung is not null and ct.hanSuDung <= :safeUntil))",
+                         Long.class)
+                 .setParameter("checkId", checkId)
+@@ -258,6 +259,20 @@ public class JpaDashboardReadRepository implements DashboardReadRepository {
+                 .getSingleResult();
+     }
+ 
++    @Override
++    public List<EmergencyCheckItemRow> findEmergencyCheckCoverage(String checkId) {
++        List<Object[]> rows = entityManager.createQuery(
++                        "select dm.maMuc, ct.id.maMuc, ct.dat, ct.hanSuDung, ct.soLuongThucTe, dm.soLuongToiThieu"
++                                + " from DanhMucCapCuu dm left join ChiTietKiemTraCapCuu ct"
++                                + " on ct.danhMucCapCuu = dm and ct.kiemTra.maKiemTra = :checkId"
++                                + " where dm.dangApDung = true and dm.laDuLieuMau = false order by dm.maMuc",
++                        Object[].class)
++                .setParameter("checkId", checkId)
++                .getResultList();
++        return rows.stream().map(row -> new EmergencyCheckItemRow((String) row[0], (String) row[1],
++                (Boolean) row[2], (LocalDate) row[3], (Integer) row[4], (Integer) row[5])).toList();
++    }
++
+     @Override
+     public long countPlansWithPendingItemsDueOnOrBefore(LocalDate dueOnOrBefore) {
+         return entityManager.createQuery(
+diff --git a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardQueryService.java b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardQueryService.java
+index cefd642..b67cb02 100644
+--- a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardQueryService.java
++++ b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardQueryService.java
+@@ -23,6 +23,7 @@ import com.manage.nhakhoa.features.hoadon.enums.PhuongThucThanhToan;
+ import com.manage.nhakhoa.features.khamchuabenh.enums.TrangThaiPhieuKham;
+ import com.manage.nhakhoa.features.lichhen.enums.TrangThaiLichHen;
+ import org.springframework.stereotype.Service;
++import org.springframework.transaction.annotation.Propagation;
+ import org.springframework.transaction.annotation.Transactional;
+ 
+ import java.math.BigDecimal;
+@@ -49,7 +50,10 @@ import java.util.Optional;
+  * số liệu null.</p>
+  */
+ @Service
+-@Transactional(readOnly = true)
++// Không chia sẻ transaction giữa section. Repository mở transaction read-only cho mỗi lời gọi;
++// lỗi SQL đã rollback xong trước khi service bắt để trả UNAVAILABLE. Tạm ngưng cả transaction của caller.
++// Đổi lại, các section READ_COMMITTED không phải một snapshot nguyên tử của toàn Dashboard.
++@Transactional(propagation = Propagation.NOT_SUPPORTED)
+ public class DashboardQueryService {
+ 
+     public static final ZoneId BUSINESS_ZONE = ZoneId.of("Asia/Ho_Chi_Minh");
+@@ -173,7 +177,8 @@ public class DashboardQueryService {
+         }
+         if (paymentsOnCancelled > 0) {
+             warnings.add(new DashboardWarning("THU_TREN_HOA_DON_DA_HUY", SECTION_COLLECTIONS,
+-                    "Có " + paymentsOnCancelled + " giao dịch thành công thuộc hóa đơn đã hủy; cần đối soát."));
++                    "Đối soát toàn hệ thống (không giới hạn ngày): có " + paymentsOnCancelled
++                            + " giao dịch thành công thuộc hóa đơn đã hủy; khác với số thu trong ngày."));
+         }
+         return new CollectionSummary(Money.format(total), byMethod, COLLECTION_DEFINITION);
+     }
+@@ -259,7 +264,8 @@ public class DashboardQueryService {
+         int safeDays = thresholds.resolveDays(DashboardThresholds.KEY_EMERGENCY_SAFE_EXPIRY_DAYS,
+                 DashboardThresholds.DEFAULT_EMERGENCY_SAFE_EXPIRY_DAYS, SECTION_EMERGENCY, warnings);
+         try {
+-            if (repository.countActiveRealEmergencyCatalogItems() == 0) {
++            long officialCount = repository.countActiveRealEmergencyCatalogItems();
++            if (officialCount == 0) {
+                 workQueue.add("CAP_CUU_CHUA_CAU_HINH", WorkPriority.THEO_DOI, "Chưa có danh mục cấp cứu chính thức",
+                         1, DashboardTargetScreens.CAP_CUU, "emergencyKit.status");
+                 return new EmergencyKitSummary(SectionStatus.UNCONFIGURED, null, null, null, cycleDays,
+@@ -274,10 +280,19 @@ public class DashboardQueryService {
+             }
+             EmergencyCheckRow check = latest.get();
+             long days = ChronoUnit.DAYS.between(check.checkedAt().toLocalDate(), businessDate);
+-            long failing = repository.countFailingEmergencyCheckItems(check.checkId(), businessDate.plusDays(safeDays));
++            EmergencyCoverageCalculator.Result coverage = EmergencyCoverageCalculator.calculate(officialCount,
++                    repository.findEmergencyCheckCoverage(check.checkId()), businessDate.plusDays(safeDays));
+             var lastCheckedAt = check.checkedAt().atZone(BUSINESS_ZONE).toOffsetDateTime();
+ 
+-            if (check.result() == KetQuaKiemTra.CAN_BO_SUNG || failing > 0) {
++            if (!coverage.complete()) {
++                warnings.add(new DashboardWarning("CAP_CUU_CHUA_DU_THONG_TIN", SECTION_EMERGENCY,
++                        "Lần kiểm tra chưa bao phủ đầy đủ danh mục chính thức hoặc thiếu thông tin hạn dùng/số lượng; cần kiểm tra."));
++                workQueue.add("CAP_CUU_CAN_KIEM_TRA", WorkPriority.KHAN, "Hộp cấp cứu cần kiểm tra đầy đủ",
++                        1, DashboardTargetScreens.CAP_CUU, "emergencyKit.checkState");
++                return new EmergencyKitSummary(SectionStatus.AVAILABLE, EmergencyCheckState.CHUA_DU_THONG_TIN,
++                        lastCheckedAt, days, cycleDays, "Chưa đủ thông tin — cần kiểm tra đầy đủ danh mục chính thức");
++            }
++            if (check.result() == KetQuaKiemTra.CAN_BO_SUNG || coverage.failingItemCount() > 0) {
+                 workQueue.add("CAP_CUU_CAN_XU_LY", WorkPriority.KHAN, "Hộp cấp cứu cần bổ sung/xử lý",
+                         1, DashboardTargetScreens.CAP_CUU, "emergencyKit.checkState");
+                 return new EmergencyKitSummary(SectionStatus.AVAILABLE, EmergencyCheckState.CAN_XU_LY, lastCheckedAt, days,
+@@ -313,7 +328,7 @@ public class DashboardQueryService {
+         }
+         workQueue.add("KE_HOACH_QUA_HAN", WorkPriority.KHAN, "Kế hoạch điều trị có hạng mục quá hạn",
+                 overdue, DashboardTargetScreens.KE_HOACH_DIEU_TRI, "treatmentDue.overduePlanCount");
+-        workQueue.add("KE_HOACH_DEN_HAN", WorkPriority.THEO_DOI, "Kế hoạch điều trị đến hạn",
++        workQueue.add("KE_HOACH_DEN_HAN", WorkPriority.THEO_DOI, "Kế hoạch điều trị đến hạn (bao gồm quá hạn)",
+                 due, DashboardTargetScreens.KE_HOACH_DIEU_TRI, "treatmentDue.duePlanCount");
+         return new TreatmentDueSummary(SectionStatus.AVAILABLE, due, overdue, horizonDays);
+     }
+@@ -321,7 +336,7 @@ public class DashboardQueryService {
+     private void addPendingApprovals(List<DashboardWarning> warnings, WorkQueueBuilder workQueue) {
+         try {
+             workQueue.add("HOA_DON_CHO_DUYET_HUY", WorkPriority.CHO_DUYET, "Yêu cầu hủy hóa đơn chờ duyệt",
+-                    repository.countPendingInvoiceCancellationRequests(), DashboardTargetScreens.HOA_DON,
++                    repository.countPendingInvoiceCancellationRequests(), DashboardTargetScreens.DUYET_HUY,
+                     "YeuCauHuyHoaDon[trangThai=CHO_DUYET]");
+         } catch (RuntimeException ex) {
+             warnings.add(unavailable(SECTION_WORK_QUEUE, "Không tải được yêu cầu hủy hóa đơn chờ duyệt."));
+diff --git a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardTargetScreens.java b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardTargetScreens.java
+index 2dc4ac9..16d141e 100644
+--- a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardTargetScreens.java
++++ b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardTargetScreens.java
+@@ -1,19 +1,20 @@
+ package com.manage.nhakhoa.features.dashboard.service;
+ 
+ /**
+- * Khóa màn hình đích của hàng việc. CHƯA ĐỐI CHIẾU với 21 khóa menu của UI-M1 vì thư mục
+- * admin-desktop-preview/ không có trong checkout main 4d25dbf; phải đối chiếu lại ở UI-M2-B.
++ * Đối chiếu MenuDefinition của Swing preview hiện hữu tại UI-M2-A-R1.
++ * Chỉ đồng bộ khóa dữ liệu; không bật REST/LIVE hoặc sửa preview.
+  */
+ public final class DashboardTargetScreens {
+ 
+     public static final String LICH_HEN = "LICH_HEN";
+     public static final String PHIEU_KHAM = "PHIEU_KHAM";
+     public static final String HOA_DON = "HOA_DON";
+-    public static final String PHAN_CONG_CA = "PHAN_CONG_CA";
+-    public static final String TON_KHO = "TON_KHO";
+-    public static final String DIEU_CHINH_KHO = "DIEU_CHINH_KHO";
++    public static final String DUYET_HUY = "DUYET_HUY";
++    public static final String PHAN_CONG_CA = "PHAN_CONG";
++    public static final String TON_KHO = "THUOC_VAT_TU";
++    public static final String DIEU_CHINH_KHO = "KIEM_KE";
+     public static final String CAP_CUU = "CAP_CUU";
+-    public static final String KE_HOACH_DIEU_TRI = "KE_HOACH_DIEU_TRI";
++    public static final String KE_HOACH_DIEU_TRI = "KE_HOACH";
+ 
+     private DashboardTargetScreens() {
+     }
+diff --git a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardThresholds.java b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardThresholds.java
+index e18433c..4bf682d 100644
+--- a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardThresholds.java
++++ b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardThresholds.java
+@@ -19,8 +19,8 @@ public final class DashboardThresholds {
+     public static final int DEFAULT_EMERGENCY_SAFE_EXPIRY_DAYS = 30;
+ 
+     /**
+-     * BA V1 Q12 chỉ chốt giá trị 14 ngày, CHƯA chốt tên khóa. Tên dưới đây là đề xuất của UI-M2-A,
+-     * cần BA xác nhận trước khi cấu hình thật.
++     * BA R1 chấp nhận khóa SO_NGAY_KE_HOACH_DEN_HAN và fallback 14 ngày.
++     * Không tự thêm bản ghi cấu hình; thiếu khóa vẫn phát cảnh báo provenance.
+      */
+     public static final String KEY_TREATMENT_HORIZON_DAYS = "SO_NGAY_KE_HOACH_DEN_HAN";
+     public static final int DEFAULT_TREATMENT_HORIZON_DAYS = 14;
+diff --git a/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/EmergencyCoverageCalculator.java b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/EmergencyCoverageCalculator.java
+new file mode 100644
+index 0000000..cfd9599
+--- /dev/null
++++ b/nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/EmergencyCoverageCalculator.java
+@@ -0,0 +1,30 @@
++package com.manage.nhakhoa.features.dashboard.service;
++
++import com.manage.nhakhoa.features.dashboard.repository.EmergencyCheckItemRow;
++import java.time.LocalDate;
++import java.util.HashSet;
++import java.util.List;
++import java.util.Set;
++
++/** Không suy an toàn từ chi tiết mẫu, chi tiết thiếu hoặc HSD chưa được xác nhận. */
++final class EmergencyCoverageCalculator {
++    record Result(boolean complete, long failingItemCount) { }
++    private EmergencyCoverageCalculator() { }
++
++    static Result calculate(long officialCount, List<EmergencyCheckItemRow> rows, LocalDate safeUntil) {
++        if (officialCount <= 0 || rows.size() != officialCount) return new Result(false, 0);
++        Set<String> seen = new HashSet<>();
++        long failing = 0;
++        for (EmergencyCheckItemRow row : rows) {
++            if (row.catalogItemId() == null || !seen.add(row.catalogItemId())
++                    || !row.catalogItemId().equals(row.checkedItemId()) || row.passed() == null
++                    || row.expiryDate() == null || row.actualQuantity() == null || row.actualQuantity() < 0
++                    || row.minimumQuantity() == null || row.minimumQuantity() < 0) {
++                return new Result(false, 0);
++            }
++            if (!row.passed() || !row.expiryDate().isAfter(safeUntil)
++                    || row.actualQuantity() < row.minimumQuantity()) failing++;
++        }
++        return new Result(true, failing);
++    }
++}
+diff --git a/nhakhoa/src/test/java/com/manage/nhakhoa/DashboardApplicationSqlServerTest.java b/nhakhoa/src/test/java/com/manage/nhakhoa/DashboardApplicationSqlServerTest.java
+new file mode 100644
+index 0000000..581cdae
+--- /dev/null
++++ b/nhakhoa/src/test/java/com/manage/nhakhoa/DashboardApplicationSqlServerTest.java
+@@ -0,0 +1,73 @@
++package com.manage.nhakhoa;
++
++import com.manage.nhakhoa.features.dashboard.service.DashboardQueryService;
++import org.junit.jupiter.api.AfterAll;
++import org.junit.jupiter.api.Test;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.context.ConfigurableApplicationContext;
++import org.springframework.jdbc.core.JdbcTemplate;
++import org.springframework.test.annotation.DirtiesContext;
++import org.springframework.test.context.DynamicPropertyRegistry;
++import org.springframework.test.context.DynamicPropertySource;
++import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
++import org.testcontainers.mssqlserver.MSSQLServerContainer;
++
++import java.sql.DriverManager;
++import java.time.Duration;
++import java.util.UUID;
++import javax.sql.DataSource;
++import static org.junit.jupiter.api.Assertions.*;
++
++/**
++ * Chạy kế thừa chính contextLoads của baseline với Spring Boot thật và DB container riêng.
++ * Dùng đầy đủ naming strategy và khóa ngoại của Spring Boot thật; không bỏ qua lỗi DDL.
++ */
++@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
++class DashboardApplicationSqlServerTest extends NhakhoaApplicationTests {
++    private static final String DATABASE="N08_Dashboard_App_R1_Test";
++    private static final MSSQLServerContainer SQL=new MSSQLServerContainer("mcr.microsoft.com/mssql/server:2022-latest")
++            .acceptLicense().withPassword("R1!"+UUID.randomUUID()+"aA1");
++    @Autowired ConfigurableApplicationContext context;
++
++    @DynamicPropertySource
++    static void disposableDatabase(DynamicPropertyRegistry properties) throws Exception {
++        SQL.withLabel("n08.scope","dashboard-r1-boot-context-test");
++        SQL.withStartupTimeout(Duration.ofMinutes(3)); SQL.start();
++        try(var connection=DriverManager.getConnection(SQL.getJdbcUrl(),SQL.getUsername(),SQL.getPassword());
++            var statement=connection.createStatement()) { statement.execute("CREATE DATABASE "+DATABASE); }
++        properties.add("spring.datasource.url",() -> SQL.getJdbcUrl()+";databaseName="+DATABASE);
++        properties.add("spring.datasource.username",SQL::getUsername);
++        properties.add("spring.datasource.password",SQL::getPassword);
++        properties.add("spring.jpa.hibernate.ddl-auto",() -> "create-only");
++        properties.add("spring.jpa.properties.hibernate.hbm2ddl.halt_on_error",() -> "true");
++        properties.add("spring.jpa.properties.hibernate.hbm2ddl.default_constraint_mode",
++                () -> "CONSTRAINT");
++        properties.add("spring.jpa.show-sql",() -> "false");
++        properties.add("spring.jpa.open-in-view",() -> "false");
++    }
++
++    @Test
++    void actualBootWiringHasExactlyOneReadServiceAndNoDashboardRoute() {
++        assertEquals(1,context.getBeansOfType(DashboardQueryService.class).size());
++        var mappings=context.getBean("requestMappingHandlerMapping",RequestMappingHandlerMapping.class);
++        assertTrue(mappings.getHandlerMethods().keySet().stream().flatMap(info -> info.getPatternValues().stream())
++                .noneMatch(path -> path.endsWith("/api/v1/admin/dashboard")));
++    }
++
++    @Test
++    void actualBootSchemaHasEnabledForeignKeysIncludingCompositeIds() {
++        var jdbc=new JdbcTemplate(context.getBean(DataSource.class));
++        assertEquals(DATABASE,jdbc.queryForObject("SELECT DB_NAME()",String.class));
++        int enabled=jdbc.queryForObject("SELECT COUNT(*) FROM sys.foreign_keys WHERE is_disabled=0 AND is_not_trusted=0",Integer.class);
++        assertTrue(enabled>0,"Schema test phải thực sự có FK đang được kiểm tra");
++        assertEquals(1,jdbc.queryForObject("SELECT COUNT(*) FROM sys.foreign_keys WHERE parent_object_id=OBJECT_ID('chi_tiet_danh_gia')"
++                +" AND referenced_object_id=OBJECT_ID('danh_gia_nhan_su') AND is_disabled=0",Integer.class));
++        assertEquals(2,jdbc.queryForObject("SELECT COUNT(*) FROM sys.foreign_keys WHERE parent_object_id=OBJECT_ID('chi_tiet_kiem_tra_cap_cuu') AND is_disabled=0",Integer.class));
++        System.out.println("BOOT_SCHEMA_ENABLED_FOREIGN_KEYS="+enabled);
++        System.out.println("MAPS_ID_SCHEMA_COLUMNS="+jdbc.queryForList("SELECT name,max_length,is_nullable FROM sys.columns"
++                +" WHERE object_id=OBJECT_ID('chi_tiet_kiem_tra_cap_cuu') AND name IN ('maMuc','ma_muc','maKiemTra','ma_kiem_tra') ORDER BY name"));
++    }
++
++    @AfterAll
++    static void stopDisposableServer() { SQL.stop(); }
++}
+diff --git a/nhakhoa/src/test/java/com/manage/nhakhoa/DashboardEntityMappingGateTest.java b/nhakhoa/src/test/java/com/manage/nhakhoa/DashboardEntityMappingGateTest.java
+new file mode 100644
+index 0000000..d8bba95
+--- /dev/null
++++ b/nhakhoa/src/test/java/com/manage/nhakhoa/DashboardEntityMappingGateTest.java
+@@ -0,0 +1,65 @@
++package com.manage.nhakhoa;
++
++import com.manage.nhakhoa.features.capcuu.entity.ChiTietKiemTraCapCuu;
++import com.manage.nhakhoa.features.capcuu.entity.ChiTietKiemTraCapCuuId;
++import com.manage.nhakhoa.features.capcuu.entity.DanhMucCapCuu;
++import com.manage.nhakhoa.features.capcuu.entity.KiemTraCapCuu;
++import com.manage.nhakhoa.features.capcuu.enums.KetQuaKiemTra;
++import com.manage.nhakhoa.features.nhansu.entity.NhanVien;
++import com.manage.nhakhoa.features.nhansu.enums.TrangThaiNhanVien;
++import com.manage.nhakhoa.shared.enums.VaiTro;
++import jakarta.persistence.EntityManagerFactory;
++import org.junit.jupiter.api.AfterAll;
++import org.junit.jupiter.api.Tag;
++import org.junit.jupiter.api.Test;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.boot.test.context.SpringBootTest;
++import org.springframework.test.annotation.DirtiesContext;
++import org.springframework.test.context.DynamicPropertyRegistry;
++import org.springframework.test.context.DynamicPropertySource;
++import java.time.LocalDate;
++import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
++
++/**
++ * Gate độc lập, hiện FAIL ở mapping Entity baseline; R1 không được phép sửa Entity để làm xanh.
++ * Chạy riêng: mvnw.cmd -Dtest=DashboardEntityMappingGateTest test.
++ * Không được dùng kết quả truy vấn đọc hoặc contextLoads để thay thế gate này.
++ */
++@SpringBootTest
++@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
++@Tag("entity-mapping-gate")
++class DashboardEntityMappingGateTest {
++    @Autowired EntityManagerFactory factory;
++    @DynamicPropertySource
++    static void database(DynamicPropertyRegistry properties) throws Exception {
++        DashboardApplicationSqlServerTest.disposableDatabase(properties);
++    }
++    @AfterAll static void cleanup() { DashboardApplicationSqlServerTest.stopDisposableServer(); }
++
++    @Test
++    void currentCompositeIdMappingMustSupportRealEntityManagerPersistence() {
++        assertDoesNotThrow(() -> {
++            try(var em=factory.createEntityManager()) {
++                var transaction=em.getTransaction(); transaction.begin();
++                try {
++                    var employee=new NhanVien(); employee.setMaNhanVien("NV_GATE"); employee.setHoTen("Nhân viên kiểm thử");
++                    employee.setSoDienThoai("0000000099"); employee.setChucDanh(VaiTro.YT);
++                    employee.setTrangThai(TrangThaiNhanVien.DANG_LAM_VIEC); em.persist(employee);
++                    var catalog=new DanhMucCapCuu(); catalog.setMaMuc("REAL_GATE"); catalog.setTenMuc("Mục kiểm thử");
++                    catalog.setDonViTinh("Đơn vị"); catalog.setSoLuongToiThieu(1); catalog.setSoLuongHienCo(1);
++                    catalog.setDangApDung(true); catalog.setLaDuLieuMau(false); em.persist(catalog);
++                    var check=new KiemTraCapCuu(); check.setMaKiemTra("KT_GATE");
++                    check.setThoiGian(LocalDate.of(2026,10,19).atTime(7,45));
++                    check.setNhanVien(employee); check.setKetQua(KetQuaKiemTra.DAT); em.persist(check);
++                    var detail=new ChiTietKiemTraCapCuu(); detail.setId(new ChiTietKiemTraCapCuuId("KT_GATE","REAL_GATE"));
++                    detail.setKiemTra(check); detail.setDanhMucCapCuu(catalog); detail.setSoLuongThucTe(1);
++                    detail.setDat(true); detail.setHanSuDung(LocalDate.of(2027,1,1)); em.persist(detail);
++                    transaction.commit();
++                } catch(RuntimeException failure) {
++                    if(transaction.isActive()) transaction.rollback();
++                    throw failure;
++                }
++            }
++        },"Gate mapping chỉ PASS khi EntityManager ghi được chi tiết với MapsId hiện hành");
++    }
++}
+diff --git a/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/integration/DashboardSqlServerIntegrationTest.java b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/integration/DashboardSqlServerIntegrationTest.java
+new file mode 100644
+index 0000000..cc46530
+--- /dev/null
++++ b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/integration/DashboardSqlServerIntegrationTest.java
+@@ -0,0 +1,371 @@
++package com.manage.nhakhoa.features.dashboard.integration;
++
++import com.manage.nhakhoa.features.dashboard.dto.response.*;
++import com.manage.nhakhoa.features.dashboard.repository.DashboardReadRepository;
++import com.manage.nhakhoa.features.dashboard.service.DashboardDataUnavailableException;
++import com.manage.nhakhoa.features.dashboard.service.DashboardQueryService;
++import com.manage.nhakhoa.features.hoadon.enums.PhuongThucThanhToan;
++import com.manage.nhakhoa.features.lichhen.enums.TrangThaiLichHen;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++import org.junit.jupiter.params.ParameterizedTest;
++import org.junit.jupiter.params.provider.ValueSource;
++import org.springframework.aop.support.AopUtils;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.jdbc.core.JdbcTemplate;
++import org.springframework.test.annotation.DirtiesContext;
++import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
++import org.springframework.transaction.PlatformTransactionManager;
++import org.springframework.transaction.support.TransactionTemplate;
++import org.hibernate.boot.model.naming.Identifier;
++import org.hibernate.boot.model.naming.PhysicalNamingStrategySnakeCaseImpl;
++
++import javax.sql.DataSource;
++import java.math.BigDecimal;
++import java.time.LocalDate;
++import java.time.LocalDateTime;
++import java.util.Arrays;
++import java.util.List;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++/** JPQL/Hibernate/Spring transaction thật trên SQL Server 2022 riêng, không thay thế bằng H2 hoặc proxy EntityManager. */
++@SpringJUnitConfig(DashboardSqlServerTestConfig.class)
++@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
++class DashboardSqlServerIntegrationTest {
++    static final LocalDate D = LocalDate.of(2026, 10, 19);
++    @Autowired DashboardReadRepository repository;
++    @Autowired DashboardQueryService service;
++    @Autowired DashboardSqlServerTestConfig.FailureSwitch failures;
++    @Autowired DataSource dataSource;
++    @Autowired PlatformTransactionManager transactionManager;
++    JdbcTemplate jdbc;
++
++    @BeforeEach
++    void reset() {
++        failures.reset(); jdbc = new JdbcTemplate(dataSource);
++        assertEquals(DashboardSqlServerTestConfig.TEST_DATABASE, jdbc.queryForObject("SELECT DB_NAME()", String.class));
++        for (String table : List.of("ChiTietKiemTraCapCuu", "KiemTraCapCuu", "DanhMucCapCuu", "YeuCauHuyHoaDon",
++                "ThanhToan", "ChiTietHoaDon", "HoaDon", "ChiTietDieuTri", "PhieuKham", "LichHen", "KeHoachDieuTri",
++                "HoSoBenhAn", "BenhNhan", "PhanCong", "CaLamViec", "PhieuDieuChinhKho", "LoHang", "Thuoc",
++                "VatTu", "NhaCungCap", "DichVu", "TaiKhoan", "NhanVien", "ThamSoHeThong")) {
++            jdbc.update("DELETE FROM " + physical(table));
++        }
++    }
++
++    @Test
++    void allOriginalJpqlQueriesExecuteOnEmptySqlServerWithRealAggregates() {
++        assertTrue(AopUtils.isAopProxy(repository)); assertTrue(AopUtils.isAopProxy(service));
++        assertTrue(jdbc.queryForObject("SELECT COUNT(*) FROM sys.foreign_keys WHERE is_disabled=0 AND is_not_trusted=0",Integer.class)>0);
++        LocalDateTime start = D.atStartOfDay(), end = D.plusDays(1).atStartOfDay();
++        assertTrue(repository.countAppointmentsByStatus(start,end).isEmpty());
++        assertTrue(repository.countExamsByStatus(start,end).isEmpty());
++        assertTrue(repository.sumSuccessfulPaymentsByMethod(start,end).isEmpty());
++        assertTrue(repository.sumBilledAmountPerActiveInvoice().isEmpty());
++        assertTrue(repository.sumSuccessfulPaymentsPerActiveInvoice().isEmpty());
++        assertEquals(0, repository.countSuccessfulPaymentsOnCancelledInvoices());
++        assertEquals(0, repository.countPendingInvoiceCancellationRequests());
++        assertEquals(0, repository.countPendingStockAdjustments());
++        assertTrue(repository.findSystemParameter("MISSING").isEmpty());
++        assertTrue(repository.findShifts().isEmpty());
++        assertTrue(repository.countAssignedStaffByShiftAndRole(D).isEmpty());
++        assertTrue(repository.findNonEmptyStockLots().isEmpty());
++        assertTrue(repository.findStockItems().isEmpty());
++        assertEquals(0, repository.countActiveRealEmergencyCatalogItems());
++        assertTrue(repository.findLatestEmergencyCheckAtOrBefore(D.atTime(15,38)).isEmpty());
++        assertEquals(0, repository.countFailingEmergencyCheckItems("MISSING", D));
++        assertTrue(repository.findEmergencyCheckCoverage("MISSING").isEmpty());
++        assertEquals(0, repository.countPlansWithPendingItemsDueBefore(D));
++        assertEquals(0, repository.countPlansWithPendingItemsDueOnOrBefore(D));
++        var result = service.getAdminDashboard();
++        assertEquals(0,result.appointments().totalRecords()); assertEquals(7,result.appointments().byStatus().size());
++        assertEquals("0",result.collections().amountVnd()); assertEquals("0",result.receivables().amountVnd());
++        assertEquals(16,jdbc.queryForObject("SELECT CONVERT(int,SERVERPROPERTY('ProductMajorVersion'))",Integer.class));
++        System.out.println("SQL_SERVER_TEST_VERSION="+jdbc.queryForObject("SELECT CONVERT(varchar(50),SERVERPROPERTY('ProductVersion'))",String.class));
++    }
++
++    @Test
++    void jpqlDateEnumsAndSeparateInvoiceAggregatesMatchSqlServerFixture() {
++        seedCore();
++        appointment("LH00",D.atStartOfDay(),"CHO_XAC_NHAN");
++        appointment("LH01",D.atTime(23,59,59),"DA_XAC_NHAN");
++        appointment("LH02",D.plusDays(1).atStartOfDay(),"DA_DEN");
++        appointment("LH03",D.minusDays(1).atTime(23,59,59),"DA_DEN");
++        appointment("LH04",D.atTime(9,0),"DA_HUY");
++        appointment("LH05",D.atTime(9,30),"DA_DOI_LICH");
++        var result=service.getAdminDashboard();
++        assertEquals(4,result.appointments().totalRecords()); assertEquals(2,result.appointments().activeCount());
++        assertEquals(1L,result.appointments().byStatus().get(TrangThaiLichHen.DA_HUY));
++        assertEquals("250000",result.collections().amountVnd());
++        assertEquals("250000",result.receivables().amountVnd());
++        assertEquals(1,result.receivables().invoiceCount());
++        assertEquals(new BigDecimal("500000"), repository.sumBilledAmountPerActiveInvoice().getFirst().amount().stripTrailingZeros().setScale(0));
++    }
++
++    @ParameterizedTest
++    @ValueSource(strings={"staffing","inventory","emergencyKit","treatmentDue"})
++    void optionalSqlFailureMustNotRollbackCoreDashboard(String section) {
++        seedCore(); failures.section=section;
++        AdminDashboardResponse result=assertDoesNotThrow(service::getAdminDashboard);
++        assertTrue(failures.insideTransaction); assertEquals(1,failures.sqlAttempts);
++        assertEquals("250000",result.collections().amountVnd()); assertEquals("250000",result.receivables().amountVnd());
++        switch(section) {
++            case "staffing" -> { assertEquals(SectionStatus.UNAVAILABLE,result.staffing().status()); assertNull(result.staffing().understaffedShiftCount()); }
++            case "inventory" -> { assertEquals(SectionStatus.UNAVAILABLE,result.inventory().status()); assertNull(result.inventory().expiredLotCount()); }
++            case "emergencyKit" -> { assertEquals(SectionStatus.UNAVAILABLE,result.emergencyKit().status()); assertNull(result.emergencyKit().checkState()); }
++            case "treatmentDue" -> { assertEquals(SectionStatus.UNAVAILABLE,result.treatmentDue().status()); assertNull(result.treatmentDue().duePlanCount()); }
++            default -> fail(section);
++        }
++        assertTrue(result.warnings().stream().anyMatch(w -> w.section().equals(section) && w.code().equals("SECTION_KHONG_TAI_DUOC")));
++    }
++
++    @Test
++    void coreSqlFailureFailsEntireDashboardWithoutFakeZeroPayload() {
++        seedCore(); failures.section="appointments";
++        var error=assertThrows(DashboardDataUnavailableException.class,service::getAdminDashboard);
++        assertEquals("appointments",error.getSection()); assertTrue(failures.insideTransaction);
++        assertFalse(error.getMessage().contains("n08_intentionally_missing_column"));
++    }
++
++    @ParameterizedTest
++    @ValueSource(strings={"staffing","inventory","emergencyKit","treatmentDue"})
++    void failedOptionalSectionAlsoDoesNotPoisonAnExistingCallerTransaction(String section) {
++        seedCore(); failures.section=section;
++        var transaction=new TransactionTemplate(transactionManager);
++        assertDoesNotThrow(() -> transaction.execute(status -> {
++            var response=service.getAdminDashboard();
++            assertEquals("250000",response.receivables().amountVnd());
++            assertFalse(status.isRollbackOnly());
++            assertEquals(1,jdbc.queryForObject("SELECT COUNT(*) FROM hoa_don",Integer.class));
++            return response;
++        }));
++        assertTrue(failures.insideTransaction); assertEquals(1,failures.sqlAttempts);
++    }
++
++    @ParameterizedTest
++    @ValueSource(strings={"parameters","stockApprovals","invoiceApprovals"})
++    void optionalParameterOrApprovalSqlFailuresAreIsolatedAsWell(String section) {
++        seedCore(); failures.section=section;
++        var response=assertDoesNotThrow(service::getAdminDashboard);
++        assertTrue(failures.insideTransaction); assertTrue(failures.sqlAttempts>0);
++        assertEquals("250000",response.collections().amountVnd());
++        if(section.equals("parameters")) {
++            assertEquals(30,response.inventory().thresholdDays()); assertEquals(14,response.treatmentDue().horizonDays());
++            assertTrue(response.warnings().stream().anyMatch(w -> w.code().equals("THAM_SO_KHONG_DOC_DUOC")));
++        } else assertTrue(response.warnings().stream().anyMatch(w -> w.section().equals("workQueue")));
++    }
++
++    @Test
++    void allSevenAppointmentEnumsAndExamEnumsAreReadFromRealRows() {
++        seedPeople();
++        for(var status:TrangThaiLichHen.values()) appointment("LH"+status.ordinal(),D.atTime(9,status.ordinal()),status.name());
++        appointment("OUT",D.plusDays(1).atStartOfDay(),"CHO_XAC_NHAN");
++        int i=0;
++        for(String status:List.of("CHO_KHAM","DANG_KHAM","DA_KET_LUAN","DA_HUY")) {
++            insert("PhieuKham","maPhieuKham,maBenhNhan,maHoSo,maNhanVien,thoiGianTiepNhan,trangThai",
++                    "PK"+(i++),"BN01","HS01","NV01",D.atStartOfDay(),status);
++        }
++        insert("PhieuKham","maPhieuKham,maBenhNhan,maHoSo,maNhanVien,thoiGianTiepNhan,trangThai",
++                "PKOUT","BN01","HS01","NV01",D.plusDays(1).atStartOfDay(),"CHO_KHAM");
++        var response=service.getAdminDashboard();
++        assertEquals(7,response.appointments().totalRecords()); assertEquals(3,response.appointments().activeCount());
++        response.appointments().byStatus().values().forEach(count -> assertEquals(1L,count));
++        assertEquals(1,response.exams().waiting()); assertEquals(1,response.exams().inProgress()); assertEquals(1,response.exams().concluded());
++    }
++
++    @Test
++    void collectionDateScopeDiffersFromGlobalCancelledInvoiceWarning() {
++        seedCore(); invoice("CANCEL","DA_HUY"); line("CANCEL",1,"100");
++        payment("OLD","HD01",D.minusDays(1).atTime(23,59,59),"2","TIEN_MAT","THANH_CONG");
++        payment("NEXT","HD01",D.plusDays(1).atStartOfDay(),"3","THE_POS","THANH_CONG");
++        payment("CANCELPAY","CANCEL",D.minusDays(30).atStartOfDay(),"100","TIEN_MAT","THANH_CONG");
++        var response=service.getAdminDashboard();
++        assertEquals("250000",response.collections().amountVnd());
++        assertEquals("0",response.collections().byMethodVnd().get(PhuongThucThanhToan.THE_POS));
++        assertEquals("249995",response.receivables().amountVnd());
++        assertEquals(1,repository.countSuccessfulPaymentsOnCancelledInvoices());
++        var warning=response.warnings().stream().filter(w -> w.code().equals("THU_TREN_HOA_DON_DA_HUY")).findFirst().orElseThrow();
++        assertTrue(warning.message().contains("toàn hệ thống")); assertTrue(warning.message().contains("không giới hạn ngày"));
++    }
++
++    @Test
++    void pendingCancellationStillHasDebtOverpaymentDoesNotOffsetOthersAndApprovalCountsAreReal() {
++        seedCore(); account();
++        invoice("HD02","CHUA_THANH_TOAN"); line("HD02",3,"100000");
++        insert("YeuCauHuyHoaDon","maYeuCau,maHoaDon,maTaiKhoanTao,thoiGianTao,lyDo,trangThai",
++                "YC01","HD02","TK01",D.atTime(8,0),"Dữ liệu kiểm thử","CHO_DUYET");
++        invoice("HD03","DA_HUY"); line("HD03",1,"700000");
++        invoice("HD04","DA_THANH_TOAN"); line("HD04",1,"100000");
++        payment("OVERPAY","HD04",D.atTime(8,0),"120000","TIEN_MAT","THANH_CONG");
++        insert("PhieuDieuChinhKho","maPhieu,loai,maTaiKhoanTao,thoiGianTao,lyDo,trangThai",
++                "DC01","KIEM_KE","TK01",D.atStartOfDay(),"Dữ liệu kiểm thử","CHO_DUYET");
++        var response=service.getAdminDashboard();
++        assertEquals("550000",response.receivables().amountVnd()); assertEquals(2,response.receivables().invoiceCount());
++        assertEquals(1,response.receivables().overpaidInvoiceCount());
++        assertEquals(1,repository.countPendingStockAdjustments()); assertEquals(1,repository.countPendingInvoiceCancellationRequests());
++        assertEquals("DUYET_HUY",response.workQueue().items().stream().filter(w -> w.code().equals("HOA_DON_CHO_DUYET_HUY")).findFirst().orElseThrow().targetScreen());
++    }
++
++    @Test
++    void decimalMultiplicationAndSumKeepAmountsBeyondEighteenDigits() {
++        seedPeople(); invoice("BIG","CHUA_THANH_TOAN"); line("BIG",2,"999999999999999999");
++        assertEquals("1999999999999999998",service.getAdminDashboard().receivables().amountVnd());
++    }
++
++    @Test
++    void staffingUsesDistinctEmployeesRolesStatusesDatesAndOvernightShift() {
++        seedPeople();
++        employee("NV02","BS","NGHI_VIEC"); employee("NV03","BS","DANG_LAM_VIEC");
++        employee("NV04","YT","DANG_LAM_VIEC"); employee("NV05","LT","DANG_LAM_VIEC");
++        insert("CaLamViec","maCa,tenCa,gioBatDau,gioKetThuc,soBacSi,soYTa,soLeTan",
++                "CA01","Sáng",java.time.LocalTime.of(7,0),java.time.LocalTime.NOON,1,1,1);
++        insert("CaLamViec","maCa,tenCa,gioBatDau,gioKetThuc,soBacSi,soYTa,soLeTan",
++                "CA02","Qua đêm",java.time.LocalTime.of(22,0),java.time.LocalTime.of(6,0),1,0,0);
++        assignment("PC1","NV01",D,"CHO_HIEU_LUC"); assignment("PC2","NV01",D,"HOAN_THANH");
++        assignment("PC3","NV02",D,"DANG_THUC_HIEN"); assignment("PC4","NV03",D,"DA_HUY");
++        assignment("PC5","NV03",D.minusDays(1),"DANG_THUC_HIEN");
++        assignment("PC6","NV04",D,"DANG_THUC_HIEN"); assignment("PC7","NV05",D,"DANG_THUC_HIEN");
++        var response=service.getAdminDashboard();
++        assertEquals(1,response.staffing().understaffedShiftCount());
++        var day=response.staffing().shifts().getFirst(); assertEquals(1,day.assigned().bacSi());
++        assertEquals(1,day.assigned().yTa()); assertEquals(1,day.assigned().leTan()); assertEquals(ShiftState.DU_NHAN_SU,day.state());
++        var night=response.staffing().shifts().get(1); assertTrue(night.overnight()); assertEquals(1,night.missing().bacSi());
++    }
++
++    @Test
++    void inventoryJoinsRetainNullExpiryAndNegativeStockForCorrectClassification() {
++        insert("NhaCungCap","maNhaCungCap,tenNhaCungCap,soDienThoai,trangThai","NCC","Kiểm thử","0000000000","DANG_HOP_TAC");
++        for(String id:List.of("T1","T2")) insert("Thuoc","maThuoc,tenThuoc,donViTinh,kiemSoatDacBiet,dinhMucToiThieu,daDatHang",id,"Mặt hàng kiểm thử","Đơn vị",false,id.equals("T1")?5:1,false);
++        insert("VatTu","maVatTu,tenVatTu,donViTinh,dinhMucToiThieu,daDatHang","V1","Vật tư kiểm thử","Đơn vị",3,false);
++        lot("L1","T1",null,D.plusDays(31),3); lot("L2","T1",null,D,2); lot("L3","T1",null,D.plusDays(30),1);
++        lot("L4",null,"V1",D.plusDays(60),10); lot("UNKNOWN","T1",null,null,8); lot("NEGATIVE","T1",null,D.plusDays(90),-2);
++        lot("EMPTY","T1",null,D.minusDays(1),0); lot("BOTH","T1","V1",D.plusDays(90),2); lot("NEITHER",null,null,D.plusDays(90),1);
++        var stock=service.getAdminDashboard().inventory();
++        assertEquals(SectionStatus.AVAILABLE,stock.status()); assertEquals(2,stock.belowMinimumItemCount());
++        assertEquals(1,stock.nearExpiryLotCount()); assertEquals(1,stock.expiredLotCount()); assertEquals(1,stock.unknownExpiryLotCount());
++        assertEquals(3,stock.anomalyLotCount()); assertTrue(repository.findNonEmptyStockLots().stream().anyMatch(l -> l.quantity()<0));
++    }
++
++    @ParameterizedTest
++    @ValueSource(strings={"ZERO_DETAILS","SAMPLE_ONLY","NEW_ITEM","MISSING_EXPIRY"})
++    void realEmergencyCoverageCannotBeInferredFromIncompleteChecks(String scenario) {
++        seedPeople(); catalog("REAL",true,false); catalog("SAMPLE",true,true); emergencyCheck("KT1",D.atTime(7,45),"DAT");
++        switch(scenario) {
++            case "SAMPLE_ONLY" -> emergencyDetail("KT1","SAMPLE",true,D.plusDays(90));
++            case "NEW_ITEM" -> { emergencyDetail("KT1","REAL",true,D.plusDays(90)); catalog("NEW",true,false); }
++            case "MISSING_EXPIRY" -> emergencyDetail("KT1","REAL",true,null);
++            case "ZERO_DETAILS" -> { }
++            default -> fail(scenario);
++        }
++        var response=service.getAdminDashboard();
++        assertEquals(SectionStatus.AVAILABLE,response.emergencyKit().status());
++        assertEquals(EmergencyCheckState.CHUA_DU_THONG_TIN,response.emergencyKit().checkState());
++        assertFalse(repository.findEmergencyCheckCoverage("KT1").isEmpty());
++        assertTrue(response.warnings().stream().anyMatch(w -> w.code().equals("CAP_CUU_CHUA_DU_THONG_TIN")));
++    }
++
++    @Test
++    void mixedEmergencyCatalogIgnoresSampleFailuresButRequiresLatestOfficialCheck() {
++        seedPeople(); catalog("REAL",true,false); catalog("SAMPLE",true,true); catalog("INACTIVE",false,false);
++        emergencyCheck("KT1",D.atTime(7,45),"DAT"); emergencyDetail("KT1","REAL",true,D.plusDays(90));
++        emergencyDetail("KT1","SAMPLE",false,null);
++        assertEquals(1,repository.countActiveRealEmergencyCatalogItems());
++        assertEquals(0,repository.countFailingEmergencyCheckItems("KT1",D.plusDays(30)));
++        assertEquals(EmergencyCheckState.TRONG_CHU_KY,service.getAdminDashboard().emergencyKit().checkState());
++        emergencyCheck("KT2",D.atTime(8,0),"DAT");
++        assertEquals(EmergencyCheckState.CHUA_DU_THONG_TIN,service.getAdminDashboard().emergencyKit().checkState());
++        emergencyCheck("FUTURE",D.atTime(20,0),"DAT");
++        assertEquals("KT2",repository.findLatestEmergencyCheckAtOrBefore(D.atTime(15,38)).orElseThrow().checkId());
++    }
++
++    @Test
++    void emergencyCycleBoundariesAndExpiryAreVerifiedOnSqlServer() {
++        seedPeople(); catalog("REAL",true,false); emergencyCheck("KT1",D.minusDays(7).atTime(7,45),"DAT");
++        emergencyDetail("KT1","REAL",true,D.plusDays(90));
++        assertEquals(EmergencyCheckState.TRONG_CHU_KY,service.getAdminDashboard().emergencyKit().checkState());
++        jdbc.update("UPDATE kiem_tra_cap_cuu SET thoi_gian=? WHERE ma_kiem_tra='KT1'",D.minusDays(8).atTime(7,45));
++        assertEquals(EmergencyCheckState.QUA_CHU_KY,service.getAdminDashboard().emergencyKit().checkState());
++        jdbc.update("UPDATE chi_tiet_kiem_tra_cap_cuu SET han_su_dung=?",D.plusDays(30));
++        assertEquals(EmergencyCheckState.CAN_XU_LY,service.getAdminDashboard().emergencyKit().checkState());
++    }
++
++    @Test
++    void inconsistentCompositeKeyColumnsCannotCountAsConfirmedCoverage() {
++        seedPeople(); catalog("REAL",true,false); emergencyCheck("KT1",D.atTime(7,45),"DAT");
++        emergencyDetail("KT1","REAL",true,D.plusDays(90));
++        jdbc.update("UPDATE chi_tiet_kiem_tra_cap_cuu SET maMuc='OTHER'");
++        assertEquals(EmergencyCheckState.CHUA_DU_THONG_TIN,service.getAdminDashboard().emergencyKit().checkState());
++    }
++
++    @Test
++    void distinctTreatmentPlansRespectStatusAndHorizonBoundaries() {
++        seedPeople(); insert("DichVu","maDichVu,tenDichVu,donGia,laCanLamSang,dangApDung","DV1","Dịch vụ kiểm thử",1,false,true);
++        for(String id:List.of("KH1","KH2","KH3","KH4","KH5")) {
++            insert("KeHoachDieuTri","maKeHoach,maHoSo,ngayLap,mucTieu,trangThai,maNhanVien",id,"HS01",D,"Kiểm thử tổng hợp",id.equals("KH4")?"HOAN_THANH":"DANG_THUC_HIEN","NV01");
++        }
++        planItem("KH1",D.minusDays(1),"CHUA_THUC_HIEN"); planItem("KH1",D.plusDays(5),"CHUA_THUC_HIEN");
++        planItem("KH2",D.plusDays(14),"CHUA_THUC_HIEN"); planItem("KH3",D.plusDays(15),"CHUA_THUC_HIEN");
++        planItem("KH4",D.minusDays(1),"CHUA_THUC_HIEN"); planItem("KH5",D.minusDays(1),"DA_THUC_HIEN");
++        insert("ThamSoHeThong","ten,giaTri,moTa","SO_NGAY_KE_HOACH_DEN_HAN","14","Kiểm thử");
++        assertEquals("14",repository.findSystemParameter("SO_NGAY_KE_HOACH_DEN_HAN").orElseThrow());
++        var response=service.getAdminDashboard();
++        assertEquals(2L,response.treatmentDue().duePlanCount()); assertEquals(1L,response.treatmentDue().overduePlanCount());
++        assertTrue(response.workQueue().items().stream().anyMatch(w -> w.code().equals("KE_HOACH_DEN_HAN") && w.title().contains("bao gồm quá hạn")));
++    }
++
++    void account() {
++        // Không phải credential đăng nhập thật: dữ liệu ràng buộc quan hệ trong container test.
++        insert("TaiKhoan","maTaiKhoan,tenDangNhap,matKhau,trangThai,vaiTro,maNhanVien,soLanSai",
++                "TK01","test-fixture","khong-dung-de-dang-nhap","HOAT_DONG","AD","NV01",0);
++    }
++    void employee(String id,String role,String status) {
++        insert("NhanVien","maNhanVien,hoTen,soDienThoai,chucDanh,trangThai",id,"Nhân viên kiểm thử","00000000"+id.substring(2),role,status);
++    }
++    void assignment(String id,String employee,LocalDate date,String status) {
++        insert("PhanCong","maPhanCong,maNhanVien,maCa,ngayLam,nhiemVu,trangThai",id,employee,"CA01",date,"Kiểm thử",status);
++    }
++    void lot(String id,String drug,String supply,LocalDate expiry,int quantity) {
++        insert("LoHang","maLo,soLo,maThuoc,maVatTu,maNhaCungCap,hanSuDung,soLuongTon",id,id,drug,supply,"NCC",expiry,quantity);
++    }
++    void catalog(String id,boolean active,boolean sample) {
++        insert("DanhMucCapCuu","maMuc,tenMuc,donViTinh,soLuongToiThieu,soLuongHienCo,dangApDung,laDuLieuMau",id,"Mục kiểm thử","Đơn vị",1,1,active,sample);
++    }
++    void emergencyCheck(String id,LocalDateTime time,String result) { insert("KiemTraCapCuu","maKiemTra,thoiGian,ketQua,maNhanVien",id,time,result,"NV01"); }
++    void emergencyDetail(String check,String item,boolean passed,LocalDate expiry) {
++        // Fixture cho phần ĐỌC: điền đầy đủ các cột hiện có do mapping baseline sinh ra, không ALTER/schema bypass.
++        // Gate persist MapsId thật được giữ riêng trong DashboardEntityMappingGateTest, hiện FAIL và chặn nghiệm thu.
++        jdbc.update("INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,maKiemTra,maMuc,dat,han_su_dung,so_luong_thuc_te)"
++                +" VALUES (?,?,?,?,?,?,?)",check,item,check,item,passed,expiry,1);
++    }
++    void planItem(String id,LocalDate date,String status) { insert("ChiTietDieuTri","maKeHoach,maDichVu,viTriRang,ngayDuKien,trangThai",id,"DV1","Kiểm thử",date,status); }
++
++    void seedPeople() {
++        insert("NhanVien","maNhanVien,hoTen,soDienThoai,chucDanh,trangThai", "NV01","Nhân viên kiểm thử","0000000001","BS","DANG_LAM_VIEC");
++        insert("BenhNhan","maBenhNhan,hoTen,ngaySinh,gioiTinh,soDienThoai,ngayTao", "BN01","Hồ sơ tổng hợp kiểm thử",LocalDate.of(1900,1,1),"NAM","0000000002",D.atStartOfDay());
++        insert("HoSoBenhAn","maHoSo,maBenhNhan,ngayLap","HS01","BN01",D);
++    }
++    void seedCore() {
++        seedPeople();
++        invoice("HD01","THANH_TOAN_MOT_PHAN");
++        line("HD01",2,"150000"); line("HD01",1,"200000");
++        payment("TT01","HD01",D.atStartOfDay(),"100000","TIEN_MAT","THANH_CONG");
++        payment("TT02","HD01",D.atTime(23,59,59),"150000","CHUYEN_KHOAN","THANH_CONG");
++        payment("TT03","HD01",D.atTime(8,0),"50000","THE_POS","DA_HUY");
++    }
++    void appointment(String id, LocalDateTime time, String status) {
++        insert("LichHen","maLichHen,maBenhNhan,maNhanVien,thoiGianHen,trangThai,ngayTao",id,"BN01","NV01",time,status,D.atStartOfDay());
++    }
++    void invoice(String id,String status) { insert("HoaDon","maHoaDon,maNhanVien,maBenhNhan,ngayLap,trangThai",id,"NV01","BN01",D.atStartOfDay(),status); }
++    void line(String id,int quantity,String price) { insert("ChiTietHoaDon","maHoaDon,soLuong,donGiaApDung",id,quantity,new BigDecimal(price)); }
++    void payment(String id,String invoice,LocalDateTime time,String amount,String method,String status) {
++        insert("ThanhToan","maThanhToan,maHoaDon,thoiGian,soTien,phuongThuc,trangThai,maNhanVien",id,invoice,time,new BigDecimal(amount),method,status,"NV01");
++    }
++    void insert(String table,String columns,Object... values) {
++        String placeholders=String.join(",",Arrays.stream(values).map(v -> "?").toList());
++        String physicalColumns=String.join(",",Arrays.stream(columns.split(",")).map(DashboardSqlServerIntegrationTest::physical).toList());
++        jdbc.update("INSERT INTO " + physical(table) + " (" + physicalColumns + ") VALUES (" + placeholders + ")",values);
++    }
++    private static String physical(String logical) {
++        return new PhysicalNamingStrategySnakeCaseImpl().toPhysicalColumnName(Identifier.toIdentifier(logical),null).getText();
++    }
++}
+diff --git a/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/integration/DashboardSqlServerTestConfig.java b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/integration/DashboardSqlServerTestConfig.java
+new file mode 100644
+index 0000000..79daf1a
+--- /dev/null
++++ b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/integration/DashboardSqlServerTestConfig.java
+@@ -0,0 +1,126 @@
++package com.manage.nhakhoa.features.dashboard.integration;
++
++import com.manage.nhakhoa.features.dashboard.repository.*;
++import com.manage.nhakhoa.features.dashboard.service.DashboardQueryService;
++import com.manage.nhakhoa.features.lichhen.enums.TrangThaiLichHen;
++import jakarta.persistence.EntityManager;
++import jakarta.persistence.EntityManagerFactory;
++import jakarta.persistence.PersistenceContext;
++import org.springframework.context.annotation.Bean;
++import org.springframework.boot.test.context.TestConfiguration;
++import org.springframework.boot.hibernate.SpringImplicitNamingStrategy;
++import org.hibernate.boot.model.naming.PhysicalNamingStrategySnakeCaseImpl;
++import org.springframework.jdbc.datasource.DriverManagerDataSource;
++import org.springframework.orm.jpa.JpaTransactionManager;
++import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
++import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
++import org.springframework.transaction.PlatformTransactionManager;
++import org.springframework.transaction.annotation.EnableTransactionManagement;
++import org.springframework.transaction.support.TransactionSynchronizationManager;
++import org.testcontainers.mssqlserver.MSSQLServerContainer;
++
++import javax.sql.DataSource;
++import java.sql.DriverManager;
++import java.time.Clock;
++import java.time.Duration;
++import java.time.Instant;
++import java.time.LocalDate;
++import java.time.LocalDateTime;
++import java.util.List;
++import java.util.Map;
++import java.util.Optional;
++import java.util.UUID;
++
++/** Chỉ test: SQL Server dùng một lần, không nạp application.yaml hoặc thông tin DB của người dùng. */
++@TestConfiguration(proxyBeanMethods = false)
++@EnableTransactionManagement(proxyTargetClass = true)
++public class DashboardSqlServerTestConfig {
++    public static final String TEST_DATABASE = "N08_Dashboard_R1_Test";
++
++    @Bean(destroyMethod = "stop")
++    MSSQLServerContainer sqlServer() {
++        MSSQLServerContainer container = new MSSQLServerContainer("mcr.microsoft.com/mssql/server:2022-latest")
++                .acceptLicense().withPassword("R1!" + UUID.randomUUID() + "aA1");
++        container.withLabel("n08.scope", "dashboard-r1-disposable-test");
++        container.withStartupTimeout(Duration.ofMinutes(3));
++        container.start();
++        return container;
++    }
++
++    @Bean
++    DataSource dataSource(MSSQLServerContainer container) throws Exception {
++        try (var connection = DriverManager.getConnection(container.getJdbcUrl(), container.getUsername(), container.getPassword());
++             var statement = connection.createStatement()) {
++            statement.execute("CREATE DATABASE " + TEST_DATABASE);
++        }
++        return new DriverManagerDataSource(container.getJdbcUrl() + ";databaseName=" + TEST_DATABASE,
++                container.getUsername(), container.getPassword());
++    }
++
++    @Bean
++    LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
++        var factory = new LocalContainerEntityManagerFactoryBean();
++        factory.setDataSource(dataSource);
++        factory.setPackagesToScan("com.manage.nhakhoa.features");
++        factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
++        factory.setJpaPropertyMap(Map.of(
++                "hibernate.hbm2ddl.auto", "create-only",
++                "hibernate.hbm2ddl.halt_on_error", true,
++                // Dùng chính naming strategy mặc định của Spring Boot 4.1.1 như application context thật.
++                "hibernate.implicit_naming_strategy", SpringImplicitNamingStrategy.class.getName(),
++                "hibernate.physical_naming_strategy", PhysicalNamingStrategySnakeCaseImpl.class.getName(),
++                "hibernate.show_sql", false));
++        return factory;
++    }
++
++    @Bean
++    PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
++        return new JpaTransactionManager(factory);
++    }
++
++    @Bean
++    FailureSwitch failureSwitch() { return new FailureSwitch(); }
++
++    @Bean
++    DashboardReadRepository dashboardReadRepository(FailureSwitch failures) {
++        return new FaultInjectingRepository(failures);
++    }
++
++    @Bean
++    DashboardQueryService dashboardQueryService(DashboardReadRepository repository) {
++        return new DashboardQueryService(repository,
++                Clock.fixed(Instant.parse("2026-10-19T08:38:00Z"), DashboardQueryService.BUSINESS_ZONE));
++    }
++
++    public static final class FailureSwitch {
++        String section;
++        boolean insideTransaction;
++        int sqlAttempts;
++        void reset() { section = null; insideTransaction = false; sqlAttempts = 0; }
++    }
++
++    /** Không giả lập kết quả repository: nhánh bình thường gọi JPQL gốc, nhánh lỗi gửi SQL sai tới SQL Server thật. */
++    public static class FaultInjectingRepository extends JpaDashboardReadRepository {
++        private final FailureSwitch failures;
++        @PersistenceContext private EntityManager entityManager;
++        FaultInjectingRepository(FailureSwitch failures) { this.failures = failures; }
++        private void failIfRequested(String section) {
++            if (section.equals(failures.section)) {
++                failures.insideTransaction = TransactionSynchronizationManager.isActualTransactionActive();
++                failures.sqlAttempts++;
++                entityManager.createNativeQuery("SELECT n08_intentionally_missing_column FROM sys.objects", Long.class).getResultList();
++                throw new AssertionError("SQL Server phải từ chối cột kiểm thử không tồn tại");
++            }
++        }
++        @Override public List<ShiftRow> findShifts() { failIfRequested("staffing"); return super.findShifts(); }
++        @Override public List<StockLotRow> findNonEmptyStockLots() { failIfRequested("inventory"); return super.findNonEmptyStockLots(); }
++        @Override public long countActiveRealEmergencyCatalogItems() { failIfRequested("emergencyKit"); return super.countActiveRealEmergencyCatalogItems(); }
++        @Override public long countPlansWithPendingItemsDueOnOrBefore(LocalDate date) { failIfRequested("treatmentDue"); return super.countPlansWithPendingItemsDueOnOrBefore(date); }
++        @Override public Map<TrangThaiLichHen, Long> countAppointmentsByStatus(LocalDateTime start, LocalDateTime end) {
++            failIfRequested("appointments"); return super.countAppointmentsByStatus(start, end);
++        }
++        @Override public Optional<String> findSystemParameter(String key) { failIfRequested("parameters"); return super.findSystemParameter(key); }
++        @Override public long countPendingStockAdjustments() { failIfRequested("stockApprovals"); return super.countPendingStockAdjustments(); }
++        @Override public long countPendingInvoiceCancellationRequests() { failIfRequested("invoiceApprovals"); return super.countPendingInvoiceCancellationRequests(); }
++    }
++}
+diff --git a/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/repository/JpaDashboardReadRepositoryTest.java b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/repository/JpaDashboardReadRepositoryTest.java
+index 7ed48b6..7a024b6 100644
+--- a/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/repository/JpaDashboardReadRepositoryTest.java
++++ b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/repository/JpaDashboardReadRepositoryTest.java
+@@ -168,14 +168,26 @@ class JpaDashboardReadRepositoryTest {
+         repository.countActiveRealEmergencyCatalogItems();
+         repository.findLatestEmergencyCheckAtOrBefore(t);
+         repository.countFailingEmergencyCheckItems("KT1", d);
++        repository.findEmergencyCheckCoverage("KT1");
+         repository.countPlansWithPendingItemsDueOnOrBefore(d);
+         repository.countPlansWithPendingItemsDueBefore(d);
+ 
+-        assertEquals(19, queries.size());
++        assertEquals(20, queries.size());
+         for (String q : queries) {
+             String lower = q.toLowerCase();
+             assertTrue(lower.startsWith("select "), q);
+             assertFalse(lower.contains("update ") || lower.contains("delete ") || lower.contains("insert "), q);
+         }
+     }
++
++    @Test
++    void emergencyCoverageRetainsMissingOfficialItemsAndExcludesSampleItems() {
++        cannedResults.add(List.<Object[]>of(new Object[]{"REAL", null, null, null, null, 2}));
++        List<EmergencyCheckItemRow> rows = repository.findEmergencyCheckCoverage("KT1");
++        assertEquals(new EmergencyCheckItemRow("REAL", null, null, null, null, 2), rows.getFirst());
++        assertTrue(queries.getFirst().contains("left join ChiTietKiemTraCapCuu"));
++        assertTrue(queries.getFirst().contains("dm.dangApDung = true and dm.laDuLieuMau = false"));
++        assertTrue(queries.getFirst().contains("ct.kiemTra.maKiemTra = :checkId"));
++        assertEquals("KT1", parameters.getFirst().get("checkId"));
++    }
+ }
+diff --git a/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/DashboardContractSerializationTest.java b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/DashboardContractSerializationTest.java
+new file mode 100644
+index 0000000..cd59a4c
+--- /dev/null
++++ b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/DashboardContractSerializationTest.java
+@@ -0,0 +1,163 @@
++package com.manage.nhakhoa.features.dashboard.service;
++
++import com.manage.nhakhoa.features.dashboard.dto.response.AdminDashboardResponse;
++import com.manage.nhakhoa.features.dashboard.dto.response.WorkQueueItem;
++import com.manage.nhakhoa.features.khamchuabenh.enums.TrangThaiChiTietDieuTri;
++import com.manage.nhakhoa.features.khamchuabenh.enums.TrangThaiKeHoach;
++import org.junit.jupiter.api.Test;
++import org.springframework.boot.autoconfigure.AutoConfigurations;
++import org.springframework.boot.jackson.autoconfigure.JacksonAutoConfiguration;
++import org.springframework.boot.test.context.runner.ApplicationContextRunner;
++import tools.jackson.databind.JsonNode;
++import tools.jackson.databind.json.JsonMapper;
++
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.time.Clock;
++import java.time.Instant;
++import java.time.LocalDate;
++import java.time.ZoneOffset;
++import java.util.HashSet;
++import java.util.List;
++import java.util.Set;
++import java.util.regex.Pattern;
++
++import static org.junit.jupiter.api.Assertions.*;
++import static org.junit.jupiter.api.Assumptions.assumeTrue;
++
++/** Jackson 3 được cấu hình bởi Spring Boot thật; không dùng API serialization stub hoặc mở HTTP. */
++class DashboardContractSerializationTest {
++    private static final LocalDate D=LocalDate.of(2026,10,19);
++    private static final Clock CLOCK=Clock.fixed(Instant.parse("2026-10-19T08:38:00Z"),ZoneOffset.UTC);
++    private final ApplicationContextRunner context=new ApplicationContextRunner()
++            .withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class));
++
++    private static AdminDashboardResponse read(InMemoryDashboardReadRepository repository) {
++        return new DashboardQueryService(repository,CLOCK).getAdminDashboard();
++    }
++
++    @Test
++    void acceptedV11FieldsSerializeWithoutLosingAnyV1Field() {
++        AdminDashboardResponse response=read(new InMemoryDashboardReadRepository());
++        context.run(c -> {
++            JsonMapper mapper=c.getBean(JsonMapper.class);
++            String serialized=mapper.writeValueAsString(response);
++            JsonNode json=mapper.readTree(serialized);
++            for(String field:List.of("source","businessDate","zoneId","generatedAt","period","appointments","exams",
++                    "collections","receivables","staffing","inventory","emergencyKit","treatmentDue","workQueue","warnings")) {
++                assertTrue(json.has(field),field);
++            }
++            assertEquals("LIVE",json.get("source").asString());
++            assertEquals("2026-10-19",json.get("businessDate").asString());
++            assertTrue(json.get("generatedAt").asString().endsWith("+07:00"));
++            assertEquals(0,json.get("appointments").get("activeCount").asLong());
++            assertEquals(7,json.get("appointments").get("byStatus").size());
++            assertEquals(0,json.get("receivables").get("overpaidInvoiceCount").asLong());
++            assertTrue(json.get("staffing").has("understaffedShiftCount"));
++            assertTrue(json.get("inventory").has("anomalyLotCount"));
++            assertTrue(json.get("emergencyKit").has("checkState"));
++            assertEquals(7,json.get("emergencyKit").get("checkCycleDays").asInt());
++            assertEquals("0",json.get("collections").get("amountVnd").asString());
++            assertTrue(json.get("collections").get("amountVnd").isString());
++            assertTrue(json.get("warnings").size()>0);
++            for(JsonNode warning:json.get("warnings")) {
++                assertEquals(3,warning.size());
++                for(String field:List.of("code","section","message")) assertTrue(warning.has(field));
++            }
++            AdminDashboardResponse decoded=mapper.readValue(serialized,AdminDashboardResponse.class);
++            assertEquals(response.appointments(),decoded.appointments());
++            assertEquals(response.receivables(),decoded.receivables());
++            assertEquals(response.warnings(),decoded.warnings());
++            assertFalse(serialized.contains("matKhau")); assertFalse(serialized.contains("soDienThoai"));
++        });
++    }
++
++    @Test
++    void unavailableCountsAreExplicitJsonNullNotHiddenOrZero() {
++        var repository=new InMemoryDashboardReadRepository();
++        repository.failingMethods.addAll(List.of("findShifts","findNonEmptyStockLots","countActiveRealEmergencyCatalogItems",
++                "countPlansWithPendingItemsDueBefore"));
++        AdminDashboardResponse response=read(repository);
++        context.run(c -> {
++            JsonNode json=c.getBean(JsonMapper.class).valueToTree(response);
++            assertEquals("UNAVAILABLE",json.get("staffing").get("status").asString());
++            assertTrue(json.get("staffing").get("understaffedShiftCount").isNull());
++            assertEquals(0,json.get("staffing").get("shifts").size());
++            for(String count:List.of("belowMinimumItemCount","nearExpiryLotCount","expiredLotCount","unknownExpiryLotCount","anomalyLotCount")) {
++                assertTrue(json.get("inventory").has(count)); assertTrue(json.get("inventory").get(count).isNull());
++            }
++            assertTrue(json.get("emergencyKit").get("checkState").isNull());
++            assertTrue(json.get("treatmentDue").get("duePlanCount").isNull());
++            assertTrue(json.get("treatmentDue").get("overduePlanCount").isNull());
++            assertFalse(json.toString().contains("secret_column"));
++        });
++    }
++
++    @Test
++    void treatmentOverlapAndAcceptedThresholdKeyAreExplicit() {
++        var repository=new InMemoryDashboardReadRepository();
++        repository.parameters.put(DashboardThresholds.KEY_TREATMENT_HORIZON_DAYS,"21");
++        repository.planItems.add(new InMemoryDashboardReadRepository.PlanItem("KH1",TrangThaiKeHoach.DANG_THUC_HIEN,
++                TrangThaiChiTietDieuTri.CHUA_THUC_HIEN,D.minusDays(1)));
++        repository.planItems.add(new InMemoryDashboardReadRepository.PlanItem("KH2",TrangThaiKeHoach.DANG_THUC_HIEN,
++                TrangThaiChiTietDieuTri.CHUA_THUC_HIEN,D.plusDays(21)));
++        var response=read(repository);
++        assertEquals("SO_NGAY_KE_HOACH_DEN_HAN",DashboardThresholds.KEY_TREATMENT_HORIZON_DAYS);
++        assertEquals(2L,response.treatmentDue().duePlanCount()); assertEquals(1L,response.treatmentDue().overduePlanCount());
++        assertEquals(21,response.treatmentDue().horizonDays());
++        assertTrue(response.workQueue().items().stream().filter(i -> i.code().equals("KE_HOACH_DEN_HAN"))
++                .allMatch(i -> i.title().contains("bao gồm quá hạn")));
++        assertTrue(response.workQueue().relatedObjectCount()>=3);
++        assertFalse(response.warnings().stream().anyMatch(w -> w.section().equals("treatmentDue")));
++        repository.parameters.clear();
++        var fallback=read(repository);
++        assertEquals(14,fallback.treatmentDue().horizonDays());
++        assertTrue(fallback.warnings().stream().anyMatch(w -> w.code().equals("THAM_SO_CHUA_CAU_HINH") && w.section().equals("treatmentDue")));
++    }
++
++    @Test
++    void targetScreensMatchActualSwingMenuSourceWhenItExists() throws Exception {
++        Path menu=Path.of("..","admin-desktop-preview","src","main","java","com","manage","nhakhoa","desktop","MenuDefinition.java");
++        assumeTrue(Files.isRegularFile(menu),"Gate UI-M1 PENDING: chưa có MenuDefinition thực tế");
++        Set<String> actual=new HashSet<>();
++        var matcher=Pattern.compile("e\\(\"([A-Z0-9_]+)\"").matcher(Files.readString(menu));
++        while(matcher.find()) actual.add(matcher.group(1));
++        assertEquals(20,actual.size());
++        for(var field:DashboardTargetScreens.class.getFields()) {
++            if(field.getType()==String.class) assertTrue(actual.contains((String)field.get(null)),field.getName());
++        }
++        var repository=new InMemoryDashboardReadRepository();
++        repository.cancellationRequests.add(com.manage.nhakhoa.shared.enums.TrangThaiDuyet.CHO_DUYET);
++        WorkQueueItem cancellation=read(repository).workQueue().items().stream()
++                .filter(i -> i.code().equals("HOA_DON_CHO_DUYET_HUY")).findFirst().orElseThrow();
++        assertEquals("DUYET_HUY",cancellation.targetScreen());
++    }
++
++    @Test
++    void acceptedExtensionsKeepNonZeroValuesAndUnknownEmergencyStateInJson() {
++        var repository=new InMemoryDashboardReadRepository();
++        repository.appointments.add(new InMemoryDashboardReadRepository.Appointment(D.atStartOfDay(),
++                com.manage.nhakhoa.features.lichhen.enums.TrangThaiLichHen.DA_DEN));
++        repository.invoices.put("HD1",new InMemoryDashboardReadRepository.Invoice("HD1",
++                com.manage.nhakhoa.features.hoadon.enums.TrangThaiHoaDon.DA_THANH_TOAN));
++        repository.invoiceLines.add(new InMemoryDashboardReadRepository.InvoiceLine("HD1",1,new java.math.BigDecimal("100")));
++        repository.payments.add(new InMemoryDashboardReadRepository.Payment("HD1",D.atTime(8,0),new java.math.BigDecimal("120"),
++                com.manage.nhakhoa.features.hoadon.enums.PhuongThucThanhToan.TIEN_MAT,
++                com.manage.nhakhoa.features.hoadon.enums.TrangThaiThanhToan.THANH_CONG));
++        repository.shifts.add(new com.manage.nhakhoa.features.dashboard.repository.ShiftRow("CA1","Ca thử",
++                java.time.LocalTime.of(7,0),java.time.LocalTime.NOON,1,0,0));
++        repository.lots.add(new InMemoryDashboardReadRepository.Lot("BAD",null,null,D.plusDays(90),1));
++        repository.catalog.add(new InMemoryDashboardReadRepository.Catalog(true,false));
++        repository.checks.add(new InMemoryDashboardReadRepository.Check("KT1",D.atTime(7,45),
++                com.manage.nhakhoa.features.capcuu.enums.KetQuaKiemTra.DAT));
++        var response=read(repository);
++        context.run(c -> {
++            JsonNode json=c.getBean(JsonMapper.class).valueToTree(response);
++            assertEquals(1,json.get("appointments").get("activeCount").asLong());
++            assertEquals(1,json.get("receivables").get("overpaidInvoiceCount").asLong());
++            assertEquals(1,json.get("staffing").get("understaffedShiftCount").asInt());
++            assertEquals(1,json.get("inventory").get("anomalyLotCount").asInt());
++            assertEquals("CHUA_DU_THONG_TIN",json.get("emergencyKit").get("checkState").asString());
++        });
++    }
++}
+diff --git a/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/DashboardQueryServiceTest.java b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/DashboardQueryServiceTest.java
+index e9c4dfd..3b3bf01 100644
+--- a/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/DashboardQueryServiceTest.java
++++ b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/DashboardQueryServiceTest.java
+@@ -426,6 +426,7 @@ class DashboardQueryServiceTest {
+     void emergencyKitCycleBoundaryAndNeedsAction() {
+         repo.catalog.add(new Catalog(true, false));
+         repo.checks.add(new Check("KT1", at(D.minusDays(7), 9, 0, 0), KetQuaKiemTra.DAT));
++        repo.checkItems.add(new CheckItem("KT1", true, D.plusDays(90)));
+         AdminDashboardResponse within = run();
+         assertEquals(EmergencyCheckState.TRONG_CHU_KY, within.emergencyKit().checkState());
+         assertEquals(7L, within.emergencyKit().daysSinceLastCheck());
+@@ -437,6 +438,7 @@ class DashboardQueryServiceTest {
+         assertEquals(EmergencyCheckState.QUA_CHU_KY, run().emergencyKit().checkState());
+ 
+         repo.checks.add(new Check("KT2", at(D, 7, 0, 0), KetQuaKiemTra.CAN_BO_SUNG));
++        repo.checkItems.add(new CheckItem("KT2", true, D.plusDays(90)));
+         assertEquals(EmergencyCheckState.CAN_XU_LY, run().emergencyKit().checkState());
+ 
+         // DAT nhưng có mục hạn dùng không còn hơn 30 ngày → cần xử lý
+@@ -467,7 +469,7 @@ class DashboardQueryServiceTest {
+ 
+         assertEquals(2L, r.treatmentDue().duePlanCount());
+         assertEquals(1L, r.treatmentDue().overduePlanCount());
+-        assertEquals("Kế hoạch điều trị đến hạn", item(r, "KE_HOACH_DEN_HAN").title());
++        assertEquals("Kế hoạch điều trị đến hạn (bao gồm quá hạn)", item(r, "KE_HOACH_DEN_HAN").title());
+         assertEquals(1, item(r, "KE_HOACH_QUA_HAN").objectCount());
+     }
+ 
+diff --git a/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/EmergencyCoverageRegressionTest.java b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/EmergencyCoverageRegressionTest.java
+new file mode 100644
+index 0000000..836c6c6
+--- /dev/null
++++ b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/EmergencyCoverageRegressionTest.java
+@@ -0,0 +1,71 @@
++package com.manage.nhakhoa.features.dashboard.service;
++
++import com.manage.nhakhoa.features.capcuu.enums.KetQuaKiemTra;
++import com.manage.nhakhoa.features.dashboard.dto.response.EmergencyCheckState;
++import com.manage.nhakhoa.features.dashboard.dto.response.SectionStatus;
++import com.manage.nhakhoa.features.dashboard.repository.EmergencyCheckItemRow;
++import com.manage.nhakhoa.features.dashboard.service.InMemoryDashboardReadRepository.Catalog;
++import com.manage.nhakhoa.features.dashboard.service.InMemoryDashboardReadRepository.Check;
++import com.manage.nhakhoa.features.dashboard.service.InMemoryDashboardReadRepository.CheckItem;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++import java.time.Clock;
++import java.time.Instant;
++import java.time.LocalDate;
++import java.util.List;
++import static org.junit.jupiter.api.Assertions.*;
++
++class EmergencyCoverageRegressionTest {
++    static final LocalDate D=LocalDate.of(2026,10,19);
++    InMemoryDashboardReadRepository repository;
++    DashboardQueryService service;
++    @BeforeEach void setup() {
++        repository=new InMemoryDashboardReadRepository();
++        repository.catalog.add(new Catalog("REAL",true,false,1));
++        repository.checks.add(new Check("KT1",D.atTime(7,45),KetQuaKiemTra.DAT));
++        service=new DashboardQueryService(repository,Clock.fixed(Instant.parse("2026-10-19T08:38:00Z"),DashboardQueryService.BUSINESS_ZONE));
++    }
++    @Test void zeroDetailsNeverMeansWithinCycle() { assertNeedsCheck(); }
++    @Test void sampleDetailsCannotCoverRealCatalog() {
++        repository.catalog.add(new Catalog("SAMPLE",true,true,1));
++        repository.checkItems.add(new CheckItem("KT1","SAMPLE",true,D.plusDays(90),1)); assertNeedsCheck();
++    }
++    @Test void newlyAddedOfficialItemInvalidatesOldCoverage() {
++        repository.checkItems.add(new CheckItem("KT1","REAL",true,D.plusDays(90),1));
++        assertEquals(EmergencyCheckState.TRONG_CHU_KY,service.getAdminDashboard().emergencyKit().checkState());
++        repository.catalog.add(new Catalog("NEW",true,false,1)); assertNeedsCheck();
++    }
++    @Test void missingExpiryIsUnknownEvenIfPassedFlagIsTrue() {
++        repository.checkItems.add(new CheckItem("KT1","REAL",true,null,1)); assertNeedsCheck();
++    }
++    @Test void mixedCatalogOnlyOfficialActiveItemsMustBeCovered() {
++        repository.catalog.add(new Catalog("SAMPLE",true,true,1)); repository.catalog.add(new Catalog("OLD",false,false,1));
++        repository.checkItems.add(new CheckItem("KT1","REAL",true,D.plusDays(90),1));
++        repository.checkItems.add(new CheckItem("KT1","SAMPLE",false,null,0));
++        assertEquals(EmergencyCheckState.TRONG_CHU_KY,service.getAdminDashboard().emergencyKit().checkState());
++    }
++    @Test void latestIncompleteCheckDoesNotFallBackToOlderCompleteCheck() {
++        repository.checkItems.add(new CheckItem("KT1","REAL",true,D.plusDays(90),1));
++        repository.checks.add(new Check("KT2",D.atTime(8,0),KetQuaKiemTra.DAT)); assertNeedsCheck();
++    }
++    @Test void missingQuantityDoesNotMeanConfirmedCheck() {
++        repository.checkItems.add(new CheckItem("KT1","REAL",true,D.plusDays(90),null)); assertNeedsCheck();
++    }
++    @Test void fullyCoveredFailingItemRequiresAction() {
++        repository.checkItems.add(new CheckItem("KT1","REAL",false,D.plusDays(90),1));
++        assertEquals(EmergencyCheckState.CAN_XU_LY,service.getAdminDashboard().emergencyKit().checkState());
++    }
++    @Test void coverageCountDriftAndDuplicateRowsCannotMeanComplete() {
++        var row=new EmergencyCheckItemRow("REAL","REAL",true,D.plusDays(90),1,1);
++        assertFalse(EmergencyCoverageCalculator.calculate(2,List.of(row),D).complete());
++        assertFalse(EmergencyCoverageCalculator.calculate(2,List.of(row,row),D).complete());
++    }
++    private void assertNeedsCheck() {
++        var result=service.getAdminDashboard();
++        assertEquals(SectionStatus.AVAILABLE,result.emergencyKit().status());
++        assertEquals(EmergencyCheckState.CHUA_DU_THONG_TIN,result.emergencyKit().checkState());
++        assertTrue(result.emergencyKit().message().contains("cần kiểm tra"));
++        assertTrue(result.warnings().stream().anyMatch(w -> w.code().equals("CAP_CUU_CHUA_DU_THONG_TIN")));
++        assertTrue(result.workQueue().items().stream().anyMatch(w -> w.code().equals("CAP_CUU_CAN_KIEM_TRA")));
++    }
++}
+diff --git a/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/InMemoryDashboardReadRepository.java b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/InMemoryDashboardReadRepository.java
+index 5fd68de..b403a37 100644
+--- a/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/InMemoryDashboardReadRepository.java
++++ b/nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/InMemoryDashboardReadRepository.java
+@@ -3,6 +3,7 @@ package com.manage.nhakhoa.features.dashboard.service;
+ import com.manage.nhakhoa.features.capcuu.enums.KetQuaKiemTra;
+ import com.manage.nhakhoa.features.dashboard.repository.DashboardReadRepository;
+ import com.manage.nhakhoa.features.dashboard.repository.EmergencyCheckRow;
++import com.manage.nhakhoa.features.dashboard.repository.EmergencyCheckItemRow;
+ import com.manage.nhakhoa.features.dashboard.repository.InvoiceAmountRow;
+ import com.manage.nhakhoa.features.dashboard.repository.ShiftAssignmentRow;
+ import com.manage.nhakhoa.features.dashboard.repository.ShiftRow;
+@@ -51,9 +52,13 @@ class InMemoryDashboardReadRepository implements DashboardReadRepository {
+     record Assignment(String employeeId, VaiTro role, TrangThaiNhanVien employeeStatus, String shiftCode,
+                       LocalDate workDate, TrangThaiPhanCong status) { }
+     record Lot(String lotId, String drugId, String supplyId, LocalDate expiry, int quantity) { }
+-    record Catalog(boolean active, boolean sample) { }
++    record Catalog(String id, boolean active, boolean sample, int minimum) {
++        Catalog(boolean active, boolean sample) { this(sample ? "SAMPLE" : "REAL", active, sample, 1); }
++    }
+     record Check(String checkId, LocalDateTime time, KetQuaKiemTra result) { }
+-    record CheckItem(String checkId, boolean ok, LocalDate expiry) { }
++    record CheckItem(String checkId, String itemId, Boolean ok, LocalDate expiry, Integer actual) {
++        CheckItem(String checkId, boolean ok, LocalDate expiry) { this(checkId, "REAL", ok, expiry, 1); }
++    }
+     record PlanItem(String planId, TrangThaiKeHoach planStatus, TrangThaiChiTietDieuTri itemStatus, LocalDate dueDate) { }
+ 
+     final List<Appointment> appointments = new ArrayList<>();
+@@ -226,10 +231,21 @@ class InMemoryDashboardReadRepository implements DashboardReadRepository {
+     public long countFailingEmergencyCheckItems(String checkId, LocalDate safeUntilInclusive) {
+         enter("countFailingEmergencyCheckItems");
+         return checkItems.stream().filter(i -> i.checkId().equals(checkId))
+-                .filter(i -> !i.ok() || (i.expiry() != null && !i.expiry().isAfter(safeUntilInclusive)))
++                .filter(i -> catalog.stream().anyMatch(c -> c.active() && !c.sample() && c.id().equals(i.itemId())))
++                .filter(i -> Boolean.FALSE.equals(i.ok()) || (i.expiry() != null && !i.expiry().isAfter(safeUntilInclusive)))
+                 .count();
+     }
+ 
++    @Override
++    public List<EmergencyCheckItemRow> findEmergencyCheckCoverage(String checkId) {
++        enter("findEmergencyCheckCoverage");
++        return catalog.stream().filter(c -> c.active() && !c.sample()).map(c -> {
++            CheckItem detail = checkItems.stream().filter(i -> i.checkId().equals(checkId) && i.itemId().equals(c.id())).findFirst().orElse(null);
++            return new EmergencyCheckItemRow(c.id(), detail == null ? null : detail.itemId(), detail == null ? null : detail.ok(),
++                    detail == null ? null : detail.expiry(), detail == null ? null : detail.actual(), c.minimum());
++        }).toList();
++    }
++
+     @Override
+     public long countPlansWithPendingItemsDueOnOrBefore(LocalDate dueOnOrBefore) {
+         enter("countPlansWithPendingItemsDueOnOrBefore");

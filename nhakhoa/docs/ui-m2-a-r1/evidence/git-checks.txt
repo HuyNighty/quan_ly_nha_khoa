@@ -1,0 +1,16 @@
+BRANCH: codex/ui-m2-a-r1
+HEAD: 4d25dbf88be6415a8fb77facf64b5d4ea9e1f704
+TRACKED_DIFF: nhakhoa/pom.xml
+git diff --check exit=0
+tracked files outside POM unchanged exit=0
+refinement reverse check only exit=0
+index unchanged exit=0
+STATUS:
+ M nhakhoa/pom.xml
+?? admin-desktop-preview.zip
+?? admin-desktop-preview/
+?? nhakhoa/docs/ui-m2-a-r1/
+?? nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/
+?? nhakhoa/src/test/java/com/manage/nhakhoa/DashboardApplicationSqlServerTest.java
+?? nhakhoa/src/test/java/com/manage/nhakhoa/DashboardEntityMappingGateTest.java
+?? nhakhoa/src/test/java/com/manage/nhakhoa/features/

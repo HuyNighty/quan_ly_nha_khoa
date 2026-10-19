@@ -1,0 +1,496 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24133 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -------------------------< com.manage:nhakhoa >-------------------------
+[INFO] Building nhakhoa 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ nhakhoa ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ nhakhoa ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ nhakhoa ---
+[INFO] skip non existing resourceDirectory C:\Users\huy\NguyenQuangHuy\quan_ly_nha_khoa\nhakhoa\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ nhakhoa ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 9 source files with javac [debug parameters release 25] to target\test-classes
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by lombok.permit.Permit
+WARNING: Please consider reporting this to the maintainers of class lombok.permit.Permit
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ nhakhoa ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest
+16:45:31.463 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+16:45:31.468 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+16:45:31.533 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+16:45:32.038 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+16:45:32.909 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+16:45:32.911 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+16:45:32.943 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 28.3.2
+  API Version: 1.51
+  Operating System: Docker Desktop
+  Total Memory: 7795 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+16:45:33.116 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Creating container for image: testcontainers/ryuk:0.14.0
+16:45:33.274 [main] INFO org.testcontainers.utility.RegistryAuthLocator -- Credential helper/store (docker-credential-desktop) does not have credentials for https://index.docker.io/v1/
+16:45:33.589 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 is starting: 0e74ac1aea3db5f67772715ac3be4faa7f13126ce1e8c9b271eccac0a5bca6d7
+16:45:34.284 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 started in PT1.1683342S
+16:45:34.297 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+16:45:34.297 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+16:45:34.299 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+16:45:34.299 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Creating container for image: mcr.microsoft.com/mssql/server:2022-latest
+16:45:34.406 [main] INFO org.testcontainers.utility.RegistryAuthLocator -- Credential helper/store (docker-credential-desktop) does not have credentials for mcr.microsoft.com
+16:45:34.504 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Container mcr.microsoft.com/mssql/server:2022-latest is starting: a077c40aad23c68aa05be138e1312dcf7b56f4c5598e80b744d0631c0401628f
+16:45:34.942 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Waiting for database connection to become available at jdbc:sqlserver://localhost:60500 using query 'SELECT 1'
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:1 ClientConnectionId: a5a6df82-c62c-4bac-8c15-9c7e63adb629 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:1 ClientConnectionId: e25944b8-19e9-4c45-a07f-dc5b07cdd1f5 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:2 ClientConnectionId: d27c9e1f-8fce-4eca-bb95-ac33eb4aa610 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:2 ClientConnectionId: 17ec05b1-7952-44c6-b302-adefd27339e2 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:3 ClientConnectionId: 261b2cff-658a-403d-afb3-8d8e76f7270d Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:3 ClientConnectionId: 60590057-5ea2-47b2-a4b0-7a6a1efda36a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:4 ClientConnectionId: dd59ea08-d794-4e46-8016-c96236b4c4b3 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:4 ClientConnectionId: 1ab72b46-ff31-4e1e-89fe-67675d8d00d0 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:5 ClientConnectionId: 1f008036-2465-4ba9-be9f-2baaa3c748ad Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:5 ClientConnectionId: a6f6c20e-2362-494b-9b8e-bbceaa90a83d Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:6 ClientConnectionId: cbcdf749-7a6b-4822-affa-3ed738dbf0ad Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:6 ClientConnectionId: 94a95570-54a5-4a51-b202-9b8954491639 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:7 ClientConnectionId: d69e3699-c002-47af-b422-0d1b99637af3 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:35 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:7 ClientConnectionId: c850e3cb-aab5-41ae-8a9e-c322741c0da7 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:8 ClientConnectionId: cd7e07d4-1628-4f02-99f5-1ffffa00f397 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:8 ClientConnectionId: b55b2099-6a5c-45ae-a31e-f0c9ff934163 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:9 ClientConnectionId: dba2f9e5-b23c-4e9a-95c3-5f4982ca507f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:9 ClientConnectionId: 374624eb-6712-45d9-8e07-c11bc548bba1 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:10 ClientConnectionId: 10de108b-10e4-4921-829f-ba7a0a557959 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:10 ClientConnectionId: ae1bdd60-d554-40a6-9410-d46b37958da6 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:11 ClientConnectionId: ecf0a8c9-5717-40aa-9b7a-d000e82decfe Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:11 ClientConnectionId: 875a43ff-a058-4ed6-a486-d39181c5763f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:12 ClientConnectionId: 8496bce7-530c-46d6-8de2-41ba4c8f8241 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:12 ClientConnectionId: a295b295-3a7a-401c-97be-b82c60a9be6f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:13 ClientConnectionId: df7a1a44-e7d7-46a8-ae30-8a65cca53785 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:13 ClientConnectionId: ceffdbf6-aff4-4f56-9907-2fa33b3897be Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:14 ClientConnectionId: 69540ac6-4254-4f56-817a-3b970c273b25 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:14 ClientConnectionId: 762f91a0-c7c2-499e-87c0-80fd375c5436 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:15 ClientConnectionId: 75a83452-21ab-4c17-bdc5-f711a32dc357 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:36 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:15 ClientConnectionId: 94719cf0-cfda-4e80-91cd-0b99ce38fe46 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:16 ClientConnectionId: 75f96e03-b1f1-48a5-8c5c-7fa14eea4f8c Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:16 ClientConnectionId: 2b065cee-3bdf-4eaa-9339-0bf5d0ac49f4 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:17 ClientConnectionId: c38ba293-e420-4c23-ab7b-db8a7166104e Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:17 ClientConnectionId: 66b95fc2-89ec-4b25-afd7-c8aee8facefe Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:18 ClientConnectionId: b1b1efc9-513f-4e21-8362-df21b2790aa1 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:18 ClientConnectionId: bf8ea471-aed7-4666-97bb-5ca76f57d376 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:19 ClientConnectionId: 4879d3ca-7d7f-4741-8c22-061548d1a0d0 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:19 ClientConnectionId: 2db97dcd-540e-4226-899d-3058a4b4c95d Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:20 ClientConnectionId: 637d068e-fb6a-4735-92d9-be2885448c8c Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:20 ClientConnectionId: 754f792c-2301-4063-8577-df833b3da59f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:21 ClientConnectionId: 247b42ad-d941-4409-96c7-782f9377cf0c Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:21 ClientConnectionId: 4a3ae529-4042-45ba-b4d3-8acab138ae9b Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:22 ClientConnectionId: 2ac2363e-39c5-41b6-9054-026a3e789abc Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:22 ClientConnectionId: ffcae405-d719-47b7-885d-0ca194509685 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:23 ClientConnectionId: 823dda41-cff7-491e-bc44-cc3606b8663e Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:37 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:23 ClientConnectionId: 945df135-e525-48e6-b748-15c29628fb57 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:38 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:24 ClientConnectionId: a909aaff-cdb1-46c2-a373-cb017d33131e Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:38 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:24 ClientConnectionId: 21f1e454-b6b9-466b-867c-131353b573fb Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:38 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:25 ClientConnectionId: 4832e8d2-2873-481e-83d8-ab8bb9889ecd Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:38 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:25 ClientConnectionId: 2e1c5764-935d-4c50-aaca-52d7cd9c174f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:38 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:26 ClientConnectionId: 5553a0d7-2c9b-43e3-b2ca-58dc6335b051 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:38 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:26 ClientConnectionId: 6ab747c2-cc3a-4e73-96a2-7dfd8110bb0f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:38 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:27 ClientConnectionId: b841be1e-5b54-43bf-8448-f0eb5c1d3498 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:38 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:27 ClientConnectionId: 6c67ec20-3634-436a-9dad-a5ff260bce2f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:28 ClientConnectionId: ac1c606e-afce-47bc-a726-e66e79451cc9 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:28 ClientConnectionId: d3a91d22-26c3-4404-9125-f8f52a9178f0 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:29 ClientConnectionId: c45ae6cf-89da-4a6e-b3cc-60e3bb733f7a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:29 ClientConnectionId: a5fa2043-6158-4a83-9099-6287af4caefe Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:30 ClientConnectionId: baf54560-be2c-4f83-86c5-4e3881d0a8fb Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:30 ClientConnectionId: 61e482ad-9902-428f-8b57-4543170d85b3 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:31 ClientConnectionId: cdc0a00a-4467-4834-a194-a65c32bdc962 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:31 ClientConnectionId: 2ba68db7-3bc1-4603-b819-85dbe560bc5e Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:32 ClientConnectionId: 6ee2ca25-a910-4740-8181-cd8cd5b3dd1a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:32 ClientConnectionId: a3c59c6c-597e-4d80-a773-2054b28c1103 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:33 ClientConnectionId: 138fa2b5-9cb2-435e-8c96-8843d48eb966 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:33 ClientConnectionId: 3fc04ce4-913f-447c-965c-a615e245b44d Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:34 ClientConnectionId: 62d481fd-fd93-4585-830b-dd77fb185ea2 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:34 ClientConnectionId: c838f644-ed10-423d-bf51-046300ec1f59 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:35 ClientConnectionId: fdb166e3-366a-460f-b3ee-f020a4eaee7e Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:39 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:35 ClientConnectionId: 128dbe45-b27a-4ed4-ad3b-b220ff9ca6ac Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:36 ClientConnectionId: a3a8f844-2c1e-41de-b03d-373c2f935e04 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:36 ClientConnectionId: c34ac61a-d61d-4251-83a6-d3c428f2e4bc Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:37 ClientConnectionId: be86a6e2-4f4d-4f55-bc5d-7862a62b8927 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:37 ClientConnectionId: 841f812a-ef08-488b-80de-e462f7f04fd8 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:38 ClientConnectionId: 66aa82b4-4dda-4245-8689-c12580ffc193 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:38 ClientConnectionId: e80a9030-982b-478b-b9d6-efb00c1b3fa6 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:39 ClientConnectionId: d2394f17-a897-4331-b695-e97ae7de7bad Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:39 ClientConnectionId: ff7be93e-43d0-426b-b7fc-2945be636c9a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:40 ClientConnectionId: 057f854b-698d-4c23-978a-d323a04dec41 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:40 ClientConnectionId: c1e8fd27-d11e-46a2-9a06-15c660bd4e27 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:41 ClientConnectionId: 11660cbd-d1d5-4d77-9d0b-d335bbef9499 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:41 ClientConnectionId: 5f18b195-eff0-400c-b2e7-0492b2e78073 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:42 ClientConnectionId: 4022aa7f-a681-4071-bf47-101511ac36c8 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:40 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:42 ClientConnectionId: d22ca058-e4b5-4208-b97d-3cabc2bc24f7 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:43 ClientConnectionId: b2834afc-8aac-461f-ac9a-690484d7ac6a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:43 ClientConnectionId: 3c7c72e5-c910-4450-94f3-50be7ddfb69f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:44 ClientConnectionId: 32a525b1-715e-46fa-afc9-61db8bf6b12f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:44 ClientConnectionId: 7cf6812e-8f9c-4085-8170-c4ab85b02941 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:45 ClientConnectionId: 2e869c9f-8853-477b-ab01-52cbdaf4c11a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:45 ClientConnectionId: 4664e153-27c2-4c4f-b436-7ae4f656a712 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:46 ClientConnectionId: ee5d3181-c50b-42d3-8a27-6ba960e9b796 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:46 ClientConnectionId: 0f392d66-0a34-40ea-a3ee-bd5a17c4c63a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:47 ClientConnectionId: cdfacac4-5f5a-43ae-aada-c54d43e85467 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:47 ClientConnectionId: 15224740-a7f8-4024-8e06-43086db1a62f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:48 ClientConnectionId: 4fdde8d1-5b6a-465a-b533-142b8ac68bc7 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:48 ClientConnectionId: 8173ffe4-b492-41ce-9107-0270f34f3f16 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:49 ClientConnectionId: 1581782a-bf09-48b3-a76c-68fddce20610 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:49 ClientConnectionId: 5652bac6-7714-4baf-b50f-31463bbc0de1 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:50 ClientConnectionId: e7dbbd7c-8279-4321-ae6d-a762ff1185f2 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:41 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:50 ClientConnectionId: d29dd010-80e5-40c8-9b1a-f7ba1ee50f88 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:51 ClientConnectionId: 6a311215-e15d-4202-927e-b83170647b3b Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:51 ClientConnectionId: 43e46da6-5b4e-4876-abcb-5e54993adac4 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:52 ClientConnectionId: 2bfec0ea-9ae4-44c4-a6f9-3b3e997dd829 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:52 ClientConnectionId: b0dba43d-8f9a-4a9f-9481-cdf963072413 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:53 ClientConnectionId: 311769b1-123c-4da7-a8b7-7a15b5695206 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:53 ClientConnectionId: e3e41a27-ef4c-40ac-a59a-7aae00b70b67 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:54 ClientConnectionId: 9deb7f5c-daed-4611-b2ef-21fad05868c6 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:54 ClientConnectionId: 4358728b-097e-4875-98b2-17cba3ecf5a3 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:55 ClientConnectionId: c83b7187-b36e-4563-8118-b727c7efa36f Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:55 ClientConnectionId: a5ad87fe-b2dc-4b00-be39-34ccab4ff522 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:56 ClientConnectionId: 60c16fd8-72e4-466f-afbd-98aa5d0e75eb Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:56 ClientConnectionId: df223a87-8711-42c9-9e62-f2707d271dba Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:57 ClientConnectionId: 925a66ef-e6de-46b9-8ded-459b35be3d13 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:57 ClientConnectionId: 1f5bd966-c6dc-4d0e-a76b-d54b4723c283 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:58 ClientConnectionId: 5b08b12a-95c4-437f-9d8c-1f584cabbef1 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:42 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:58 ClientConnectionId: c9ac2886-d0a7-4a06-a016-da0d2253d6eb Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:59 ClientConnectionId: 8552318d-6949-445e-a32f-91c70051ad62 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:59 ClientConnectionId: 00456132-acbb-4940-a6ef-d48e4c8fc0ba Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:60 ClientConnectionId: b7f76d39-9f89-42c3-bdc2-2b758d17732a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:60 ClientConnectionId: 8433d02f-6071-4237-a050-e8da3e1b3ccc Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:61 ClientConnectionId: 1a73b438-d56a-4c63-b24f-3c364b8239ee Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:61 ClientConnectionId: 2346be63-a1f6-47a2-9956-f4cf2c90df7b Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:62 ClientConnectionId: 824ac157-6540-446a-b105-e4fa679d3a40 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:62 ClientConnectionId: ec934cbf-c05e-442d-8ead-c540044a5688 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:63 ClientConnectionId: 4c2709c1-cff0-44e0-85bf-9edbfa6cc0f5 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:63 ClientConnectionId: e0cdd1f4-f07c-47c7-a52f-baecc576e767 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:64 ClientConnectionId: 2d111ead-c4f9-4268-b718-b317e341c27e Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:64 ClientConnectionId: 9a6737e3-c17c-4750-ac1f-00035fde9613 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:65 ClientConnectionId: 56e43fa2-4c1e-4dc2-9f9f-b09015c785c0 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:65 ClientConnectionId: 1fd09b25-1c5e-464f-871a-3f994897cbd2 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:66 ClientConnectionId: b5a383fa-97d9-4202-9706-6f1f4072a055 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:43 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:66 ClientConnectionId: 741929be-b069-4554-a58e-078c013fd850 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:67 ClientConnectionId: 7a278199-48b4-4fba-8050-f00c4c21ef78 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:67 ClientConnectionId: 55cf95c7-fe4f-4ace-bed2-a6effa3a16ec Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:68 ClientConnectionId: 02899312-7c34-4767-a91f-fdac286933e9 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:68 ClientConnectionId: 4b3f2407-5972-4119-8eec-34cf4e1a6017 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:69 ClientConnectionId: d5f14087-7e33-44d3-addf-832a20d99e95 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:69 ClientConnectionId: b84e3f8a-02b0-4c2c-bd4f-f8b709c8b4c3 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:70 ClientConnectionId: 95d7ce37-4e61-4d2b-beb1-35cc9b48e71b Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:70 ClientConnectionId: 952b6ebc-8a3d-48ae-b34e-c94776a1ddb5 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:71 ClientConnectionId: e3099b6f-b445-4c9f-8236-6561dae13d7b Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:71 ClientConnectionId: 1f599bdf-698c-49c5-a17f-61dd750f889d Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:72 ClientConnectionId: 622474ec-1e29-4415-a6c1-d8ff9c06a91e Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:72 ClientConnectionId: 146db1e1-7b3f-456a-8fc8-0a16c2fdd20a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:73 ClientConnectionId: 69ceb4c5-df63-4515-b953-51c0fbcc0481 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:73 ClientConnectionId: 7e54fbb9-754d-4daa-ab34-63cfb999afc1 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:74 ClientConnectionId: e8f052c0-069b-4250-bd82-52b764420cf3 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:44 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:74 ClientConnectionId: e65f907b-afec-4e92-9993-eda5170949ed Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:75 ClientConnectionId: 9589cc6e-6281-4c6a-bf2a-a4dba9a739c1 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:75 ClientConnectionId: 40106967-e5e2-4669-aadc-3adc9a9e898e Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:76 ClientConnectionId: 7ece2358-f03d-4c81-9edb-7918886a0a9a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:76 ClientConnectionId: a396687b-1faf-4d57-b22c-18a789f81db0 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:77 ClientConnectionId: c8e0209f-2abc-466d-ac82-b02253986d9c Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:77 ClientConnectionId: 3f455fef-fc1e-41dc-a938-873dbbfb57f7 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:78 ClientConnectionId: dede7486-029c-4b77-a5ec-2beacd7f1eed Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:78 ClientConnectionId: 6e488c50-4339-447e-9e39-f23aa8187a2a Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:79 ClientConnectionId: fb4d702d-25f9-44a1-bddd-a7f7ff1e53f6 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:79 ClientConnectionId: 4a65109d-78b1-406a-b2a5-2c39ca981309 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:80 ClientConnectionId: 3d8fb61f-22f0-4060-b427-895d7afe0e6b Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:80 ClientConnectionId: d38e3ee5-8ddc-4484-b561-f35b218b1990 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:81 ClientConnectionId: 14cda545-bd4a-45e5-99f0-60c19a6632ef Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:81 ClientConnectionId: eb50f95b-2951-431d-b6c3-3b130eb7575d Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:82 ClientConnectionId: 2685038f-06e4-4644-be9b-4d21d3b78889 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:45 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:82 ClientConnectionId: ac1bee3d-3b16-44ee-94cf-4a908f9b1444 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:83 ClientConnectionId: a5a7cdc2-85ae-4708-85f0-76c9a3185f65 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:83 ClientConnectionId: 77246696-a75e-4f86-ae8b-6d3733104c46 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:84 ClientConnectionId: a9d243c9-5c3e-4f5f-8608-87e635d1b8d9 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:84 ClientConnectionId: 3e7acf43-a878-4883-826d-66252a402070 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:85 ClientConnectionId: 80bc794a-b2c8-4c1e-bd5f-2f5372269dff Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:85 ClientConnectionId: 81447708-9021-42a0-8543-6fa511e633fd Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:86 ClientConnectionId: c39076a2-28fc-41cf-8589-6ef8e4de5750 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:86 ClientConnectionId: 7caad174-7608-40e3-a60c-22809047cf46 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:87 ClientConnectionId: 4b4cffd6-116d-46a2-a0e3-3a3de5d8ab54 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:87 ClientConnectionId: c3af9e2e-9713-4dba-bcec-d5429a8f5046 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:88 ClientConnectionId: 07b79e5e-2122-4ce1-8a12-67e81dd47c9c Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:88 ClientConnectionId: b4b48322-68c6-4024-8429-8aedb1a9851d Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:89 ClientConnectionId: 926a5c50-d0c9-48a3-a46d-f6fb6c8aed30 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:89 ClientConnectionId: 66425811-6408-4b68-b0f0-8aecba7896ca Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:90 ClientConnectionId: 81531f18-b9fe-465f-8460-c1422595318c Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:46 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:90 ClientConnectionId: 9e1effa4-15a5-426e-987b-bc6868486233 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:47 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:91 ClientConnectionId: 3d0190c7-f51f-44a6-ae6b-74628463e3a7 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:47 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:91 ClientConnectionId: de9f959d-77ed-4201-ae00-94ee9de83ca8 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:47 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:92 ClientConnectionId: 0147ff7e-efa0-4dfa-a401-f7ad84c38094 Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:45:47 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:92 ClientConnectionId: 8c865121-f0a1-446f-a80b-2bf65531c78d Prelogin error: host localhost port 60500 Unexpected end of prelogin response after 0 bytes read
+16:45:48.582 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Container mcr.microsoft.com/mssql/server:2022-latest started in PT14.2828353S
+16:45:48.583 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Container is started (JDBC URL: jdbc:sqlserver://localhost:60500;encrypt=false)
+16:45:49.491 [main] INFO org.hibernate.orm.jpa -- HHH008540: Processing PersistenceUnitInfo [name: default]
+16:45:49.697 [main] INFO org.hibernate.orm.core -- HHH000001: Hibernate ORM core version 7.4.5.Final
+16:45:50.682 [main] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo -- No LoadTimeWeaver setup: ignoring JPA class transformer
+16:45:50.949 [main] INFO org.hibernate.orm.connections.pooling -- HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlserver://localhost:60500;concatNullYieldsNull=ON;quotedIdentifier=ON;connectRetryInterval=10;connectRetryCount=1;maxResultBuffer=-1;sendTemporalDataTypesAsStringForBulkCopy=true;delayLoadingLobs=true;useFmtOnly=false;vectorTypeSupport=v1;cacheBulkCopyMetadata=false;bulkCopyForBatchInsertAllowEncryptedValueModifications=false;bulkCopyForBatchInsertTableLock=false;bulkCopyForBatchInsertKeepNulls=false;bulkCopyForBatchInsertKeepIdentity=false;bulkCopyForBatchInsertFireTriggers=false;bulkCopyForBatchInsertCheckConstraints=false;bulkCopyForBatchInsertBatchSize=0;useBulkCopyForBatchInsert=false;cancelQueryTimeout=-1;sslProtocol=TLS;calcBigDecimalPrecision=false;useDefaultJaasConfig=false;jaasConfigurationName=SQLJDBCDriver;statementPoolingCacheSize=0;serverPreparedStatementDiscardThreshold=10;enablePrepareOnFirstPreparedStatementCall=false;fips=false;socketTimeout=0;authentication=NotSpecified;authenticationScheme=nativeAuthentication;xopenStates=false;datetimeParameterType=datetime2;sendTimeAsDatetime=true;replication=false;trustStoreType=JKS;trustServerCertificate=false;TransparentNetworkIPResolution=true;iPAddressPreference=IPv4First;serverNameAsACE=false;sendStringParametersAsUnicode=true;selectMethod=direct;responseBuffering=adaptive;queryTimeout=-1;packetSize=8000;multiSubnetFailover=false;loginTimeout=30;lockTimeout=-1;lastUpdateCount=true;useDefaultGSSCredential=false;prepareMethod=prepexec;encrypt=false;disableStatementPooling=true;databaseName=N08_Dashboard_R1_Test;columnEncryptionSetting=Disabled;applicationName=Microsoft JDBC Driver for SQL Server;applicationIntent=readwrite;]
+	Database driver: Microsoft JDBC Driver 13.4 for SQL Server
+	Database dialect: SQLServerDialect
+	Database version: 16.0
+	Default catalog/schema: N08_Dashboard_R1_Test/dbo
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 128
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+16:45:51.945 [main] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 9.1.3.Final
+16:45:53.761 [main] INFO org.hibernate.orm.core -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:45:54.347 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean -- Initialized JPA EntityManagerFactory for persistence unit 'default'
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\huy\.m2\repository\net\bytebuddy\byte-buddy-agent\1.18.11\byte-buddy-agent-1.18.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+16:45:56.454 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:45:56.454 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:00.659 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:00.659 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:02.238 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:02.238 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:03.853 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:03.853 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:05.451 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:05.451 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:22.213 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:22.213 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:22.320 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:22.320 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:22.349 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:22.349 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:22.403 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:22.403 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:24.293 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:24.293 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:25.631 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:25.631 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+SQL_SERVER_TEST_VERSION=16.0.4295.3
+16:46:34.644 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:34.644 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:36.038 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:36.039 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:37.519 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:37.519 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:39.219 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:46:39.219 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:46:40.835 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean -- Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO] Tests run: 27, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 71.48 s -- in com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 27, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:22 min
+[INFO] Finished at: 2026-10-19T16:46:42+07:00
+[INFO] ------------------------------------------------------------------------
