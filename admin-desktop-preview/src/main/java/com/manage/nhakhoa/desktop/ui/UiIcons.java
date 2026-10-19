@@ -40,6 +40,16 @@ public final class UiIcons implements Icon {
             case "bell" -> { g.drawArc(6,3,12,14,0,180); g.drawLine(6,10,5,18); g.drawLine(18,10,19,18); g.drawLine(5,18,19,18); g.drawArc(10,19,4,3,180,180); }
             case "check" -> { g.drawLine(4,12,9,18); g.drawLine(9,18,20,5); }
             case "alert" -> { g.drawOval(3,3,18,18); g.drawLine(12,7,12,13); g.fillOval(11,16,2,2); }
+            case "search" -> { g.drawOval(4, 4, 12, 12); g.drawLine(14, 14, 20, 20); }
+            case "plus" -> { g.drawLine(12, 5, 12, 19); g.drawLine(5, 12, 19, 12); }
+            case "left" -> { g.drawLine(15, 5, 8, 12); g.drawLine(8, 12, 15, 19); }
+            case "right" -> { g.drawLine(9, 5, 16, 12); g.drawLine(16, 12, 9, 19); }
+            case "down" -> { g.drawLine(6, 9, 12, 15); g.drawLine(12, 15, 18, 9); }
+            case "info" -> { g.drawOval(3, 3, 18, 18); g.drawLine(12, 11, 12, 17); g.fillOval(11, 7, 2, 2); }
+            case "phone" -> { g.drawRoundRect(7, 2, 10, 20, 3, 3); g.drawLine(10, 18, 14, 18); }
+            case "dot" -> g.fillOval(8, 8, 8, 8);
+            case "close" -> { g.drawLine(6, 6, 18, 18); g.drawLine(18, 6, 6, 18); }
+            case "eye" -> { g.drawArc(2, 6, 20, 14, 0, 180); g.drawArc(2, 4, 20, 14, 180, 180); g.drawOval(9, 8, 6, 6); }
             default -> { g.drawRoundRect(5,2,14,20,2,2); g.drawLine(8,7,16,7); g.drawLine(8,11,16,11); g.drawLine(8,15,14,15); }
         }
         g.dispose();

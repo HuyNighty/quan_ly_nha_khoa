@@ -32,9 +32,15 @@ Nguồn fixture là `C:/Users/huy/Downloads/menu-admin.zip`, ảnh `menu-admin/u
 `DemoDashboardDataProvider` là nguồn duy nhất của số mẫu. Không có số nào là kết quả truy vấn SQL Server.
 Lịch kiểm tra hộp cấp cứu là ngày mô phỏng trừ 7 ngày **chỉ để minh họa ảnh**; không phải chu kỳ kiểm tra nghiệp vụ được duyệt.
 
+## UI-DEMO-1 (19/10/2026)
+
+Đã có giao diện mô phỏng cho **toàn bộ 21/21 màn** theo menu nghiệp vụ (Tổ chức → Lập kế hoạch → Tiếp nhận → Khám → Điều trị → Thanh toán → Cung ứng → Tổng kết), dùng chung một kho dữ liệu mẫu trong bộ nhớ (`demo/DemoClinicStore` + các slice Staff/Clinical/Billing/Supply).
+Dữ liệu dùng chung qua `demo/DemoClinicStore` trong bộ nhớ, không JDBC/REST. Chi tiết, giả định BA và gate nghiệm thu:
+[docs/UI-DEMO-1-HANDOVER.md](docs/UI-DEMO-1-HANDOVER.md). Tổng quan vẫn dùng fixture riêng; số liệu seed của store được đối chiếu khớp với Tổng quan.
+
 ## Tương tác
 
-- Menu có 21 mục, 6 nhóm; nhấp nhóm để thu/mở. Khi mở nhiều nhóm, menu cuộn riêng để tất cả mục đều tiếp cận được.
+- Menu có 21 mục (Tổng quan + 20), **8 nhóm theo giai đoạn nghiệp vụ**: Tổ chức → Lập kế hoạch → Tiếp nhận → Khám → Điều trị → Thanh toán → Cung ứng → Tổng kết; nhấp nhóm để thu/mở. Khi mở nhiều nhóm, menu cuộn riêng để tất cả mục đều tiếp cận được.
 - Tìm `lich hen`, `cong no`, `thuoc`, `quan ly`, hoặc mã như `UC14`; tìm không phân biệt dấu và chữ hoa.
 - Tab di chuyển focus; mũi tên lên/xuống di chuyển trong menu; Enter/Space kích hoạt; Esc xóa khi focus ở ô tìm.
 - KPI, CTA và liên kết chỉ điều hướng trong một CardLayout. Có tooltip đầy đủ cho nhãn bị rút gọn.
@@ -43,7 +49,7 @@ Lịch kiểm tra hộp cấp cứu là ngày mô phỏng trừ 7 ngày **chỉ 
 - Đang tải/lỗi/rỗng đều bỏ các KPI cũ; chỉ lần tải mới nhất được render. Tải xong không tự đổi màn hình đang xem.
 
 Badge Dashboard là **9 nhóm việc**, tổng `affectedCount` là **18 đối tượng liên quan**, không bảo đảm 18 hồ sơ duy nhất.
-Badge nhóm menu là các số độc lập từ thiết kế cũ: `0 / 6 / 2 / 2 / 1 / 1`, tổng 12; tooltip giải thích không đối soát với 9 hoặc 18.
+Badge nhóm menu = số nhóm việc trên Tổng quan trỏ tới màn hình trong nhóm: `1 / 1 / 0 / 0 / 1 / 1 / 4 / 1`, tổng 9 (khớp "9 nhóm việc"); vẫn khác 18 lượt đối tượng.
 
 ## Kiểm thử
 
@@ -59,7 +65,7 @@ Không dùng ảnh HTML làm bằng chứng. Các ảnh đã lưu và ma trận 
 
 ## Ranh giới giai đoạn
 
-20 màn hình ngoài Tổng quan đều ghi rõ “Màn hình này chưa được triển khai ở giai đoạn UI-M1”.
+20 màn hình ngoài Tổng quan là giao diện MÔ PHỎNG: mọi thao tác (duyệt, hủy, thu tiền, nhập/xuất kho, bàn giao…) chỉ đổi dữ liệu trong bộ nhớ phiên, luôn có nhãn “DỮ LIỆU MÔ PHỎNG”.
 Không có duyệt/hủy/mở khóa, tiếp nhận, kê đơn, lâm sàng, đăng nhập hoặc đăng xuất thật.
 Không có JPA, JDBC, HTTP, JWT, Spring context hoặc ghi dữ liệu trong preview.
 DTO được định nghĩa riêng; Theme không phụ thuộc backend hoặc mô hình nghiệp vụ.

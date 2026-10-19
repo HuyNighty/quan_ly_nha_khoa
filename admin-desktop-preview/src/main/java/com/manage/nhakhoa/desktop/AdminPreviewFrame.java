@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 public final class AdminPreviewFrame extends JFrame {
     private static final long serialVersionUID = 1L;
     public AdminPreviewFrame(Clock clock, boolean fixture) {
-        super("N08 Nha Khoa · Quản trị · Bản xem thử UI-M1");
+        super("N08 Nha Khoa · Quản trị · Bản xem thử UI-DEMO-1 (dữ liệu mô phỏng)");
         AdminShell shell = new AdminShell(clock, fixture); setContentPane(shell);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE); setSize(1382, 840); setMinimumSize(new Dimension(1280, 760));
         setLocationRelativeTo(null);

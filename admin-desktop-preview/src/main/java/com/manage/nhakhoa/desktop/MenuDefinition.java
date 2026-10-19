@@ -13,33 +13,41 @@ public final class MenuDefinition {
         public Group { entries = List.copyOf(entries); }
     }
     public static final Entry HOME_ENTRY = new Entry(HOME, "Tổng quan", "QL01", "grid");
+    /**
+     * Menu hướng nghiệp vụ: mỗi nhóm là một giai đoạn hoạt động thực tế của phòng khám, xếp theo thứ tự
+     * Tổ chức → Lập kế hoạch → Tiếp nhận → Khám → Điều trị → Thanh toán → Kho → Tổng kết.
+     * Khóa màn hình (TIEP_NHAN, LICH_HEN…) giữ nguyên; chỉ đổi nhóm và nhãn.
+     * Badge nhóm = số nhóm việc trên Tổng quan trỏ tới màn hình trong nhóm (tổng 9, khớp "9 nhóm việc").
+     */
     public static final List<Group> GROUPS = List.of(
-        new Group("reception", "Tiếp nhận & lịch hẹn", 0, List.of(
-            e("TIEP_NHAN", "Tiếp nhận bệnh nhân", "UC01 UC02 UC08", "person"),
-            e("LICH_HEN", "Lịch hẹn", "UC03 UC06 UC07", "calendar"),
+        new Group("organize", "Tổ chức", 1, List.of(
+            e("NHAN_VIEN", "Nhân viên", "UC22 UC26 hồ sơ nhân viên quản lý nhân sự", "person"),
+            e("TAI_KHOAN", "Tài khoản & vai trò", "UC21 phân quyền vai trò AD LT BS YT QL KHO", "lock"),
+            e("BANG_GIA", "Bảng giá dịch vụ", "giá dịch vụ danh mục", "document"),
+            e("NHA_CUNG_CAP", "Nhà cung cấp", "nhập kho đối tác", "box"))),
+        new Group("plan", "Lập kế hoạch", 1, List.of(
+            e("LICH_HEN", "Lịch hẹn", "UC03 UC06 UC07 đặt lịch", "calendar"),
+            e("PHAN_CONG", "Phân công & lịch làm việc", "UC17 UC18 UC20 UC24 ca trực", "calendar"))),
+        new Group("reception", "Tiếp nhận", 0, List.of(
+            e("TIEP_NHAN", "Tiếp nhận bệnh nhân", "UC01 UC02 UC08 check-in", "person"),
             e("BENH_NHAN", "Hồ sơ bệnh nhân", "UC09 UC23", "person"))),
-        new Group("clinical", "Khám & điều trị", 6, List.of(
-            e("PHIEU_KHAM", "Phiếu khám", "UC10 UC11 UC16", "tooth"),
+        new Group("exam", "Khám", 0, List.of(
+            e("PHIEU_KHAM", "Phiếu khám", "UC10 UC11 UC16 chẩn đoán", "tooth"))),
+        new Group("treatment", "Điều trị", 1, List.of(
             e("KE_HOACH", "Kế hoạch điều trị", "UC12 UC13 UC15", "document"),
-            e("TAI_KHAM", "Tái khám", "UC14", "clock"))),
-        new Group("billing", "Thanh toán & công nợ", 2, List.of(
-            e("HOA_DON", "Hóa đơn & thanh toán", "UC04 UC05 công nợ", "wallet"),
-            e("DUYET_HUY", "Duyệt hủy hóa đơn", "yêu cầu hủy", "document"),
-            e("BANG_GIA", "Bảng giá dịch vụ", "giá", "document"))),
-        new Group("staff", "Quản lý nhân viên", 2, List.of(
-            e("NHAN_VIEN", "Hồ sơ nhân viên", "UC22 UC26", "person"),
-            e("PHAN_CONG", "Phân công & lịch làm việc", "UC17 UC18 UC20 UC24", "calendar"),
-            e("BAN_GIAO", "Bàn giao ca", "UC19", "exchange"),
-            e("DANH_GIA", "Đánh giá nhân viên", "UC25", "document"))),
-        new Group("stock", "Quản lý thuốc & vật tư", 1, List.of(
+            e("TAI_KHAM", "Tái khám", "UC14 hạng mục đến hạn", "clock"))),
+        new Group("billing", "Thanh toán", 1, List.of(
+            e("HOA_DON", "Hóa đơn & thu tiền", "UC04 UC05 công nợ", "wallet"),
+            e("DUYET_HUY", "Duyệt hủy hóa đơn", "yêu cầu hủy", "document"))),
+        new Group("stock", "Cung ứng", 4, List.of(
             e("THUOC_VAT_TU", "Thuốc & vật tư", "UC27 UC29 UC33 UC36 UC37 tồn kho", "box"),
             e("NHAP_XUAT", "Nhập / xuất / hoàn trả", "UC30 UC31 UC32", "exchange"),
             e("KIEM_KE", "Kiểm kê & hao hụt", "UC28 UC35", "document"),
-            e("CAP_CUU", "Hộp cấp cứu", "UC34", "medical"),
-            e("NHA_CUNG_CAP", "Nhà cung cấp", "nhập kho", "box"))),
-        new Group("access", "Kiểm soát truy cập", 1, List.of(
-            e("TAI_KHOAN", "Tài khoản & vai trò", "UC21 AD LT BS YT QL KHO", "lock"),
-            e("NHAT_KY", "Nhật ký thao tác", "nhật ký", "document")))
+            e("CAP_CUU", "Hộp cấp cứu", "UC34", "medical"))),
+        new Group("summary", "Tổng kết", 1, List.of(
+            e("BAN_GIAO", "Bàn giao ca", "UC19 tổng kết ca", "exchange"),
+            e("DANH_GIA", "Đánh giá nhân viên", "UC25 đánh giá", "document"),
+            e("NHAT_KY", "Nhật ký thao tác", "nhật ký audit", "document")))
     );
 
     private MenuDefinition() { }
