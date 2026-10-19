@@ -1,0 +1,748 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24133 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -------------------------< com.manage:nhakhoa >-------------------------
+[INFO] Building nhakhoa 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ nhakhoa ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ nhakhoa ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ nhakhoa ---
+[INFO] skip non existing resourceDirectory C:\Users\huy\NguyenQuangHuy\quan_ly_nha_khoa\nhakhoa\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ nhakhoa ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 10 source files with javac [debug parameters release 25] to target\test-classes
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by lombok.permit.Permit
+WARNING: Please consider reporting this to the maintainers of class lombok.permit.Permit
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ nhakhoa ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest
+16:53:58.494 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+16:53:58.505 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+16:53:58.590 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+16:53:59.182 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+16:54:00.133 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+16:54:00.135 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+16:54:00.168 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 28.3.2
+  API Version: 1.51
+  Operating System: Docker Desktop
+  Total Memory: 7795 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+16:54:00.350 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Creating container for image: testcontainers/ryuk:0.14.0
+16:54:00.552 [main] INFO org.testcontainers.utility.RegistryAuthLocator -- Credential helper/store (docker-credential-desktop) does not have credentials for https://index.docker.io/v1/
+16:54:00.878 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 is starting: a4898dee4abc9d1331221ffdb2651dfe29036f54b94f440c77fcdc0100db71fe
+16:54:02.381 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 started in PT2.0310559S
+16:54:02.394 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+16:54:02.394 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+16:54:02.397 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+16:54:02.398 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Creating container for image: mcr.microsoft.com/mssql/server:2022-latest
+16:54:02.511 [main] INFO org.testcontainers.utility.RegistryAuthLocator -- Credential helper/store (docker-credential-desktop) does not have credentials for mcr.microsoft.com
+16:54:02.782 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Container mcr.microsoft.com/mssql/server:2022-latest is starting: 76392e2dc6f3f1a2400fa733b99efbfbe8136e1b51530fcfdd50134d8ee00470
+16:54:03.456 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Waiting for database connection to become available at jdbc:sqlserver://localhost:58626 using query 'SELECT 1'
+Oct 19, 2026 4:54:03 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:1 ClientConnectionId: 5628a535-a64a-4e1d-8401-bc32ca20f8b1 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:03 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:1 ClientConnectionId: fdd8550c-5f4b-439e-9175-45255252c81e Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:03 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:2 ClientConnectionId: 1bc30cad-b263-4521-9c42-26d719dab137 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:03 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:2 ClientConnectionId: 39af104b-9975-4361-87d1-800d07ebb52d Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:03 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:3 ClientConnectionId: 35009e32-cefb-4c8f-9091-468b63db20e5 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:03 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:3 ClientConnectionId: 0e2219c8-c532-4188-aea7-c914e20b7c21 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:4 ClientConnectionId: 447dd370-f583-4fb6-bfdb-458e6d31197c Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:4 ClientConnectionId: 72e5310d-a1a1-4b3b-bfdd-16151a42c079 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:5 ClientConnectionId: 4f58523f-bc69-4ad9-9fee-9d7ad76e546e Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:5 ClientConnectionId: 45cba526-147f-406e-b304-ed79d1b4fef6 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:6 ClientConnectionId: 203ad0d3-e944-4a0b-9cdc-2b64aa5b6a0c Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:6 ClientConnectionId: 450dbb69-d850-40c1-a9de-dce3027babcc Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:7 ClientConnectionId: 6a451201-2a23-4c40-b3ae-b0d121aced31 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:7 ClientConnectionId: 510110f5-97a8-4f85-b38e-64c56c1878d0 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:8 ClientConnectionId: e650dc24-8501-4e91-8939-36dc63e7a9f1 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:8 ClientConnectionId: 70693c77-dea0-4b52-98a1-cdbd120d45e5 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:9 ClientConnectionId: cbae9309-29b8-48b4-8ff3-fda1c83e71f4 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:9 ClientConnectionId: 831dc972-e042-4d33-abf8-19f0d45fb39e Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:10 ClientConnectionId: 489ddd81-85b0-4e86-9c12-c4374122e6fa Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:10 ClientConnectionId: eaf475cf-25c9-4a37-8f62-077ff0df4ed9 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:11 ClientConnectionId: 6c1bbed3-cb16-4ae6-ab21-8a17ffda9af1 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:04 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:11 ClientConnectionId: 93b0c3c7-5e16-4179-8312-fce8da9adac3 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:12 ClientConnectionId: b3cf143f-9293-4774-bb86-affd99dfd6d4 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:12 ClientConnectionId: b617644d-afc1-471a-b476-514899ea367c Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:13 ClientConnectionId: e8eaa79f-e066-488f-9fbd-e8280286b73b Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:13 ClientConnectionId: c7055361-60b3-4985-b515-8c92690dbd66 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:14 ClientConnectionId: b8f5ae10-7dcb-40db-a0b8-14858213c84f Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:14 ClientConnectionId: 80a0215d-8729-450b-937a-c838c96396ee Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:15 ClientConnectionId: ddee21a5-0d0a-41df-9eed-494b34596b56 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:15 ClientConnectionId: 7895bf33-cbf2-4992-8a10-75dd9776a477 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:16 ClientConnectionId: 218f05d3-502b-4e19-9de5-2199b5c3954c Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:16 ClientConnectionId: 0c6880aa-5bb8-46c0-b30a-02d00993d3b7 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:17 ClientConnectionId: e444c7d6-b9b1-482f-b9a4-1fd9df56d35e Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:17 ClientConnectionId: 1e70da83-a45e-4fb8-bedb-e15d204984ed Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:18 ClientConnectionId: 4858045a-9bd2-460e-a3a6-17a8971a5cdf Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:05 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:18 ClientConnectionId: 9f360448-ea23-4cca-a8ee-6bdce0693c79 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:19 ClientConnectionId: fb27ae10-5453-4242-bb9b-fb4156e32c3f Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:19 ClientConnectionId: 7c9b6821-cce4-4590-9eb3-18520b982b26 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:20 ClientConnectionId: 3bca857c-250d-49e5-a7f6-39048e27d1b1 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:20 ClientConnectionId: 7ca7563e-629e-42a6-a57f-5ede2c5d89b9 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:21 ClientConnectionId: f9a42391-aeba-40cc-913c-a2915f2c5948 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:21 ClientConnectionId: 8e35b589-d2db-4572-958f-88b64ff31b49 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:22 ClientConnectionId: 431332fc-d1f6-461b-a8d4-b224b3a9a014 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:22 ClientConnectionId: 532aca1e-021a-488b-9bc2-b466f0338f26 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:23 ClientConnectionId: 4bba4a2b-8cea-4a83-9ba4-8dff8dca5a95 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:23 ClientConnectionId: 91655a63-89bd-40b6-a77b-03d8290c494b Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:24 ClientConnectionId: 5186a37e-5fba-4ea7-bf28-b420c96744b2 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:24 ClientConnectionId: 2071830c-b6a1-42db-be12-9b5e076c2f26 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:25 ClientConnectionId: edd00e71-152a-40a7-9fb3-cca6d8227949 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:25 ClientConnectionId: 31a7a3f2-2d0a-45f2-be80-1fe30f558069 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:26 ClientConnectionId: aa99ab23-314a-4562-8bac-3dda14f8b22c Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:06 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:26 ClientConnectionId: 141a6777-7587-4419-86a0-5af2d4cd6fa0 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:27 ClientConnectionId: df48ed35-1964-47bf-86ae-030dce69775c Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:27 ClientConnectionId: 81bcda4e-2290-4daf-b742-a3ba983a257a Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:28 ClientConnectionId: 9a0bd1ab-f224-495e-b8d0-a8677f7f207f Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:28 ClientConnectionId: bc97dede-619b-40c1-8091-cbb372158453 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:29 ClientConnectionId: d986038c-fbfc-44dc-a872-556e3841147b Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:29 ClientConnectionId: 287ea6a0-fd6f-49c9-a16b-f368d4684080 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:30 ClientConnectionId: 08943bc7-c357-448e-a5e6-4c53d85869fd Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:30 ClientConnectionId: 85b7dd9a-6a62-45c3-93e9-8c7291c6dc70 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:31 ClientConnectionId: 0f9d30b4-1ed5-4eb4-a67a-b095788e1512 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:31 ClientConnectionId: 39f0a534-eae8-4225-850e-423c48e68087 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:32 ClientConnectionId: beb12685-6490-49b7-8091-038b3364bf47 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:32 ClientConnectionId: 80e50b4e-6fa9-4b25-a79f-0611796bfa58 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:33 ClientConnectionId: 2df17407-d1e1-458d-a7ee-a9338ee3ea28 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:07 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:33 ClientConnectionId: de986c6e-c71e-4416-864d-77b30b3eeb9a Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:34 ClientConnectionId: 08c55633-d434-4bd3-ac0e-8e096dd9376a Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:34 ClientConnectionId: a60fca78-4fb2-48c9-b452-3c2896518258 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:35 ClientConnectionId: 6ff9c881-246e-47f4-82d8-ae7b8d3245ea Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:35 ClientConnectionId: 44ffa9c2-188f-48a9-87d9-6d1dc5fe960f Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:36 ClientConnectionId: 2edaa0c9-b7a1-4c0d-9611-c8e3e0c29f51 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:36 ClientConnectionId: 45d7286f-5361-4300-b785-e3e613445752 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:37 ClientConnectionId: e07c97e6-92d7-424c-b652-d2c0b2b3c6cc Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:37 ClientConnectionId: 03c6cda8-8d81-472d-b8e2-83385686e660 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:38 ClientConnectionId: 796bd78b-34cd-4e93-89f1-646ac5e38e66 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:38 ClientConnectionId: cda69705-5271-4c74-8310-f40ddf6ba1e3 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:39 ClientConnectionId: 7801b53d-0d9e-4a97-8911-7033d631eb37 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:39 ClientConnectionId: 4b2b4ed4-ef87-442d-bb54-19e11cb487c5 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:40 ClientConnectionId: f98d38d8-1541-449b-b237-c6d5b514bd7b Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:40 ClientConnectionId: 1d771d8e-1c15-4f0a-94dd-75abed7b50ce Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:41 ClientConnectionId: 4bf32867-4300-4a4e-9930-af7702675826 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:08 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:41 ClientConnectionId: dde27500-f73e-4718-b878-cce5e6e850f0 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:42 ClientConnectionId: 067303d4-3817-4738-b08f-dbc5f6a69955 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:42 ClientConnectionId: 51143cad-16b2-46d8-9b8f-c3b66d34d712 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:43 ClientConnectionId: 072ce601-5264-4efe-bb1e-c05b10a14701 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:43 ClientConnectionId: 6e3f3dbd-be7b-4d90-8477-c0e727fc0274 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:44 ClientConnectionId: 88c034cb-d70a-464c-8b19-20d7a7b8cfff Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:44 ClientConnectionId: 21aa40ae-8541-4d8d-a48e-323a854121ae Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:45 ClientConnectionId: 7e401a19-05ae-4775-b5aa-da3588d6181d Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:45 ClientConnectionId: 5ef81e7b-3459-4c92-a006-0b9a1efe14be Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:46 ClientConnectionId: f6ce6257-bf32-48b3-95a5-f1d480ba2eda Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:46 ClientConnectionId: 1f0123aa-9a56-4348-8a95-e0477b9e28f9 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:47 ClientConnectionId: dc58d42b-1134-4eee-bbeb-ac498cd93b52 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:47 ClientConnectionId: 2fda3189-da0e-40d3-b3b9-141df77dd565 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:48 ClientConnectionId: 02588ae1-80a8-4d8b-ad81-563c3937a4a1 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:09 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:48 ClientConnectionId: 659564d2-7b86-41c4-876f-a5a11cf1c26c Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:49 ClientConnectionId: b7f1c3b3-2082-4486-82f3-e65e71eb8437 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:49 ClientConnectionId: 9dc55278-3d92-4514-9746-4932751d34e9 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:50 ClientConnectionId: 38778e3c-29ff-4187-a036-ef6916131dc4 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:50 ClientConnectionId: db95bcd4-45b3-432b-8134-d9cf731ab865 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:51 ClientConnectionId: 88f336d1-57aa-4b88-9463-857a9117e862 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:51 ClientConnectionId: a16e3f79-f06d-4ddf-bfda-1c037b5e869a Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:52 ClientConnectionId: d0f1ed1f-191c-43d9-897a-c331979c6fa9 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:52 ClientConnectionId: e4413b8d-7277-4049-a066-1e6cdb2bc68b Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:53 ClientConnectionId: 06e084ce-1d0b-45ff-9cc4-df30f7d0fbf4 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:53 ClientConnectionId: 778e3594-044c-453f-bef5-9372eed5249a Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:54 ClientConnectionId: 5e16f22c-950d-4adf-bd6c-031b18ae11f2 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:54 ClientConnectionId: 582e6606-47df-4644-9051-ee7365c64237 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:55 ClientConnectionId: 214c246c-a953-4763-8448-98de1847675f Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:55 ClientConnectionId: 082ab765-5f2a-4211-8ed3-414a37c825b6 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:56 ClientConnectionId: a7163813-497a-4056-8f29-b4c51a28667c Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:10 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:56 ClientConnectionId: 50068a8c-68b6-4cc9-b6bc-624828d3ca6a Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:57 ClientConnectionId: 515ee4c2-8f91-4f0f-bb69-9146abf8eab1 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:57 ClientConnectionId: 6e22350d-6e2e-4e72-912a-b9e90fb681aa Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:58 ClientConnectionId: 9319bcd4-2684-4d56-ae96-020347979380 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:58 ClientConnectionId: 740bc06a-10c6-4aeb-9d7f-a898b40657b4 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:59 ClientConnectionId: c0271af8-3c21-4725-8fb5-9920504a6c4f Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:59 ClientConnectionId: 856dcc24-eb66-4609-b845-1f860b82cffd Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:60 ClientConnectionId: 0336fd28-cb79-4a7c-83be-b0168496d8e9 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:60 ClientConnectionId: 17d69e38-ff64-420b-86f6-58162798f46b Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:61 ClientConnectionId: 4468a582-36a6-4155-87bc-c14b00654699 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:61 ClientConnectionId: 9464c4d7-c58a-47cc-9984-c72ea8959f68 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:62 ClientConnectionId: 8070afdc-417f-4754-8d51-1cd6bb5c9f7b Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:62 ClientConnectionId: b25d3031-1a9f-4ea9-826d-e4581d9ff82e Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:63 ClientConnectionId: 1c2fcc41-1bd1-4264-a1d5-40e614b6efda Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:63 ClientConnectionId: 5d0bbb6b-c3ce-44bb-99bf-3cffb7ecb59e Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:64 ClientConnectionId: 2e250f32-25ec-4fac-a447-a434059f5f56 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:11 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:64 ClientConnectionId: 8138237a-7728-4540-ae88-fbea93d38083 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:65 ClientConnectionId: 9c6c44dd-6749-453a-80d2-c0744bfe862b Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:65 ClientConnectionId: 17208616-7c26-40ba-b5ab-280ca891f5b0 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:66 ClientConnectionId: 8fc9baaf-d2b8-4788-8fc8-6add71fdf3e2 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:66 ClientConnectionId: 82cc95fa-f880-49f1-8147-965fd4d73a8a Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:67 ClientConnectionId: e5b5cd0d-490a-4170-ab51-26188e6076dc Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:67 ClientConnectionId: 500e9915-c4ab-4dee-bf71-30ede9e75207 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:68 ClientConnectionId: b4341dfd-1e6f-4726-bf1b-a2c0f8375319 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:68 ClientConnectionId: 3169a6f3-576f-4130-8eec-c0aa6456ac35 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:69 ClientConnectionId: 0eb19abd-0497-4dd2-9ee5-b8a675305423 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:69 ClientConnectionId: 1936ec37-fd9d-4548-b4d1-eb7349561529 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:70 ClientConnectionId: f71839a4-12d5-4484-8a19-fda77378fd50 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:70 ClientConnectionId: 77d87334-9c69-4ff3-8878-7b76745507b3 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:71 ClientConnectionId: de7f9751-7d6f-403b-941b-39aecad799d4 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:12 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:71 ClientConnectionId: 1db683c2-f1a5-4502-b0b2-568026da8899 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:72 ClientConnectionId: 0dbdffae-b67c-4452-a0a3-f29e099403ad Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:72 ClientConnectionId: 60cc60f6-3071-4017-bcfb-50761a50ba34 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:73 ClientConnectionId: 572c3cab-631f-4236-965e-d328854cfa04 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:73 ClientConnectionId: da1c9b44-1f69-4178-a622-305d66c2e2b3 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:74 ClientConnectionId: e4df067f-c4c7-4876-b664-668113d45235 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:74 ClientConnectionId: c72722e8-a15e-4b2d-bf66-e50ee0258769 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:75 ClientConnectionId: 9ff2b9d7-7050-43c4-b2eb-2b82ddf34a26 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:75 ClientConnectionId: af5f359e-2d48-4cd6-8b7f-9b534b8df0f0 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:76 ClientConnectionId: 529e14f8-c3c4-4e0c-868f-030f5ef3385a Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:76 ClientConnectionId: 7cc54236-2606-4688-8bed-e9457ffa042c Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:77 ClientConnectionId: 20b2b629-e8c3-4515-98b0-efb07cd005af Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:77 ClientConnectionId: 7fac5162-3d6a-4d6e-a4b2-1835b9c2b3ce Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:78 ClientConnectionId: cf0008e2-0bbd-42f9-bf6c-d6bd2765d2aa Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:78 ClientConnectionId: b09eb5ba-15c5-41a0-820a-8ad8c9a67cf0 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:79 ClientConnectionId: 8086a85a-5683-4f54-89c3-a24741ae7927 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:13 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:79 ClientConnectionId: 5985f930-ac1d-42a8-aa66-521de0b87cf5 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:80 ClientConnectionId: 69f2030a-2318-4101-ad7f-6fb00a378906 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:80 ClientConnectionId: 270354b1-2032-4dbe-b078-878fa2aef696 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:81 ClientConnectionId: ea94a6f1-d87c-416a-bb68-298c0562ed9a Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:81 ClientConnectionId: 8c72955c-6e62-4130-a653-5defdf1a8234 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:82 ClientConnectionId: 8da2ca9e-0ee8-4f74-8c1e-725bb8b1d44f Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:82 ClientConnectionId: 4f95a1bc-4586-4be3-8047-f551338e1b3b Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:83 ClientConnectionId: 11965eff-1318-471b-b089-f650031fe441 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:83 ClientConnectionId: 3eed0e5f-eac1-4e3f-b16e-2abef8341ad6 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:84 ClientConnectionId: b5be7373-74f7-4f5a-890a-b74c9e949a05 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:84 ClientConnectionId: e36821dd-c7d5-401b-9682-9be4ec22cdd4 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:85 ClientConnectionId: d9a64b70-d349-4a37-9087-76a01822aef5 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:85 ClientConnectionId: 021409d1-a89e-45c0-9218-b0124c3ad5fb Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:86 ClientConnectionId: 154ab435-82c9-4d73-b959-b6fa62915441 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:86 ClientConnectionId: 75d0ac77-2fd9-4a8c-97e0-42398a770be4 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:14 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:87 ClientConnectionId: 2faf20bd-958f-47b3-a461-b9d52e27dc49 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:87 ClientConnectionId: 671ba21b-3656-4913-bb32-f68a4d38ea91 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:88 ClientConnectionId: 3bd179cc-67b5-482c-8387-7b11bec5f859 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:88 ClientConnectionId: d26ca9b4-91fb-491f-9bcb-3324d15cd4dd Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:89 ClientConnectionId: 6e8c0972-5a8f-4f9a-aee7-14eef87b99d0 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:89 ClientConnectionId: 73e097b8-f64b-4f43-80d2-e48ffe7a4734 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:90 ClientConnectionId: 079f9636-9114-4c40-9624-44c818d0b6b0 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:90 ClientConnectionId: e85c55a2-e6c1-4ecc-813a-1c1ec7acc9b9 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:91 ClientConnectionId: 7f4c9ba0-1f7c-4221-bd7f-cc6568c5084b Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:91 ClientConnectionId: f8053e88-988e-4eb6-bfd1-fe27253982bd Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:92 ClientConnectionId: 0ec1b0ff-f20f-4775-957d-fca49d8d95a5 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:92 ClientConnectionId: 3b0528a4-a65f-4d3a-ad19-b3e705a3f90d Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:93 ClientConnectionId: 0a9958dc-d12b-4639-844a-8456e0c6702c Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:93 ClientConnectionId: 9668c3ba-2e4b-4a18-a1a2-2cd2ebd8d0e1 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:94 ClientConnectionId: 58c62f02-8606-4749-bc6e-448300021518 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:94 ClientConnectionId: 55395005-ee59-481a-8066-e26147017718 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:95 ClientConnectionId: 953618ce-a0eb-4d31-8f72-bd4a47a36d78 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:15 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:95 ClientConnectionId: 5ed93e85-2f86-425e-81f0-245ed056bc19 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:16 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:96 ClientConnectionId: f1958393-132f-4a68-abb4-3a6b98371588 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:16 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:96 ClientConnectionId: 30873655-5c37-4929-b299-cbbef5b44eb4 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:16 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:97 ClientConnectionId: 0cba2193-06aa-4f54-921e-3902d19504a3 Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:54:16 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:97 ClientConnectionId: 3274e010-5148-4a67-81f1-ab5abe688b6e Prelogin error: host localhost port 58626 Unexpected end of prelogin response after 0 bytes read
+16:54:18.049 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Container mcr.microsoft.com/mssql/server:2022-latest started in PT15.6507064S
+16:54:18.049 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Container is started (JDBC URL: jdbc:sqlserver://localhost:58626;encrypt=false)
+16:54:19.101 [main] INFO org.hibernate.orm.jpa -- HHH008540: Processing PersistenceUnitInfo [name: default]
+16:54:19.275 [main] INFO org.hibernate.orm.core -- HHH000001: Hibernate ORM core version 7.4.5.Final
+16:54:20.168 [main] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo -- No LoadTimeWeaver setup: ignoring JPA class transformer
+16:54:20.465 [main] INFO org.hibernate.orm.connections.pooling -- HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlserver://localhost:58626;concatNullYieldsNull=ON;quotedIdentifier=ON;connectRetryInterval=10;connectRetryCount=1;maxResultBuffer=-1;sendTemporalDataTypesAsStringForBulkCopy=true;delayLoadingLobs=true;useFmtOnly=false;vectorTypeSupport=v1;cacheBulkCopyMetadata=false;bulkCopyForBatchInsertAllowEncryptedValueModifications=false;bulkCopyForBatchInsertTableLock=false;bulkCopyForBatchInsertKeepNulls=false;bulkCopyForBatchInsertKeepIdentity=false;bulkCopyForBatchInsertFireTriggers=false;bulkCopyForBatchInsertCheckConstraints=false;bulkCopyForBatchInsertBatchSize=0;useBulkCopyForBatchInsert=false;cancelQueryTimeout=-1;sslProtocol=TLS;calcBigDecimalPrecision=false;useDefaultJaasConfig=false;jaasConfigurationName=SQLJDBCDriver;statementPoolingCacheSize=0;serverPreparedStatementDiscardThreshold=10;enablePrepareOnFirstPreparedStatementCall=false;fips=false;socketTimeout=0;authentication=NotSpecified;authenticationScheme=nativeAuthentication;xopenStates=false;datetimeParameterType=datetime2;sendTimeAsDatetime=true;replication=false;trustStoreType=JKS;trustServerCertificate=false;TransparentNetworkIPResolution=true;iPAddressPreference=IPv4First;serverNameAsACE=false;sendStringParametersAsUnicode=true;selectMethod=direct;responseBuffering=adaptive;queryTimeout=-1;packetSize=8000;multiSubnetFailover=false;loginTimeout=30;lockTimeout=-1;lastUpdateCount=true;useDefaultGSSCredential=false;prepareMethod=prepexec;encrypt=false;disableStatementPooling=true;databaseName=N08_Dashboard_R1_Test;columnEncryptionSetting=Disabled;applicationName=Microsoft JDBC Driver for SQL Server;applicationIntent=readwrite;]
+	Database driver: Microsoft JDBC Driver 13.4 for SQL Server
+	Database dialect: SQLServerDialect
+	Database version: 16.0
+	Default catalog/schema: N08_Dashboard_R1_Test/dbo
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 128
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+16:54:21.379 [main] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 9.1.3.Final
+16:54:22.990 [main] INFO org.hibernate.orm.core -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:54:24.155 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean -- Initialized JPA EntityManagerFactory for persistence unit 'default'
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\huy\.m2\repository\net\bytebuddy\byte-buddy-agent\1.18.11\byte-buddy-agent-1.18.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+16:54:28.999 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 515, SQLState: 23000
+16:54:29.000 [main] WARN org.hibernate.orm.jdbc.error -- Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+16:54:29.964 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 515, SQLState: 23000
+16:54:29.964 [main] WARN org.hibernate.orm.jdbc.error -- Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+16:54:30.937 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 515, SQLState: 23000
+16:54:30.937 [main] WARN org.hibernate.orm.jdbc.error -- Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+16:54:31.774 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 515, SQLState: 23000
+16:54:31.774 [main] WARN org.hibernate.orm.jdbc.error -- Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+16:54:32.578 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 515, SQLState: 23000
+16:54:32.578 [main] WARN org.hibernate.orm.jdbc.error -- Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+16:54:32.591 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean -- Closing JPA EntityManagerFactory for persistence unit 'default'
+[ERROR] Tests run: 6, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 36.12 s <<< FAILURE! -- in com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest
+[ERROR] com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(String)[2] -- Time elapsed: 1.044 s <<< ERROR!
+jakarta.persistence.RollbackException: Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:73)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:92)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyDetail(DashboardSqlServerIntegrationTest.java:342)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(DashboardSqlServerIntegrationTest.java:260)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]
+	at org.hibernate.dialect.SQLServerDialect.lambda$buildSQLExceptionConversionDelegate$0(SQLServerDialect.java:846)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:34)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:189)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:145)
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:53)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:65)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:54)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:183)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:123)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:96)
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:108)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:386)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1472)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:498)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2100)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:2021)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:426)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:167)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commitNoRollbackOnly(JdbcResourceLocalTransactionCoordinatorImpl.java:252)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:242)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:89)
+	... 2 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:185)
+	... 24 more
+
+[ERROR] com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(String)[3] -- Time elapsed: 0.945 s <<< ERROR!
+jakarta.persistence.RollbackException: Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:73)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:92)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyDetail(DashboardSqlServerIntegrationTest.java:342)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(DashboardSqlServerIntegrationTest.java:261)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]
+	at org.hibernate.dialect.SQLServerDialect.lambda$buildSQLExceptionConversionDelegate$0(SQLServerDialect.java:846)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:34)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:189)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:145)
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:53)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:65)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:54)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:183)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:123)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:96)
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:108)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:386)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1472)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:498)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2100)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:2021)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:426)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:167)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commitNoRollbackOnly(JdbcResourceLocalTransactionCoordinatorImpl.java:252)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:242)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:89)
+	... 2 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:185)
+	... 24 more
+
+[ERROR] com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(String)[4] -- Time elapsed: 0.969 s <<< ERROR!
+jakarta.persistence.RollbackException: Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:73)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:92)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyDetail(DashboardSqlServerIntegrationTest.java:342)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(DashboardSqlServerIntegrationTest.java:262)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]
+	at org.hibernate.dialect.SQLServerDialect.lambda$buildSQLExceptionConversionDelegate$0(SQLServerDialect.java:846)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:34)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:189)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:145)
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:53)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:65)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:54)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:183)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:123)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:96)
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:108)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:386)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1472)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:498)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2100)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:2021)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:426)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:167)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commitNoRollbackOnly(JdbcResourceLocalTransactionCoordinatorImpl.java:252)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:242)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:89)
+	... 2 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:185)
+	... 24 more
+
+[ERROR] com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyCycleBoundariesAndExpiryAreVerifiedOnSqlServer -- Time elapsed: 0.833 s <<< ERROR!
+jakarta.persistence.RollbackException: Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:73)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:92)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyDetail(DashboardSqlServerIntegrationTest.java:342)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyCycleBoundariesAndExpiryAreVerifiedOnSqlServer(DashboardSqlServerIntegrationTest.java:290)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]
+	at org.hibernate.dialect.SQLServerDialect.lambda$buildSQLExceptionConversionDelegate$0(SQLServerDialect.java:846)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:34)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:189)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:145)
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:53)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:65)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:54)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:183)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:123)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:96)
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:108)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:386)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1472)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:498)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2100)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:2021)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:426)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:167)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commitNoRollbackOnly(JdbcResourceLocalTransactionCoordinatorImpl.java:252)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:242)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:89)
+	... 2 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:185)
+	... 24 more
+
+[ERROR] com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.mixedEmergencyCatalogIgnoresSampleFailuresButRequiresLatestOfficialCheck -- Time elapsed: 0.804 s <<< ERROR!
+jakarta.persistence.RollbackException: Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:73)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:92)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyDetail(DashboardSqlServerIntegrationTest.java:342)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.mixedEmergencyCatalogIgnoresSampleFailuresButRequiresLatestOfficialCheck(DashboardSqlServerIntegrationTest.java:276)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]
+	at org.hibernate.dialect.SQLServerDialect.lambda$buildSQLExceptionConversionDelegate$0(SQLServerDialect.java:846)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:34)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:189)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:145)
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:53)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:65)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:54)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:183)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:123)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:96)
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:108)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:386)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1472)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:498)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2100)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:2021)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:426)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:167)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commitNoRollbackOnly(JdbcResourceLocalTransactionCoordinatorImpl.java:252)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:242)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:89)
+	... 2 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:185)
+	... 24 more
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   DashboardSqlServerIntegrationTest.emergencyCycleBoundariesAndExpiryAreVerifiedOnSqlServer:290->emergencyDetail:342 � Rollback Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+[ERROR]   DashboardSqlServerIntegrationTest.mixedEmergencyCatalogIgnoresSampleFailuresButRequiresLatestOfficialCheck:276->emergencyDetail:342 � Rollback Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+[ERROR]   DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks:260->emergencyDetail:342 � Rollback Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+[ERROR]   DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks:261->emergencyDetail:342 � Rollback Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+[ERROR]   DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks:262->emergencyDetail:342 � Rollback Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+[INFO] 
+[ERROR] Tests run: 6, Failures: 0, Errors: 5, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  48.251 s
+[INFO] Finished at: 2026-10-19T16:54:33+07:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.6:test (default-test) on project nhakhoa: 
+[ERROR] 
+[ERROR] See C:\Users\huy\NguyenQuangHuy\quan_ly_nha_khoa\nhakhoa\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

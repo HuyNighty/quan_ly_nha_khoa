@@ -1,0 +1,513 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24133 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -------------------------< com.manage:nhakhoa >-------------------------
+[INFO] Building nhakhoa 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ nhakhoa ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ nhakhoa ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ nhakhoa ---
+[INFO] skip non existing resourceDirectory C:\Users\huy\NguyenQuangHuy\quan_ly_nha_khoa\nhakhoa\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ nhakhoa ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 10 source files with javac [debug parameters release 25] to target\test-classes
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by lombok.permit.Permit
+WARNING: Please consider reporting this to the maintainers of class lombok.permit.Permit
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ nhakhoa ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest
+16:51:16.850 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+16:51:16.854 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+16:51:16.915 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+16:51:17.239 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+16:51:17.737 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+16:51:17.738 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+16:51:17.763 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 28.3.2
+  API Version: 1.51
+  Operating System: Docker Desktop
+  Total Memory: 7795 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+16:51:17.906 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Creating container for image: testcontainers/ryuk:0.14.0
+16:51:18.078 [main] INFO org.testcontainers.utility.RegistryAuthLocator -- Credential helper/store (docker-credential-desktop) does not have credentials for https://index.docker.io/v1/
+16:51:18.324 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 is starting: 9dac0efe13c538fd45d7f8fbba12a7ff2d6aad99fde43306e5b2dd69991fd3cc
+16:51:18.898 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 started in PT0.9911463S
+16:51:18.909 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+16:51:18.910 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+16:51:18.911 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+16:51:18.912 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Creating container for image: mcr.microsoft.com/mssql/server:2022-latest
+16:51:19.010 [main] INFO org.testcontainers.utility.RegistryAuthLocator -- Credential helper/store (docker-credential-desktop) does not have credentials for mcr.microsoft.com
+16:51:19.110 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Container mcr.microsoft.com/mssql/server:2022-latest is starting: a0c228729b92ac2f3200820048b9d6fe7eeb48a89776ace6433fe70a4facdcb9
+16:51:19.547 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Waiting for database connection to become available at jdbc:sqlserver://localhost:61768 using query 'SELECT 1'
+Oct 19, 2026 4:51:19 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:1 ClientConnectionId: 831dda21-9661-4902-b8f5-a4d1904a8605 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:19 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:1 ClientConnectionId: 295a37b5-a55d-4e95-952a-932a63f41a28 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:19 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:2 ClientConnectionId: 7a9516d5-d204-4a3c-8eee-8498fdbc50b0 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:19 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:2 ClientConnectionId: 717107bc-ca54-44f1-adc2-e9b1cda9d73b Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:19 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:3 ClientConnectionId: fcb86e2c-6b1d-4d71-bb44-f815c76a71d6 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:19 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:3 ClientConnectionId: 147d5fc5-4342-4ea7-981f-eb46d8bcf04c Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:4 ClientConnectionId: 8d0a5a41-fc1a-48d4-8846-449d94b2fe2c Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:4 ClientConnectionId: ae57ab64-89cb-49f3-a902-c577c606060e Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:5 ClientConnectionId: 4aaa574b-6359-49b6-95c9-fae234fd572b Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:5 ClientConnectionId: 3c21eedf-6b72-46cf-b28c-00f67fff57e4 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:6 ClientConnectionId: 5daf1713-7d60-48b4-9725-49a84a1c08b2 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:6 ClientConnectionId: afde5fd8-413b-4981-b07b-37fba690d2f9 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:7 ClientConnectionId: 625927b3-0b80-42ea-b37d-6522304b125e Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:7 ClientConnectionId: 8126e242-0030-43ee-b849-8e11fe439a79 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:8 ClientConnectionId: 40e10540-e5e4-443f-ac3b-2dadfee9934c Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:8 ClientConnectionId: c92c665a-d367-43e1-9fd4-c60833b4e23d Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:9 ClientConnectionId: 8147c048-2eef-4c97-bcc2-588160ecbf32 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:9 ClientConnectionId: fc97a6a6-8f4d-4f09-a149-e96e78b8d4c6 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:10 ClientConnectionId: 84613059-5bfc-4845-a89f-934fbfe15525 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:20 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:10 ClientConnectionId: 2597e89a-c015-4fac-a866-0563aa838523 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:11 ClientConnectionId: fa712f5f-7c62-45e9-9d05-00376d5dc826 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:11 ClientConnectionId: 84ade755-92d5-4ffa-a3ba-370aba61a8e1 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:12 ClientConnectionId: 62cc462b-72c0-4e78-af55-d84ec8001d82 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:12 ClientConnectionId: 3cc878e5-6b14-496b-b051-22118a1ffdcd Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:13 ClientConnectionId: eb3304ad-e753-4408-9e6e-5bf123909082 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:13 ClientConnectionId: f975fedc-7847-4bd9-9c28-1c257e9c36da Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:14 ClientConnectionId: 4192027f-1350-4034-9ff2-8a6bb34fed72 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:14 ClientConnectionId: 8ec40f65-b868-4780-92b0-b3cf340181b6 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:15 ClientConnectionId: d47d6ff9-cab4-4ad2-bc96-4d37c212398a Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:15 ClientConnectionId: 8d8564d2-526e-4641-9365-e9e39b46a5f8 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:16 ClientConnectionId: 4cdf073a-c6e9-441a-a93c-df6255caeba5 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:16 ClientConnectionId: 450ff98c-0a48-42c6-9e92-9844b3c25a90 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:17 ClientConnectionId: 774777f9-3240-40ac-b174-963f2750cb0f Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:17 ClientConnectionId: 8beed313-948d-4e39-9938-e12fd876be04 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:18 ClientConnectionId: bc69ae8b-163d-479b-814c-d91545b0d57e Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:21 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:18 ClientConnectionId: e2fb70b0-9033-4206-b265-c8df516062d4 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:19 ClientConnectionId: 7d3c0c56-9dcd-4ebe-b989-f71028804edd Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:19 ClientConnectionId: d934d23f-b4ca-4571-882c-71f161ee81a9 Prelogin error: host localhost port 61768 Error reading prelogin response: An established connection was aborted by the software in your host machine ClientConnectionId:d934d23f-b4ca-4571-882c-71f161ee81a9
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:20 ClientConnectionId: a003d78b-f46f-4542-951d-9e39d3565a92 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:20 ClientConnectionId: 35938498-70ef-4186-83d7-e1b2e58f8051 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:21 ClientConnectionId: 97deb0c3-e83b-43bb-ad17-10e87cd6eb89 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:21 ClientConnectionId: d2e2a5d4-ea9f-44e4-af33-faaed5d208d6 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:22 ClientConnectionId: 0489b254-f14a-4365-abfb-e86e284506a7 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:22 ClientConnectionId: 21e84242-a1ab-49fc-85d4-336fdd13dde4 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:23 ClientConnectionId: f8a35242-c54a-478d-8c47-716fb66f87a9 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:23 ClientConnectionId: e3149c91-5958-4698-b521-169f4d3450ef Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:24 ClientConnectionId: 7ddbab7d-7d24-4c87-83ef-400f440bb701 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:24 ClientConnectionId: c0c275b0-2706-4862-a59a-1b45d9499557 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:25 ClientConnectionId: fef80bd9-a5eb-4224-9f87-6d5a6da205a4 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:25 ClientConnectionId: 4cb78903-8125-41bd-8d90-a06e41746e61 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:26 ClientConnectionId: dad59050-56f6-4140-a350-d6d4632b8f07 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:22 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:26 ClientConnectionId: dd894ac3-7e6c-4075-97b4-1a1925f57a35 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:27 ClientConnectionId: 2bc20575-5bc8-453d-a25a-94291adbcb35 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:27 ClientConnectionId: 0e87ad22-8eb0-4931-8ab9-c76d9070e6d0 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:28 ClientConnectionId: 47cad4fa-b852-4ca3-8c84-17b95eab77b2 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:28 ClientConnectionId: 15b7b8cb-69b5-4732-9419-e585f6758321 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:29 ClientConnectionId: 7dd6b5e3-4ae5-4e08-bf15-f70415fd49ae Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:29 ClientConnectionId: bc106dfb-ec75-43ff-bacb-58ac0bfba2a8 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:30 ClientConnectionId: 2de83cd2-f498-4e9f-9bd7-617268ae8ade Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:30 ClientConnectionId: deaf801a-db7e-4dba-897a-14ee09258e0d Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:31 ClientConnectionId: 2c449dc4-8a23-42a0-b226-c4b81c7a1a55 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:31 ClientConnectionId: e6f9c7a4-d8c7-4603-ba5a-cd68cc7be6e3 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:32 ClientConnectionId: 7f83b604-de43-43f0-ba48-2c40f39fc0e5 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:32 ClientConnectionId: cff16f81-620b-4203-8d2b-226b80dd00bb Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:33 ClientConnectionId: e6a6d645-098e-4162-9608-adc38962fca6 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:33 ClientConnectionId: 4f7f389c-96fa-4375-9642-78c54a6f28d6 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:34 ClientConnectionId: c0028576-5f94-441e-8cf3-5bcc164b02b4 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:34 ClientConnectionId: d51fd4e5-bd7a-418f-8743-613b6094998d Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:35 ClientConnectionId: 5af86601-f639-455a-9e81-655b94f8bb09 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:23 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:35 ClientConnectionId: 7775028f-9552-4c4a-ad75-b8863b0cd118 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:36 ClientConnectionId: 26e29d09-81fa-4813-8f04-bc26cee847b8 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:36 ClientConnectionId: aa0071d4-a5cd-43e2-8c03-de61af823df1 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:37 ClientConnectionId: 3bea9ba3-e269-4b83-914f-d52028ec118a Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:37 ClientConnectionId: 9e596ee3-0862-4a9a-b5cf-5d53efc936a9 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:38 ClientConnectionId: fef46dd6-cd70-4db4-98b1-6f82a731736b Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:38 ClientConnectionId: 8ece33d3-42a7-4b57-a230-ad5564dbd797 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:39 ClientConnectionId: 2fd7c3b8-dcb1-4530-9a7d-ae0e0e7a4c8f Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:39 ClientConnectionId: 564a6de2-525c-4f0b-9da1-2208c1f28bb0 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:40 ClientConnectionId: 66a95973-a3ce-40ab-a4c7-7f5ee94893ae Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:40 ClientConnectionId: daeb5c52-5667-48af-867e-c3d343cdc51b Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:41 ClientConnectionId: c34f6b53-b721-41eb-b048-c8821d6e0232 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:41 ClientConnectionId: edd90519-511f-4fc8-be55-22d1d685abbe Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:42 ClientConnectionId: e3a423c0-f4a1-4e98-81a1-6b7956d47562 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:42 ClientConnectionId: 7c1790bc-bde8-49fb-b8da-3937d5d076ee Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:43 ClientConnectionId: 6a3f5546-46eb-4832-a51c-8b91f67bc704 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:24 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:43 ClientConnectionId: d213b8c4-3bcf-4088-ab7a-c2368cf826bd Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:44 ClientConnectionId: 3dd63476-b897-419b-a8c3-83277e76684b Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:44 ClientConnectionId: ac5fa922-b700-461a-a3bf-ba9a630d5b08 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:45 ClientConnectionId: 332d7fdb-b1fe-45c9-bb9a-26353da1596a Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:45 ClientConnectionId: 3a48b58d-11d4-42c3-be9c-66599d8c0917 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:46 ClientConnectionId: a634fd97-7eed-4f66-95e5-68c06bb81e9e Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:46 ClientConnectionId: 07a48ba5-51f0-4af1-a52c-77f6bba195e5 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:47 ClientConnectionId: f719ede0-a800-4327-803a-ca532fc4f328 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:47 ClientConnectionId: 42748d4c-166c-4e05-af82-5cef958d932a Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:48 ClientConnectionId: 0d946c61-f1ce-47a4-af30-48c67ab75416 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:48 ClientConnectionId: 58a73d9d-0abd-41aa-91e3-d4cdca2e7315 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:49 ClientConnectionId: 180b4265-e4de-479a-849a-abfb7d2303a4 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:49 ClientConnectionId: b90ace2e-3b00-4133-872c-84bc8c22a763 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:50 ClientConnectionId: 80842d30-7823-491b-a9af-e811172e6e32 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:25 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:50 ClientConnectionId: 99c57090-bab0-4270-be3f-a62c8d1748fb Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:51 ClientConnectionId: f2fe4fd4-cc5b-4e21-8719-76f06cc46370 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:51 ClientConnectionId: b001a0b0-1441-487d-ba62-7a1daa999bfc Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:52 ClientConnectionId: aa5179b2-5674-45e1-a9c1-a5145f2fdfc6 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:52 ClientConnectionId: 2c97b681-a2fb-4d7a-af03-03f9d749a8ad Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:53 ClientConnectionId: a639a4b7-f35b-4bc2-8a55-75b0c4cd4a6c Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:53 ClientConnectionId: faa0d4f3-9fef-43c4-b457-08841e648b0b Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:54 ClientConnectionId: 26c3b488-ea19-421e-9ea4-e423a918a32e Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:54 ClientConnectionId: cbc98ca0-a262-4a48-a12c-8a4a15d1bf49 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:55 ClientConnectionId: c469ab34-c858-43f3-a2ad-f08129d48450 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:55 ClientConnectionId: ad80ea8b-6695-4bdd-972c-f3717b772aee Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:56 ClientConnectionId: 0046fa70-9186-4b80-931b-e8ae1f2c2c57 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:56 ClientConnectionId: cee03056-bfc2-44cd-ae31-9fb931d67b96 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:57 ClientConnectionId: aac050cb-279d-46f8-a6b5-acec9df535c1 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:57 ClientConnectionId: dbe10e28-9fab-4136-bdfd-81497f5f7df6 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:58 ClientConnectionId: c469f095-aac6-4ce0-9a8a-d6d73050cf64 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+Oct 19, 2026 4:51:26 PM com.microsoft.sqlserver.jdbc.SQLServerConnection prelogin
+WARNING: ConnectionID:58 ClientConnectionId: 1188d969-bf2d-4210-a7b6-0db23ed05ab9 Prelogin error: host localhost port 61768 Unexpected end of prelogin response after 0 bytes read
+16:51:28.426 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Container mcr.microsoft.com/mssql/server:2022-latest started in PT9.5138788S
+16:51:28.426 [main] INFO tc.mcr.microsoft.com/mssql/server:2022-latest -- Container is started (JDBC URL: jdbc:sqlserver://localhost:61768;encrypt=false)
+16:51:29.386 [main] INFO org.hibernate.orm.jpa -- HHH008540: Processing PersistenceUnitInfo [name: default]
+16:51:29.535 [main] INFO org.hibernate.orm.core -- HHH000001: Hibernate ORM core version 7.4.5.Final
+16:51:30.529 [main] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo -- No LoadTimeWeaver setup: ignoring JPA class transformer
+16:51:30.826 [main] INFO org.hibernate.orm.connections.pooling -- HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlserver://localhost:61768;concatNullYieldsNull=ON;quotedIdentifier=ON;connectRetryInterval=10;connectRetryCount=1;maxResultBuffer=-1;sendTemporalDataTypesAsStringForBulkCopy=true;delayLoadingLobs=true;useFmtOnly=false;vectorTypeSupport=v1;cacheBulkCopyMetadata=false;bulkCopyForBatchInsertAllowEncryptedValueModifications=false;bulkCopyForBatchInsertTableLock=false;bulkCopyForBatchInsertKeepNulls=false;bulkCopyForBatchInsertKeepIdentity=false;bulkCopyForBatchInsertFireTriggers=false;bulkCopyForBatchInsertCheckConstraints=false;bulkCopyForBatchInsertBatchSize=0;useBulkCopyForBatchInsert=false;cancelQueryTimeout=-1;sslProtocol=TLS;calcBigDecimalPrecision=false;useDefaultJaasConfig=false;jaasConfigurationName=SQLJDBCDriver;statementPoolingCacheSize=0;serverPreparedStatementDiscardThreshold=10;enablePrepareOnFirstPreparedStatementCall=false;fips=false;socketTimeout=0;authentication=NotSpecified;authenticationScheme=nativeAuthentication;xopenStates=false;datetimeParameterType=datetime2;sendTimeAsDatetime=true;replication=false;trustStoreType=JKS;trustServerCertificate=false;TransparentNetworkIPResolution=true;iPAddressPreference=IPv4First;serverNameAsACE=false;sendStringParametersAsUnicode=true;selectMethod=direct;responseBuffering=adaptive;queryTimeout=-1;packetSize=8000;multiSubnetFailover=false;loginTimeout=30;lockTimeout=-1;lastUpdateCount=true;useDefaultGSSCredential=false;prepareMethod=prepexec;encrypt=false;disableStatementPooling=true;databaseName=N08_Dashboard_R1_Test;columnEncryptionSetting=Disabled;applicationName=Microsoft JDBC Driver for SQL Server;applicationIntent=readwrite;]
+	Database driver: Microsoft JDBC Driver 13.4 for SQL Server
+	Database dialect: SQLServerDialect
+	Database version: 16.0
+	Default catalog/schema: N08_Dashboard_R1_Test/dbo
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 128
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+16:51:32.111 [main] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 9.1.3.Final
+16:51:34.737 [main] INFO org.hibernate.orm.core -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:51:35.863 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean -- Initialized JPA EntityManagerFactory for persistence unit 'default'
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\huy\.m2\repository\net\bytebuddy\byte-buddy-agent\1.18.11\byte-buddy-agent-1.18.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+16:51:38.299 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:51:38.300 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:51:43.201 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:51:43.201 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:51:44.718 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:51:44.718 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:51:46.271 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:51:46.271 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:51:47.977 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:51:47.977 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:52:01.014 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:52:01.014 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:52:01.099 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:52:01.099 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:52:01.132 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:52:01.132 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:52:01.202 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:52:01.202 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:52:02.999 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:52:03.000 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:52:04.347 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:52:04.347 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+SQL_SERVER_TEST_VERSION=16.0.4295.3
+16:52:12.038 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:52:12.039 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:52:14.279 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:52:14.279 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:52:16.224 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:52:16.224 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:52:18.065 [main] WARN org.hibernate.orm.jdbc.error -- HHH000247: ErrorCode: 207, SQLState: S0001
+16:52:18.065 [main] WARN org.hibernate.orm.jdbc.error -- Invalid column name 'n08_intentionally_missing_column'.
+16:52:19.798 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean -- Closing JPA EntityManagerFactory for persistence unit 'default'
+[ERROR] Tests run: 27, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 64.46 s <<< FAILURE! -- in com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest
+[ERROR] com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(String)[2] -- Time elapsed: 0.883 s <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: PreparedStatementCallback; SQL [INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,dat,han_su_dung,so_luong_thuc_te) VALUES (?,?,?,?,?)]; Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at org.springframework.jdbc.support.SQLStateSQLExceptionTranslator.doTranslate(SQLStateSQLExceptionTranslator.java:140)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:102)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:111)
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1549)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:689)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:966)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1010)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1020)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.insert(DashboardSqlServerIntegrationTest.java:355)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyDetail(DashboardSqlServerIntegrationTest.java:327)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(DashboardSqlServerIntegrationTest.java:254)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:971)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:670)
+	... 6 more
+
+[ERROR] com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(String)[3] -- Time elapsed: 0.998 s <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: PreparedStatementCallback; SQL [INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,dat,han_su_dung,so_luong_thuc_te) VALUES (?,?,?,?,?)]; Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at org.springframework.jdbc.support.SQLStateSQLExceptionTranslator.doTranslate(SQLStateSQLExceptionTranslator.java:140)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:102)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:111)
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1549)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:689)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:966)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1010)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1020)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.insert(DashboardSqlServerIntegrationTest.java:355)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyDetail(DashboardSqlServerIntegrationTest.java:327)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(DashboardSqlServerIntegrationTest.java:255)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:971)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:670)
+	... 6 more
+
+[ERROR] com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(String)[4] -- Time elapsed: 0.789 s <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: PreparedStatementCallback; SQL [INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,dat,han_su_dung,so_luong_thuc_te) VALUES (?,?,?,?,?)]; Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at org.springframework.jdbc.support.SQLStateSQLExceptionTranslator.doTranslate(SQLStateSQLExceptionTranslator.java:140)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:102)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:111)
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1549)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:689)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:966)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1010)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1020)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.insert(DashboardSqlServerIntegrationTest.java:355)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyDetail(DashboardSqlServerIntegrationTest.java:327)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks(DashboardSqlServerIntegrationTest.java:256)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:971)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:670)
+	... 6 more
+
+[ERROR] com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyCycleBoundariesAndExpiryAreVerifiedOnSqlServer -- Time elapsed: 0.710 s <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: PreparedStatementCallback; SQL [INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,dat,han_su_dung,so_luong_thuc_te) VALUES (?,?,?,?,?)]; Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at org.springframework.jdbc.support.SQLStateSQLExceptionTranslator.doTranslate(SQLStateSQLExceptionTranslator.java:140)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:102)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:111)
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1549)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:689)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:966)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1010)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1020)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.insert(DashboardSqlServerIntegrationTest.java:355)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyDetail(DashboardSqlServerIntegrationTest.java:327)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyCycleBoundariesAndExpiryAreVerifiedOnSqlServer(DashboardSqlServerIntegrationTest.java:284)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:971)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:670)
+	... 6 more
+
+[ERROR] com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.mixedEmergencyCatalogIgnoresSampleFailuresButRequiresLatestOfficialCheck -- Time elapsed: 0.743 s <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: PreparedStatementCallback; SQL [INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,dat,han_su_dung,so_luong_thuc_te) VALUES (?,?,?,?,?)]; Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at org.springframework.jdbc.support.SQLStateSQLExceptionTranslator.doTranslate(SQLStateSQLExceptionTranslator.java:140)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:102)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:111)
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1549)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:689)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:966)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1010)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1020)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.insert(DashboardSqlServerIntegrationTest.java:355)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.emergencyDetail(DashboardSqlServerIntegrationTest.java:327)
+	at com.manage.nhakhoa.features.dashboard.integration.DashboardSqlServerIntegrationTest.mixedEmergencyCatalogIgnoresSampleFailuresButRequiresLatestOfficialCheck(DashboardSqlServerIntegrationTest.java:270)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:971)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:670)
+	... 6 more
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   DashboardSqlServerIntegrationTest.emergencyCycleBoundariesAndExpiryAreVerifiedOnSqlServer:284->emergencyDetail:327->insert:355 � DataIntegrityViolation PreparedStatementCallback; SQL [INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,dat,han_su_dung,so_luong_thuc_te) VALUES (?,?,?,?,?)]; Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+[ERROR]   DashboardSqlServerIntegrationTest.mixedEmergencyCatalogIgnoresSampleFailuresButRequiresLatestOfficialCheck:270->emergencyDetail:327->insert:355 � DataIntegrityViolation PreparedStatementCallback; SQL [INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,dat,han_su_dung,so_luong_thuc_te) VALUES (?,?,?,?,?)]; Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+[ERROR]   DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks:254->emergencyDetail:327->insert:355 � DataIntegrityViolation PreparedStatementCallback; SQL [INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,dat,han_su_dung,so_luong_thuc_te) VALUES (?,?,?,?,?)]; Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+[ERROR]   DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks:255->emergencyDetail:327->insert:355 � DataIntegrityViolation PreparedStatementCallback; SQL [INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,dat,han_su_dung,so_luong_thuc_te) VALUES (?,?,?,?,?)]; Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+[ERROR]   DashboardSqlServerIntegrationTest.realEmergencyCoverageCannotBeInferredFromIncompleteChecks:256->emergencyDetail:327->insert:355 � DataIntegrityViolation PreparedStatementCallback; SQL [INSERT INTO chi_tiet_kiem_tra_cap_cuu (ma_kiem_tra,ma_muc,dat,han_su_dung,so_luong_thuc_te) VALUES (?,?,?,?,?)]; Cannot insert the value NULL into column 'maMuc', table 'N08_Dashboard_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+[INFO] 
+[ERROR] Tests run: 27, Failures: 0, Errors: 5, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:15 min
+[INFO] Finished at: 2026-10-19T16:52:21+07:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.6:test (default-test) on project nhakhoa: 
+[ERROR] 
+[ERROR] See C:\Users\huy\NguyenQuangHuy\quan_ly_nha_khoa\nhakhoa\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

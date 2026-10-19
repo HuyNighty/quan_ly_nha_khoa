@@ -1,0 +1,122 @@
+[
+  {
+    "path": "nhakhoa/pom.xml",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 103,
+    "newLines": 110
+  },
+  {
+    "path": "nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/EmergencyCheckState.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 13,
+    "newLines": 15
+  },
+  {
+    "path": "nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/TreatmentDueSummary.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 5,
+    "newLines": 5
+  },
+  {
+    "path": "nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/dto/response/WorkQueueDto.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 13,
+    "newLines": 13
+  },
+  {
+    "path": "nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/DashboardReadRepository.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 80,
+    "newLines": 83
+  },
+  {
+    "path": "nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/EmergencyCheckItemRow.java",
+    "kind": "NEW_R1",
+    "oldLines": 0,
+    "newLines": 8
+  },
+  {
+    "path": "nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/repository/JpaDashboardReadRepository.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 313,
+    "newLines": 328
+  },
+  {
+    "path": "nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardQueryService.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 351,
+    "newLines": 366
+  },
+  {
+    "path": "nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardTargetScreens.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 20,
+    "newLines": 21
+  },
+  {
+    "path": "nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/DashboardThresholds.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 33,
+    "newLines": 33
+  },
+  {
+    "path": "nhakhoa/src/main/java/com/manage/nhakhoa/features/dashboard/service/EmergencyCoverageCalculator.java",
+    "kind": "NEW_R1",
+    "oldLines": 0,
+    "newLines": 30
+  },
+  {
+    "path": "nhakhoa/src/test/java/com/manage/nhakhoa/DashboardApplicationSqlServerTest.java",
+    "kind": "NEW_R1",
+    "oldLines": 0,
+    "newLines": 73
+  },
+  {
+    "path": "nhakhoa/src/test/java/com/manage/nhakhoa/DashboardEntityMappingGateTest.java",
+    "kind": "NEW_R1",
+    "oldLines": 0,
+    "newLines": 65
+  },
+  {
+    "path": "nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/integration/DashboardSqlServerIntegrationTest.java",
+    "kind": "NEW_R1",
+    "oldLines": 0,
+    "newLines": 371
+  },
+  {
+    "path": "nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/integration/DashboardSqlServerTestConfig.java",
+    "kind": "NEW_R1",
+    "oldLines": 0,
+    "newLines": 126
+  },
+  {
+    "path": "nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/repository/JpaDashboardReadRepositoryTest.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 181,
+    "newLines": 193
+  },
+  {
+    "path": "nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/DashboardContractSerializationTest.java",
+    "kind": "NEW_R1",
+    "oldLines": 0,
+    "newLines": 163
+  },
+  {
+    "path": "nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/DashboardQueryServiceTest.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 575,
+    "newLines": 577
+  },
+  {
+    "path": "nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/EmergencyCoverageRegressionTest.java",
+    "kind": "NEW_R1",
+    "oldLines": 0,
+    "newLines": 71
+  },
+  {
+    "path": "nhakhoa/src/test/java/com/manage/nhakhoa/features/dashboard/service/InMemoryDashboardReadRepository.java",
+    "kind": "MODIFIED_BASELINE",
+    "oldLines": 251,
+    "newLines": 267
+  }
+]

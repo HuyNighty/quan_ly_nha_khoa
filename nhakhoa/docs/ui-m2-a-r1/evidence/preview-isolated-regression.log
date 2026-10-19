@@ -1,0 +1,103 @@
+ĐẠT: biên dịch Java 25 với -Xlint:all -Werror và đóng gói JAR độc lập
+ĐẠT · Ảnh mẫu đúng ngày, giờ và múi giờ
+ĐẠT · 10 lịch = 2+2+1+2+1+1+1
+ĐẠT · Phiếu khám 0 / 1 / 2
+ĐẠT · Tiền thu và công nợ đúng định dạng tiếng Việt
+ĐẠT · 9 nhóm việc khác 18 đối tượng, mã việc duy nhất
+ĐẠT · Thứ tự ưu tiên đỏ → cam → xanh
+ĐẠT · Ca làm và tồn kho đúng mẫu
+ĐẠT · Mốc kiểm tra hộp cấp cứu đúng ảnh 01
+ĐẠT · Menu 21 khóa duy nhất / 6 nhóm
+ĐẠT · Nhãn tài khoản theo role-only
+ĐẠT · Đích điều hướng hợp lệ: expired-stock
+ĐẠT · Đích điều hướng hợp lệ: emergency
+ĐẠT · Đích điều hướng hợp lệ: understaffed
+ĐẠT · Đích điều hướng hợp lệ: invoice-cancel
+ĐẠT · Đích điều hướng hợp lệ: inventory-count
+ĐẠT · Đích điều hướng hợp lệ: handover
+ĐẠT · Đích điều hướng hợp lệ: followup
+ĐẠT · Đích điều hướng hợp lệ: low-stock
+ĐẠT · Đích điều hướng hợp lệ: locked-account
+ĐẠT · Tìm không dấu / tên nhóm / mã: lich hen
+ĐẠT · Tìm không dấu / tên nhóm / mã: cong no
+ĐẠT · Tìm không dấu / tên nhóm / mã: thuoc
+ĐẠT · Tìm không dấu / tên nhóm / mã: quan ly
+ĐẠT · Tìm không dấu / tên nhóm / mã: UC14
+ĐẠT · Tìm không dấu / tên nhóm / mã: đánh giá
+ĐẠT · Ngày hiện tại qua Clock, không giữ nhầm ngày ảnh mẫu
+ĐẠT · Lời chào sáng / chiều / tối theo giờ phòng khám
+ĐẠT · Ranh giới ngày theo Asia/Ho_Chi_Minh
+ĐẠT · Thiếu trạng thái được chuẩn hóa thành 0
+ĐẠT · DTO không cho màn hình sửa bộ mẫu
+ĐẠT · Chặn tổng trạng thái không khớp KPI
+ĐẠT · Chặn số lượng âm
+ĐẠT · Thanh tỷ lệ rỗng không chia cho 0
+ĐẠT · Provider chạy nền, listener cập nhật trên EDT
+ĐẠT · Tải lại bỏ số liệu cũ ngay khi bắt đầu
+ĐẠT · Provider lỗi không giữ dữ liệu cũ
+ĐẠT · Nguồn rỗng khác nguồn lỗi
+ĐẠT · Tải nhanh liên tiếp: lần mới nhất thắng
+ĐẠT · Nguồn cũ bỏ qua hủy vẫn không ghi đè lần mới
+ĐẠT · Đóng controller không phát sinh cập nhật muộn
+ĐẠT · Nhãn mô phỏng và badge 9 nhóm việc hiển thị
+ĐẠT · KPI dùng đúng đơn vị phiếu khám
+ĐẠT · Đổi mật khẩu và Đăng xuất bị vô hiệu hóa khi chưa tích hợp xác thực
+ĐẠT · Nội dung dài có vùng cuộn riêng ở 1280×760
+ĐẠT · Topbar giữ cao 52 và không bị cắt ở 1280×760
+ĐẠT · Sidebar lọc thực tế: lich hen
+ĐẠT · Sidebar lọc thực tế: cong no
+ĐẠT · Sidebar lọc thực tế: thuoc
+ĐẠT · Sidebar lọc thực tế: quan ly
+ĐẠT · Tìm không khớp không mở nhầm màn hình
+ĐẠT · Esc xóa tìm kiếm và phục hồi đủ 21 mục
+ĐẠT · Enter / Space mở và thu nhóm
+ĐẠT · Thu nhóm bằng bàn phím lần hai
+ĐẠT · Phím xuống di chuyển focus chọn trong cây menu
+ĐẠT · Phím lên quay về mục trước
+ĐẠT · Router và breadcrumb: TONG_QUAN
+ĐẠT · Router và breadcrumb: TIEP_NHAN
+ĐẠT · Router và breadcrumb: LICH_HEN
+ĐẠT · Router và breadcrumb: BENH_NHAN
+ĐẠT · Router và breadcrumb: PHIEU_KHAM
+ĐẠT · Router và breadcrumb: KE_HOACH
+ĐẠT · Router và breadcrumb: TAI_KHAM
+ĐẠT · Router và breadcrumb: HOA_DON
+ĐẠT · Router và breadcrumb: DUYET_HUY
+ĐẠT · Router và breadcrumb: BANG_GIA
+ĐẠT · Router và breadcrumb: NHAN_VIEN
+ĐẠT · Router và breadcrumb: PHAN_CONG
+ĐẠT · Router và breadcrumb: BAN_GIAO
+ĐẠT · Router và breadcrumb: DANH_GIA
+ĐẠT · Router và breadcrumb: THUOC_VAT_TU
+ĐẠT · Router và breadcrumb: NHAP_XUAT
+ĐẠT · Router và breadcrumb: KIEM_KE
+ĐẠT · Router và breadcrumb: CAP_CUU
+ĐẠT · Router và breadcrumb: NHA_CUNG_CAP
+ĐẠT · Router và breadcrumb: TAI_KHOAN
+ĐẠT · Router và breadcrumb: NHAT_KY
+ĐẠT · Thông báo màn hình chưa triển khai chính xác
+ĐẠT · KPI lịch hẹn mở LICH_HEN
+ĐẠT · Link mở lịch hẹn cùng khóa KPI
+ĐẠT · CTA chỉ điều hướng: expired-stock
+ĐẠT · CTA chỉ điều hướng: emergency
+ĐẠT · CTA chỉ điều hướng: understaffed
+ĐẠT · CTA chỉ điều hướng: invoice-cancel
+ĐẠT · CTA chỉ điều hướng: inventory-count
+ĐẠT · CTA chỉ điều hướng: handover
+ĐẠT · CTA chỉ điều hướng: followup
+ĐẠT · CTA chỉ điều hướng: low-stock
+ĐẠT · CTA chỉ điều hướng: locked-account
+ĐẠT · Nút hỗ trợ Enter và Space qua key binding Swing
+ĐẠT · Chuỗi nhấn / thả Enter kích hoạt nút KPI
+ĐẠT · Chuỗi nhấn / thả Space kích hoạt nút KPI
+ĐẠT · Lỗi hiển thị trung thực, gỡ KPI cũ
+ĐẠT · Thử lại thực sự bắt đầu yêu cầu tải
+ĐẠT · Trạng thái không có dữ liệu hiển thị
+ĐẠT · 0 việc: ẩn nhóm rỗng, hiển thị hướng dẫn đúng
+ĐẠT · 0 lịch hẹn render đầy đủ chú giải
+ĐẠT · Có thể điều hướng trong khi đang tải
+ĐẠT · Tải xong không giành lại màn hình đang xem
+ĐẠT · Nhãn dài giữ đầy đủ nội dung trong tooltip
+ĐẠT · Số lượng lớn không tràn số nguyên 32 bit
+ĐẠT · Runtime hiển thị ngày mới và nguồn mẫu riêng biệt
+ĐẠT: 101 kiểm tra; không có lỗi. Ảnh Swing tại build/screenshots.

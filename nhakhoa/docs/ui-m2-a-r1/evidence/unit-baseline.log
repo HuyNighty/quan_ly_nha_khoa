@@ -1,0 +1,49 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24133 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -------------------------< com.manage:nhakhoa >-------------------------
+[INFO] Building nhakhoa 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/testcontainers/testcontainers-mssqlserver/2.0.5/testcontainers-mssqlserver-2.0.5.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/testcontainers/testcontainers-mssqlserver/2.0.5/testcontainers-mssqlserver-2.0.5.pom (1.5 kB at 2.2 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/testcontainers/testcontainers-mssqlserver/2.0.5/testcontainers-mssqlserver-2.0.5.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/testcontainers/testcontainers-mssqlserver/2.0.5/testcontainers-mssqlserver-2.0.5.jar (14 kB at 138 kB/s)
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ nhakhoa ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ nhakhoa ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ nhakhoa ---
+[INFO] skip non existing resourceDirectory C:\Users\huy\NguyenQuangHuy\quan_ly_nha_khoa\nhakhoa\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ nhakhoa ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ nhakhoa ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.manage.nhakhoa.features.dashboard.repository.JpaDashboardReadRepositoryTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.177 s -- in com.manage.nhakhoa.features.dashboard.repository.JpaDashboardReadRepositoryTest
+[INFO] Running com.manage.nhakhoa.features.dashboard.service.DashboardDtoPrivacyTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.026 s -- in com.manage.nhakhoa.features.dashboard.service.DashboardDtoPrivacyTest
+[INFO] Running com.manage.nhakhoa.features.dashboard.service.DashboardQueryServiceTest
+[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.147 s -- in com.manage.nhakhoa.features.dashboard.service.DashboardQueryServiceTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 31, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  27.239 s
+[INFO] Finished at: 2026-10-19T16:28:45+07:00
+[INFO] ------------------------------------------------------------------------

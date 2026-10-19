@@ -1,0 +1,61 @@
+-------------------------------------------------------------------------------
+Test set: com.manage.nhakhoa.DashboardEntityMappingGateTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 40.78 s <<< FAILURE! -- in com.manage.nhakhoa.DashboardEntityMappingGateTest
+com.manage.nhakhoa.DashboardEntityMappingGateTest.currentCompositeIdMappingMustSupportRealEntityManagerPersistence -- Time elapsed: 1.077 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Gate mapping chỉ PASS khi EntityManager ghi được chi tiết với MapsId hiện hành ==> Unexpected exception thrown: jakarta.persistence.RollbackException: Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_App_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertDoesNotThrow.createAssertionFailedError(AssertDoesNotThrow.java:90)
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:56)
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:43)
+	at org.junit.jupiter.api.Assertions.assertDoesNotThrow(Assertions.java:3314)
+	at com.manage.nhakhoa.DashboardEntityMappingGateTest.currentCompositeIdMappingMustSupportRealEntityManagerPersistence(DashboardEntityMappingGateTest.java:41)
+Caused by: jakarta.persistence.RollbackException: Error while committing the transaction [could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_App_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]]
+	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:73)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:92)
+	at com.manage.nhakhoa.DashboardEntityMappingGateTest.lambda$currentCompositeIdMappingMustSupportRealEntityManagerPersistence$0(DashboardEntityMappingGateTest.java:57)
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:52)
+	... 3 more
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement [Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_App_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.] [insert into chi_tiet_kiem_tra_cap_cuu (dat,han_su_dung,so_luong_thuc_te,maKiemTra,maMuc) values (?,?,?,?,?)]
+	at org.hibernate.dialect.SQLServerDialect.lambda$buildSQLExceptionConversionDelegate$0(SQLServerDialect.java:846)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:34)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:189)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:145)
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:53)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:65)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:54)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:183)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:123)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:96)
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:108)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:386)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1472)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:498)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2100)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:2021)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:426)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:167)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commitNoRollbackOnly(JdbcResourceLocalTransactionCoordinatorImpl.java:252)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:242)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:89)
+	... 5 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'ma_kiem_tra', table 'N08_Dashboard_App_R1_Test.dbo.chi_tiet_kiem_tra_cap_cuu'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:356)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1927)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:764)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:663)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7832)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:5024)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:364)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:282)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:605)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:185)
+	... 27 more
+
