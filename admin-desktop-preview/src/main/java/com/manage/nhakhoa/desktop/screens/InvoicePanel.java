@@ -12,6 +12,7 @@ import com.manage.nhakhoa.desktop.ui.DemoTable.Tag;
 import com.manage.nhakhoa.desktop.ui.Flat;
 import com.manage.nhakhoa.desktop.ui.Theme;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import static com.manage.nhakhoa.desktop.ui.DemoWidgets.*;
@@ -30,6 +31,16 @@ public final class InvoicePanel extends JPanel {
     private final CardList<Invoice> list;
     private final JPanel stats = Kit.stats();
     private final JPanel detail = Kit.holder("inv-detail");
+    private final JPanel side = new JPanel(new CardLayout());
+    private final JComboBox<String> createPatient = combo("inv-create-patient", List.of());
+    private final JComboBox<String> createTicket = combo("inv-create-ticket", List.of());
+    private final JComboBox<String> createService = combo("inv-create-service", List.of());
+    private final JTextField createQty = field("inv-create-qty", 5, "SL (1–99)");
+    private final JLabel createTotal = label("Tổng tạm tính: 0 đ", 14, true, Theme.TEXT);
+    private final JLabel createFeedback = feedback("inv-create-feedback");
+    private final List<InvoiceLineDraft> draft = new ArrayList<>();
+    private final DemoTable<Line> draftTable;
+    private boolean creating;
     private final JLabel feedback = feedback("inv-feedback");
     private final DemoTable<Line> lines;
     private final DemoTable<Payment> payments;
@@ -44,7 +55,7 @@ public final class InvoicePanel extends JPanel {
         list = Kit.list("inv-list", Invoice::id, i -> Kit.Spec.person(store.patientName(i.patientId()),
                 i.id() + "  ·  " + Kit.money(i.total()) + (billing().debt(i.id()) > 0 ? "  ·  còn nợ " + Kit.money(billing().debt(i.id())) : ""),
                 statusTag(i.id()), store.patientName(i.patientId()), i.patientId()), 7);
-        list.onSelect(i -> { selected = i.id(); render(); });
+        list.onSelect(i -> { selected = i.id(); closeCreate(); render(); });
         lines = new DemoTable<>("inv-lines", List.of(new Column<Line>("Dịch vụ", Line::name, 200), new Column<Line>("SL", Line::qty, 44),
                 new Column<Line>("Đơn giá (đã chốt)", l -> Kit.money(l.unitPrice()), 120), new Column<Line>("Thành tiền", l -> new DemoTable.Strong(Kit.money(l.amount())), 120)),
                 Line::serviceId, 4);
@@ -53,13 +64,37 @@ public final class InvoicePanel extends JPanel {
                 new Column<Payment>("Số tiền", p -> new DemoTable.Strong(Kit.money(p.amount())), 110),
                 new Column<Payment>("Trạng thái", p -> new Tag(p.status().label(), p.status() == PayStatus.THANH_CONG ? Theme.GREEN : Theme.MUTED), 105)),
                 Payment::id, 4);
+        draftTable = new DemoTable<>("inv-create-lines", List.of(
+                new Column<Line>("Dịch vụ", Line::name, 180),
+                new Column<Line>("SL", Line::qty, 40),
+                new Column<Line>("Đơn giá", l -> Kit.money(l.unitPrice()), 110),
+                new Column<Line>("Thành tiền", l -> new DemoTable.Strong(Kit.money(l.amount())), 110)),
+                Line::serviceId, 4);
+        createPatient.addActionListener(e -> refreshEligibleTickets());
+        createQty.setText("1");
+        JButton addLine = secondary("Thêm dịch vụ", this::addDraftLine); addLine.setName("inv-create-add");
+        JButton removeLine = secondary("Bỏ dòng đã chọn", this::removeDraftLine); removeLine.setName("inv-create-remove");
+        JButton saveInvoice = primary("Lưu hóa đơn", this::saveCreatedInvoice); saveInvoice.setName("inv-create-save");
+        JButton cancelInvoice = secondary("Đóng", this::closeCreate); cancelInvoice.setName("inv-create-close");
+        JButton newInvoice = icon(primary("Lập hóa đơn", this::openCreate), "plus", Color.WHITE); newInvoice.setName("inv-new");
+        side.setOpaque(false);
+        side.add(Kit.card("Chi tiết hóa đơn", null, column(10, detail, feedback)), "detail");
+        side.add(Kit.card("Lập hóa đơn mới", null, column(10,
+                form("Bệnh nhân *", createPatient),
+                form("Phiếu khám (không bắt buộc, phải đã kết luận)", createTicket),
+                pair(form("Dịch vụ *", createService), form("Số lượng *", createQty)),
+                buttons(addLine, removeLine),
+                Kit.section("Chi tiết hóa đơn dự kiến"), draftTable, createTotal,
+                label("<html>Giá được chốt khi lưu; hóa đơn mới ở trạng thái Chưa thanh toán. Mọi dữ liệu chỉ là mô phỏng.</html>",
+                        11, false, Theme.MUTED),
+                buttons(saveInvoice, cancelInvoice), createFeedback)), "form");
         search.field().getDocument().addDocumentListener(SimpleDocumentListener.of(this::refreshList));
         search.onSubmit(() -> list.selectFirst()); search.bindShortcut(this);
         filter.onChange(i -> refreshList());
         add(Kit.page(this, "Hóa đơn & thu tiền", "Công nợ tính trên từng hóa đơn còn hiệu lực · hóa đơn chờ duyệt hủy vẫn tính nợ", ctx, "inv",
                 "Thu tiền / hủy giao dịch chỉ đổi bộ nhớ phiên; không gọi cổng thanh toán, không in hóa đơn thật.", stats,
-                Kit.twoCol(Kit.card("Hóa đơn", null, column(10, search, filter, list)),
-                        Kit.card("Chi tiết hóa đơn", null, column(10, detail, feedback)), 0.42)), BorderLayout.NORTH);
+                Kit.twoCol(Kit.card("Hóa đơn", newInvoice, column(10, search, filter, list)),
+                        side, 0.42)), BorderLayout.NORTH);
         store.addListener(this::refresh);
         refresh();
     }
@@ -69,7 +104,7 @@ public final class InvoicePanel extends JPanel {
         Color c = switch (s) { case CHUA_THANH_TOAN -> Theme.RED; case MOT_PHAN -> Theme.ORANGE; case DA_THANH_TOAN -> Theme.GREEN; case DA_HUY -> Theme.MUTED; };
         return new Tag(billing().pendingRequest(id).isPresent() ? s.label() + " · chờ hủy" : s.label(), c);
     }
-    private void refresh() { refreshStats(); refreshList(); render(); }
+    private void refresh() { refreshStats(); refreshList(); if (!creating) render(); }
     private void refreshStats() {
         stats.removeAll();
         var d = store.today();
@@ -123,6 +158,82 @@ public final class InvoicePanel extends JPanel {
                 Kit.section("Dòng hóa đơn"), lines, Kit.section("Lịch sử giao dịch"), payments, Kit.separator(),
                 Kit.section("Thu tiền (mô phỏng)"), pair(form("Phương thức", method), form("Số tiền (đ)", amount)), form("Mã giao dịch (CK / POS)", reference),
                 buttons(pay, voidPay, request), why));
+    }
+    /** Mở form lập hóa đơn, không đụng tới dữ liệu thật hoặc giao dịch thu tiền. */
+    private void openCreate() {
+        search.field().setText("");
+        filter.select(0);
+        draft.clear();
+        replaceItems(createPatient, store.patients().stream()
+                .map(p -> p.id() + " · " + p.name()).toList());
+        replaceItems(createService, billing().services().stream().filter(Service::active)
+                .map(s -> s.id() + " · " + s.name() + " (" + Kit.money(s.price()) + ")").toList());
+        createQty.setText("1");
+        refreshEligibleTickets();
+        refreshDraft();
+        info(createFeedback, "Chọn bệnh nhân và thêm ít nhất một dịch vụ; chưa ghi nhận thanh toán.");
+        creating = true;
+        ((CardLayout) side.getLayout()).show(side, "form");
+        revalidate(); repaint();
+    }
+    private void closeCreate() {
+        creating = false;
+        ((CardLayout) side.getLayout()).show(side, "detail");
+        revalidate(); repaint();
+    }
+    private void refreshEligibleTickets() {
+        String patientId = Kit.idOf(createPatient.getSelectedItem());
+        List<String> options = new ArrayList<>();
+        options.add("(Không gắn phiếu khám)");
+        if (patientId != null) store.ticketsOf(patientId).stream()
+                .filter(t -> t.status() == DemoClinicStore.TicketStatus.DA_KET_LUAN)
+                .filter(t -> billing().invoices().stream().noneMatch(i -> !i.cancelled() && t.id().equals(i.ticketId())))
+                .forEach(t -> options.add(t.id() + " · Đã kết luận"));
+        replaceItems(createTicket, options);
+    }
+    private void addDraftLine() {
+        String serviceId = Kit.idOf(createService.getSelectedItem());
+        int qty = Kit.parseInt(createQty.getText());
+        Service service = billing().service(serviceId).orElse(null);
+        if (service == null || !service.active()) { fail(createFeedback, "Chọn dịch vụ đang áp dụng"); return; }
+        if (qty < 1 || qty > 99) { fail(createFeedback, "Số lượng phải từ 1 đến 99"); return; }
+        if (draft.size() >= 20) { fail(createFeedback, "Tối đa 20 dòng dịch vụ"); return; }
+        if (draft.stream().anyMatch(d -> d.serviceId().equals(serviceId))) {
+            fail(createFeedback, "Dịch vụ đã có trong hóa đơn; hãy bỏ dòng trước khi thêm lại"); return;
+        }
+        draft.add(new InvoiceLineDraft(serviceId, qty));
+        refreshDraft();
+        info(createFeedback, "Đã thêm " + service.name() + " × " + qty);
+    }
+    private void removeDraftLine() {
+        Line selectedLine = draftTable.selected().orElse(null);
+        if (selectedLine == null) { fail(createFeedback, "Chọn dòng dịch vụ cần bỏ"); return; }
+        draft.removeIf(d -> d.serviceId().equals(selectedLine.serviceId()));
+        refreshDraft();
+        info(createFeedback, "Đã bỏ dòng " + selectedLine.serviceId());
+    }
+    private void refreshDraft() {
+        List<Line> lines = draft.stream().map(d -> billing().service(d.serviceId())
+                .map(s -> new Line(s.id(), s.name(), d.qty(), s.price())).orElseThrow()).toList();
+        draftTable.setRows(lines, "Chưa có dịch vụ · nhấn Thêm dịch vụ");
+        createTotal.setText("Tổng tạm tính: " + Kit.money(lines.stream().mapToLong(Line::amount).sum()));
+    }
+    private void saveCreatedInvoice() {
+        String patientId = Kit.idOf(createPatient.getSelectedItem());
+        String ticketId = createTicket.getSelectedIndex() <= 0 ? null : Kit.idOf(createTicket.getSelectedItem());
+        if (draft.isEmpty()) { fail(createFeedback, "Hãy thêm ít nhất một dịch vụ"); return; }
+        if (!ctx.dialogs().confirm(this, "Lập hóa đơn", "Lập hóa đơn cho " + store.patientName(patientId)
+                + " với tổng dự kiến " + createTotal.getText() + "? Chưa thu tiền; không ghi SQL Server.")) {
+            info(createFeedback, "Đã hủy thao tác"); return;
+        }
+        DemoClinicStore.Result<Invoice> r = billing().createInvoice(patientId, ticketId, List.copyOf(draft));
+        result(createFeedback, r);
+        if (r.ok()) {
+            closeCreate();
+            refreshList();
+            list.select(r.value().id());
+            result(feedback, r);
+        }
     }
     private void pay() {
         long a = Kit.parseMoney(amount.getText());
