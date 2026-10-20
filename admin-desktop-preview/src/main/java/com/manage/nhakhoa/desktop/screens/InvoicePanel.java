@@ -220,6 +220,8 @@ public final class InvoicePanel extends JPanel {
         createTotal.setText("Tổng tạm tính: " + Kit.money(lines.stream().mapToLong(Line::amount).sum()));
     }
     private void saveCreatedInvoice() {
+        // Luôn tính lại tổng theo bảng giá mới nhất ngay trước xác nhận.
+        refreshDraft();
         String patientId = Kit.idOf(createPatient.getSelectedItem());
         String ticketId = createTicket.getSelectedIndex() <= 0 ? null : Kit.idOf(createTicket.getSelectedItem());
         if (draft.isEmpty()) { fail(createFeedback, "Hãy thêm ít nhất một dịch vụ"); return; }
