@@ -70,6 +70,7 @@ public final class InvoicePanel extends JPanel {
                 new Column<Line>("Đơn giá", l -> Kit.money(l.unitPrice()), 110),
                 new Column<Line>("Thành tiền", l -> new DemoTable.Strong(Kit.money(l.amount())), 110)),
                 Line::serviceId, 4);
+        createTotal.setName("inv-create-total");
         createPatient.addActionListener(e -> refreshEligibleTickets());
         createQty.setText("1");
         JButton addLine = secondary("Thêm dịch vụ", this::addDraftLine); addLine.setName("inv-create-add");
