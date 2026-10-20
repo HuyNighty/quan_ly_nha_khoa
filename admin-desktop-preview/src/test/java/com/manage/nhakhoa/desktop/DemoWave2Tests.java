@@ -6,6 +6,8 @@ import com.manage.nhakhoa.desktop.demo.StaffSlice.ShiftKind;
 import com.manage.nhakhoa.desktop.demo.SupplySlice.AdjustStatus;
 import com.manage.nhakhoa.desktop.demo.SupplySlice.LotState;
 import com.manage.nhakhoa.desktop.demo.BillingSlice.InvoiceStatus;
+import com.manage.nhakhoa.desktop.demo.BillingSlice.InvoiceLineDraft;
+import com.manage.nhakhoa.desktop.demo.BillingSlice.Method;
 import com.manage.nhakhoa.desktop.ui.DemoWidgets;
 import com.manage.nhakhoa.desktop.ui.RowView;
 import java.awt.*;
@@ -31,7 +33,7 @@ final class DemoWave2Tests {
     static int run() throws Exception {
         checks = 0;
         storeRules();
-        edt(() -> { allScreens(); supplyFlows(); summaryFlows(); return null; });
+        edt(() -> { allScreens(); invoiceCreationFlow(); supplyFlows(); summaryFlows(); return null; });
         return checks;
     }
     private static void check(boolean condition, String message) {
@@ -48,6 +50,38 @@ final class DemoWave2Tests {
         check(s.billing().approveBlocker("YC0001", "NV008") != null, "Người lập không tự duyệt hủy hóa đơn");
         check(s.billing().approveBlocker("YC0002", "NV010") != null, "Hóa đơn đã thu tiền không duyệt hủy được");
         check(s.billing().approve("YC0001", "NV010").ok() && s.billing().status("HD000006") == InvoiceStatus.DA_HUY, "Duyệt hủy: hóa đơn chuyển Đã hủy");
+        // Lập hóa đơn mới — validate bệnh nhân / phiếu khám / dịch vụ; chốt giá, chưa thu tiền
+        check(s.billing().createInvoice("BN999999", null, List.of(new InvoiceLineDraft("DV003", 1))).code() == DemoClinicStore.Code.NOT_FOUND,
+                "Lập hóa đơn: chặn bệnh nhân không tồn tại");
+        check(s.billing().createInvoice("BN000004", "PK000001", List.of(new InvoiceLineDraft("DV003", 1))).code() == DemoClinicStore.Code.RULE,
+                "Lập hóa đơn: chặn phiếu khám không thuộc bệnh nhân");
+        check(s.billing().createInvoice("BN000004", "PK000003", List.of(new InvoiceLineDraft("DV003", 1))).code() == DemoClinicStore.Code.RULE,
+                "Lập hóa đơn: chặn phiếu khám chưa kết luận");
+        check(s.billing().createInvoice("BN000001", "PK000001", List.of(new InvoiceLineDraft("DV003", 1))).code() == DemoClinicStore.Code.DUPLICATE,
+                "Lập hóa đơn: chặn phiếu khám có hóa đơn còn hiệu lực");
+        check(s.billing().createInvoice("BN000004", null, List.of()).code() == DemoClinicStore.Code.INVALID,
+                "Lập hóa đơn: phải có dòng dịch vụ");
+        check(s.billing().createInvoice("BN000004", null, List.of(new InvoiceLineDraft("DV003", 0))).code() == DemoClinicStore.Code.INVALID,
+                "Lập hóa đơn: số lượng phải dương");
+        check(s.billing().createInvoice("BN000004", null, List.of(new InvoiceLineDraft("DV012", 1))).code() == DemoClinicStore.Code.RULE,
+                "Lập hóa đơn: chặn dịch vụ đã ngừng áp dụng");
+        check(s.billing().createInvoice("BN000004", null, List.of(new InvoiceLineDraft("DV003", 1), new InvoiceLineDraft("DV003", 1))).code()
+                == DemoClinicStore.Code.DUPLICATE, "Lập hóa đơn: chặn dịch vụ trùng");
+        var created = s.billing().createInvoice("BN000004", null, List.of(new InvoiceLineDraft("DV003", 2)));
+        check(created.ok() && "HD000008".equals(created.value().id()) && created.value().total() == 800_000,
+                "Lập hóa đơn: sinh mã và tính tiền đúng");
+        check(s.billing().paid(created.value().id()) == 0 && s.billing().debt(created.value().id()) == 800_000
+                && s.billing().status(created.value().id()) == InvoiceStatus.CHUA_THANH_TOAN,
+                "Hóa đơn mới chưa ghi nhận thu tiền, tăng công nợ");
+        check(s.billing().changePrice("DV003", 450_000, "Thay đổi giá kiểm thử").ok()
+                && created.value().lines().getFirst().unitPrice() == 400_000,
+                "Chốt đơn giá trên hóa đơn; bảng giá đổi không hồi tố");
+        check(s.billing().pay(created.value().id(), Method.TIEN_MAT, 900_000, "").code() == DemoClinicStore.Code.INVALID,
+                "Chặn thu tiền vượt công nợ hóa đơn mới");
+        check(s.billing().pay(created.value().id(), Method.TIEN_MAT, 200_000, "").ok()
+                && s.billing().status(created.value().id()) == InvoiceStatus.MOT_PHAN
+                && s.billing().debt(created.value().id()) == 600_000,
+                "Hóa đơn mới hỗ trợ thanh toán một phần");
         // Điều trị (Q12)
         check(s.clinical().dueItems().size() == 6 && s.clinical().duePlanCount() == 5, "Hạng mục đến hạn 14 ngày (gồm quá hạn): 6 mục / 5 kế hoạch");
         // Tổ chức / Lập kế hoạch
@@ -80,6 +114,34 @@ final class DemoWave2Tests {
             if (!List.of("TIEP_NHAN", "LICH_HEN", "BENH_NHAN").contains(e.key()))
                 snapshot(screen, 1110, 840, "demo2-" + e.key().toLowerCase().replace('_', '-') + ".png");
         }
+        shell.close();
+    }
+
+    private static void invoiceCreationFlow() {
+        Scripted dialogs = new Scripted();
+        DemoClinicStore store = new DemoClinicStore(FIXED);
+        AdminShell shell = new AdminShell(FIXED, true, store, dialogs);
+        shell.navigate("HOA_DON");
+        JComponent page = shell.screen("HOA_DON");
+        click(page, "inv-new");
+        ((JComboBox<?>) find(page, "inv-create-patient")).setSelectedItem(item(find(page, "inv-create-patient"), "BN000004"));
+        check(((JComboBox<?>) find(page, "inv-create-ticket")).getItemCount() == 1,
+                "Form chỉ cho chọn phiếu khám đủ điều kiện (bệnh nhân chưa kết luận)");
+        ((JComboBox<?>) find(page, "inv-create-service")).setSelectedItem(item(find(page, "inv-create-service"), "DV003"));
+        field(page, "inv-create-qty").setText("2");
+        click(page, "inv-create-add");
+        check(text(page, "inv-create-feedback").contains("Đã thêm"), "Form thêm dòng dịch vụ");
+        check(text(page, "inv-create-total").contains("800.000"), "Form tính đúng tổng hóa đơn dự kiến");
+        dialogs.answers.add(Boolean.TRUE);
+        click(page, "inv-create-save");
+        check(store.billing().invoice("HD000008").isPresent()
+                && table(page, "inv-list").selected().map(x -> ((com.manage.nhakhoa.desktop.demo.BillingSlice.Invoice)x).id()).orElse("").equals("HD000008"),
+                "Lưu từ giao diện tạo hóa đơn và chọn hóa đơn mới");
+        check(store.billing().debt("HD000008") == 800_000, "Hóa đơn mới có thể thu tiền");
+        dialogs.answers.add(Boolean.TRUE);
+        click(page, "inv-pay");
+        check(store.billing().status("HD000008") == InvoiceStatus.DA_THANH_TOAN,
+                "Thu tiền trên hóa đơn vừa lập kết thúc công nợ");
         shell.close();
     }
 
