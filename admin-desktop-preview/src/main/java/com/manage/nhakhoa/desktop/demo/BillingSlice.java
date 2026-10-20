@@ -4,6 +4,9 @@ import com.manage.nhakhoa.desktop.demo.DemoClinicStore.Code;
 import com.manage.nhakhoa.desktop.demo.DemoClinicStore.Result;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,6 +35,8 @@ public final class BillingSlice {
 
     public record Service(String id, String name, Group group, long price, boolean active, String condition) { }
     public record Line(String serviceId, String name, int qty, long unitPrice) { public long amount() { return unitPrice * qty; } }
+    /** Dòng chọn từ bảng giá; giá được chốt từ Service tại thời điểm lập hóa đơn, không lấy từ client. */
+    public record InvoiceLineDraft(String serviceId, int qty) { }
     public record Invoice(String id, String patientId, String ticketId, LocalDateTime created, List<Line> lines, boolean cancelled) {
         public long total() { return lines.stream().mapToLong(Line::amount).sum(); }
     }
@@ -45,7 +50,7 @@ public final class BillingSlice {
     private final Map<String, Invoice> invoices = new LinkedHashMap<>();
     private final Map<String, Payment> payments = new LinkedHashMap<>();
     private final Map<String, CancelRequest> requests = new LinkedHashMap<>();
-    private int nextPayment = 1, nextRequest = 1;
+    private int nextPayment = 1, nextRequest = 1, nextInvoice = 8;
 
     BillingSlice(DemoClinicStore store) { this.store = store; }
 
@@ -109,6 +114,51 @@ public final class BillingSlice {
     }
 
     // ---------------------------------------------------------------- invoices
+    /**
+     * Lập hóa đơn MÔ PHỎNG: kiểm tra hồ sơ, phiếu khám tùy chọn và dòng dịch vụ;
+     * chốt đơn giá hiện tại trên từng dòng, không tự động ghi nhận tiền thu.
+     */
+    public Result<Invoice> createInvoice(String patientId, String ticketId, List<InvoiceLineDraft> drafts) {
+        if (store.patient(patientId).isEmpty()) return Result.fail(Code.NOT_FOUND, "Chọn bệnh nhân hợp lệ");
+        String ticket = ticketId == null || ticketId.isBlank() ? null : ticketId.trim();
+        if (ticket != null) {
+            DemoClinicStore.ExamTicket exam = store.ticket(ticket).orElse(null);
+            if (exam == null) return Result.fail(Code.NOT_FOUND, "Phiếu khám không tồn tại");
+            if (!exam.patientId().equals(patientId)) return Result.fail(Code.RULE, "Phiếu khám không thuộc bệnh nhân đã chọn");
+            if (exam.status() != DemoClinicStore.TicketStatus.DA_KET_LUAN)
+                return Result.fail(Code.RULE, "Chỉ được lập hóa đơn cho phiếu khám đã kết luận");
+            if (invoices.values().stream().anyMatch(i -> ticket.equals(i.ticketId()) && !i.cancelled()))
+                return Result.fail(Code.DUPLICATE, "Phiếu khám đã có hóa đơn còn hiệu lực");
+        }
+        if (drafts == null || drafts.isEmpty()) return Result.fail(Code.INVALID, "Hóa đơn phải có ít nhất một dịch vụ");
+        if (drafts.size() > 20) return Result.fail(Code.INVALID, "Tối đa 20 dòng dịch vụ mỗi hóa đơn");
+        List<Line> lines = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+        long total = 0;
+        for (InvoiceLineDraft d : drafts) {
+            if (d == null || d.serviceId() == null) return Result.fail(Code.INVALID, "Dòng dịch vụ không hợp lệ");
+            Service s = services.get(d.serviceId());
+            if (s == null) return Result.fail(Code.NOT_FOUND, "Không tìm thấy dịch vụ " + d.serviceId());
+            if (!s.active()) return Result.fail(Code.RULE, "Dịch vụ " + s.id() + " đã ngừng áp dụng");
+            if (!seen.add(s.id())) return Result.fail(Code.DUPLICATE, "Dịch vụ " + s.id() + " bị thêm trùng");
+            if (d.qty() < 1 || d.qty() > 99) return Result.fail(Code.INVALID, "Số lượng phải từ 1 đến 99");
+            try {
+                long lineTotal = Math.multiplyExact(s.price(), d.qty());
+                total = Math.addExact(total, lineTotal);
+            } catch (ArithmeticException e) {
+                return Result.fail(Code.INVALID, "Tổng tiền vượt giới hạn");
+            }
+            lines.add(new Line(s.id(), s.name(), d.qty(), s.price()));
+        }
+        if (total <= 0) return Result.fail(Code.INVALID, "Tổng hóa đơn phải lớn hơn 0");
+        String id;
+        do { id = String.format("HD%06d", nextInvoice++); } while (invoices.containsKey(id));
+        Invoice inv = new Invoice(id, patientId, ticket, store.now(), List.copyOf(lines), false);
+        invoices.put(id, inv);
+        store.logAs(DemoClinicStore.ACTOR, "Lập hóa đơn (mô phỏng)", "HoaDon", id, "Thành công", patientId);
+        store.fire();
+        return Result.success("Đã lập " + id + ", tổng " + String.format("%,d", total).replace(',', '.') + " đ; chưa thu tiền", inv);
+    }
     public List<Invoice> invoices() {
         return invoices.values().stream().sorted(Comparator.comparing(Invoice::created).reversed()).toList();
     }
